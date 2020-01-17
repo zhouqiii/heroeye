@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>FAITH FRAMEWORK 2.0</title>
+		<link rel="shortcut  icon" type="image/x-icon" href="bitbug_favicon (2).ico" media="screen" />
+		<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css" />
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/login.css" />
+	</head>
+	<body style="background: #1f1f1f">
+		<img class="logo" src="/images/nav-logo.png"/>
+		<div class="inner"></div>
+		<div class="main">
+			<h2>悠米数据查询系统</h2>
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<div class="box"></div>
+					<div class="boxs">
+						<div style="position: relative;">
+							<i class="icon fa fa-user fa-lg"></i>
+							<input type="text" class="layui-input" placeholder="请输入账号" id="account"/>
+						</div>
+						<br />
+						<br />
+						<div style="position: relative;">
+							<i class="icons fa fa-lock fa-lg"></i>
+							<input type="password" class="layui-input" placeholder="请输入密码" id="password" />
+						</div>
+					</div>
+					<br />
+					<br />
+
+					<button type="button" class="layui-btn layui-btn-normal" id="login" onclick="logins()">登录</button>
+				</div>
+			</form>
+		</div>
+		<p class="body_p">©2019悠米版权所有，保留所有权利。</p>
+	</body>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/login.js"></script>
+</html>

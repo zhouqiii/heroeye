@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>滚屏公告</title>
+    <link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" href="../css/Rollingscreen.css" />
+    <link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+</head>
+
+<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+    <div id="navs"></div>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-body">
+            <div class="inner">
+                <div id="inner_head">
+                    <span>GM指令</span>
+                    <span class="fa fa-angle-right"></span>
+                    <span>滚屏公告</span>
+                    <span class="fa fa-angle-double-right"></span>
+                </div>
+                <!-- 选项 -->
+                <div class="main_header">
+                    <span class="add">添加滚屏公告</span>
+                </div>
+
+                <span id="toolbarDemo" class="positab">
+                    <button class="layui-btn" lay-event="getCheckData">批量删除</button>
+                </span>
+                <div class="main_box">
+                    <h5>滚屏公告列表</h5>
+                </div>
+                <!-- 表格信息start -->
+                <div class="main_footer">
+                    <table class="layui-hide" id="test" lay-filter="test" lay-skin="row"></table>
+                </div>
+                <!-- 表格信息end -->
+
+                <!-- 添加滚屏公告 -->
+                <div class="mescreen mescreen1">
+                    <div class="title">添加滚屏公告</div>
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="margin-left:20px;margin-top:25px;">公告类型</label>
+                            <div class="layui-input-inline" style="margin-top:30px; width: 470px;height: 20px;">
+
+                                <select name="city" id="seltype" lay-verify="required">
+                                    <option value="0" selected="selected">大厅滚动</option>
+                                    <option value="1">战斗场景滚动</option>
+                                    <option value="2">大厅和战斗场景内滚动</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="margin-left: 20px;">活动次数</label>
+                            <div class="layui-input-inline" style="margin-top:7px; width:100px;">
+                                <input type="text" id="selnum" required lay-verify="required" class="layui-input">
+                            </div>
+                            <label class="layui-form-label">滚动速度</label>
+                            <div class="layui-input-inline" style="margin-top:7px; width:60px;">
+                                <input type="text" id="selpacee" required lay-verify="required" class="layui-input">
+                            </div>
+
+                            <label class="layui-form-label">滚动间隔</label>
+                            <div class="layui-input-inline" style="margin-top:7px; width:99px;">
+                                <input type="text" id="seljian" required lay-verify="required" class="layui-input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="margin-left: 20px;">发送时间</label>
+                            <div class="layui-input-inline" style="margin-top:7px; width:470px;">
+                                <input type="text" class="layui-input" id="seltime" placeholder="yyyy-MM-dd">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="margin-left: 7px;">服务器</label>
+                            <div class="layui-input-inline" style="margin-top:10px; width: 140px;margin-left: 12px;">
+
+                                <select name="city" id="selseave" lay-verify="required">
+
+                                </select>
+
+                            </div>
+                            <label class="layui-form-label" style="margin-right: 25px;">优先级</label>
+                            <div class="layui-input-inline" style="margin-top:7px; width:200px;">
+                                <select name="city" id="selheight" lay-verify="required">
+                                    <option value="0">低级</option>
+                                    <option value="1">中级</option>
+                                    <option value="2">高级</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="gconttitle">
+                            <span>
+                                公告内容
+                            </span>
+                        </div>
+
+                        <div class="layui-form-item layui-form-text">
+                            <div class="layui-input-block" style="margin-right:57px;margin-left:47px; ">
+                                <textarea name="desc" id="seltextarea" placeholder="请输入内容" class="layui-textarea"
+                                    style="border:0px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn addtype"
+                                    style="margin-left: 40px;background:#3a777c; border-radius: 5px;width:110px;height: 38px; border: 1px solid white;">添加至列表</button>
+                                <button type="button" class="fhbtn layui-btn-primary"
+                                    style="margin-left: 160px;color:white; width:110px;background:#7c613a;height: 38px; border-radius: 5px; border: 1px solid white;">返回</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<!-- 浏览滚屏 -->
+<div id="messlok">
+    <div class="mescreen mescreen2" id="mess">
+        <div class="title">浏览滚屏公告</div>
+        <form class="layui-form" action="" id=''>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="margin-left:20px;margin-top:25px;">公告类型</label>
+                <div class="layui-input-inline"  id="leixing"  style="margin-top:30px; width: 470px;height: 20px;">
+
+                    <select name="city"  disabled="disabled"  id="looktype" lay-verify="required">
+                        <option value="0" selected="selected">大厅滚动</option>
+                        <option value="1">战斗场景滚动</option>
+                        <option value="2">大厅和战斗场景内滚动</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="margin-left: 20px;">活动次数</label>
+                <div class="layui-input-inline" style="margin-top:7px; width:100px;">
+                    <input type="text" disabled="disabled" id="looknum" required lay-verify="required" class="layui-input">
+                </div>
+                <label class="layui-form-label">滚动速度</label>
+                <div class="layui-input-inline" style="margin-top:7px; width:60px;">
+                    <input type="text" disabled="disabled" id="lookpacee" required lay-verify="required" class="layui-input">
+                </div>
+
+                <label class="layui-form-label">滚动间隔</label>
+                <div class="layui-input-inline" style="margin-top:7px; width:99px;">
+                    <input type="text" disabled="disabled" id="lookjian" required lay-verify="required" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="margin-left: 20px;">发送时间</label>
+                <div class="layui-input-inline" style="margin-top:7px; width:470px;">
+                    <input type="text" disabled="disabled" id="looktime" required lay-verify="required" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="margin-left: 7px;">服务器</label>
+                <div class="layui-input-inline" style="margin-top:10px; width: 140px;margin-left: 12px;">
+
+                    <select name="city" disabled="disabled" id="lookseave" lay-verify="required">
+
+                    </select>
+
+                </div>
+                <label class="layui-form-label" style="margin-right: 25px;">优先级</label>
+                <div class="layui-input-inline" style="margin-top:7px; width:200px;">
+
+                    <select disabled="disabled" id="lookheight">
+                        <option value="0">低</option>
+                        <option value="1">中</option>
+                        <option value="2">高</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="gconttitle">
+                <span>
+                    公告内容
+                </span>
+            </div>
+            <label>发送人:</label>
+            <span id="statepepo"></span>
+            <label style=" margin-left: 10px;">状态:</label>
+            <span id="stateid"></span>
+            <div class="layui-form-item layui-form-text">
+                <div class="layui-input-block" style="margin-right:57px;margin-left:47px; ">
+                    <textarea name="desc" disabled="disabled" id="looktextarea" placeholder="请输入内容" class="layui-textarea"
+                        style="border:0px;"></textarea>
+                </div>
+            </div>
+            <!-- <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button lay-submit lay-filter="formDemo" class="layui-btn" lay-event='updatebtn' id="updatebtn" lay-submit style="margin-left: 40px;background:#3a777c;height: 38px;width:110px; border-radius: 5px; border: 1px solid white;" lay-event='lookeidt'>编辑</button>
+                            <button type="button" class="fhbtn layui-btn-primary"
+                                style="margin-left: 160px;color:white; width:110px;background:#7c613a;height: 38px; border-radius: 5px; border: 1px solid white;">返回</button>
+                        </div>
+                    </div> -->
+        </form>
+    </div>
+</div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../js/Rollingscreen.js"></script>
+<script>
+    $("#navs").load("left_Navigation.html")
+    function lo() {
+        $(".310").addClass("layui-this").siblings().removeClass("layui-this")
+        $(".310").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+    }
+</script>
+
+<script>
+
+    today()
+    //设置默认时间
+    function today() {
+        var today = new Date();
+        var y = today.getFullYear();
+        var m = today.getMonth() + 1;
+        var d = today.getDate();
+        var a = today.getHours();
+        var b = today.getMinutes();
+        var c = today.getSeconds();
+        if (m >= 1 && m < 10) {
+            m = "0" + m
+        }
+        if (d >= 1 && d < 10) {
+            d = "0" + d
+        }
+        if (a >= 1 && a < 10) {
+            a = "0" + a
+        }
+        if (b >= 1 && b < 10) {
+            b = "0" + b
+        }
+        if (c >= 1 && c < 10) {
+            c = "0" + c
+        }
+        old = y + "-" + m + "-" + d + " " + a + ":" + b + ":" + c;
+        var newtoday = new Date();
+        var newy = newtoday.getFullYear();
+        var newm = newtoday.getMonth() + 1;
+        var newd = newtoday.getDate();
+        var newa = today.getHours();
+        var newb = today.getMinutes();
+        var newc = today.getSeconds();
+        if (newm >= 1 && newm < 10) {
+            newm = "0" + newm
+        }
+        if (newd >= 1 && newd < 10) {
+            newd = "0" + newd
+        }
+        if (newa >= 1 && newa < 10) {
+            newa = "0" + newa
+        }
+        if (newb >= 1 && newb < 10) {
+            newb = "0" + newb
+        }
+        if (newc >= 1 && newc < 10) {
+            newc = "0" + newc
+        }
+        newtime = newy + "-" + newm + "-" + newd + " " + newa + ":" + newb + ":" + newc;
+    }
+
+
+    layui.use(['table', 'laydate', 'element'], function () {
+        var table = layui.table;
+        var laydate = layui.laydate;
+        var element = layui.element;
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function (obj) {
+            console.log(obj)
+        });
+        // 开始时间
+        element.init();
+        laydate.render({
+            elem: '#seltime',
+            type: 'datetime',//日期可选时分秒
+            lang: 'cn', //国际化
+            format: 'yyyy-MM-dd HH:mm:ss',
+            theme: '日期', //自定义类名
+            // value: sendTime,
+            trigger: 'click',
+
+            // done:function(res){
+            // 	sendTime = res
+            // 	$("#seltime").text(sendTime)
+            // }
+        });
+
+
+
+        //监听工具条
+        table.on('tool(demo)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
+        var $ = layui.$, active = {
+            getCheckData: function () { //获取选中数据
+                var checkStatus = table.checkStatus('idTest')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+</script>
+
+<script>
+
+    layui.use(['table', 'form'], function () {
+        var table = layui.table;
+        var form = layui.form;
+
+        //  区服
+        Subordinate_area2()
+
+        function Subordinate_area2() {
+            $.post("../getServerListNoPage", function (data) {
+                var array = [];
+                $.each(data.rows, function (index, item) {
+                    array.push(item.serverId)
+                    $('#selseave').append(new Option(item.serverName, item.serverId));
+                });
+                var jsons = array.join(',')
+
+                $("#selseave").prepend("<option value=" + jsons + " selected='selected'>全区全服</option>");
+
+                form.render('select')
+            });
+        }
+        //  区服
+        Subordinate_area()
+
+        function Subordinate_area() {
+            $.post("../getServerListNoPage", function (data) {
+                var array = [];
+                $.each(data.rows, function (index, item) {
+                    array.push(item.serverId)
+                    $('#lookseave').append(new Option(item.serverName, item.serverId));
+                });
+                var jsons = array.join(',')
+
+                $("#lookseave").prepend("<option value=" + jsons + " selected='selected'>全区全服</option>");
+
+                form.render('select')
+            });
+        }
+
+
+        var tableIns = table.render({
+            elem: '#test',
+            url: '../selList',
+            toolbar: '#toolbarDemo',
+            response: {
+                statusName: 'state',
+                msgName: 'message',
+                statusCode: true,
+                countName: 'total',
+                dataName: 'rows'
+            },
+            request: {
+                pageName: 'pageIndex',
+                limitName: 'pageSize'
+            },
+
+            cols: [[
+                {
+                    type: 'checkbox',
+                    field: 'nId',
+                }
+                , {
+                    field: 'sender',
+                    width: 178,
+                    title: '发送人'
+                }
+                ,
+                {
+                    field: 'noticeContent',
+                    minWidth: 100,
+                    title: '公告内容'
+                }
+                , {
+                    field: 'server',
+                    width: 178,
+                    title: '收件人'
+                }
+                , {
+                    field: 'sendType',
+                    width: 178,
+                    title: '状态',
+                    templet: function (d) {
+                        var type
+                        if (d.sendType == 0) {
+                            return type = '已发送'
+                        }
+                        if (d.sendType == 1) {
+                            return type = '未发送'
+                        }
+
+                    }
+                }
+                , {
+                    field: 'noticeType',
+                    title: '滚屏公告类型',
+                    width: 178,
+                    minWidth: 100,
+                    templet: function (d) {
+                        var type
+                        if (d.noticeType == 0) {
+                            return type = '大厅滚动'
+                        }
+                        if (d.noticeType == 1) {
+                            return type = '战斗场景滚动'
+                        }
+                        if (d.noticeType == 2) {
+                            return type = '大厅滚动和战斗场景内滚动'
+                        }
+                    }
+
+                }
+                , {
+                    field: 'sendtime',
+                    title: '发送时间',
+                    width: 178,
+                    minWidth: 100,
+
+                }
+
+                ,
+                {
+                    field: 'experience',
+                    width: 178,
+                    title: '内容浏览',
+                    templet: function (value) {
+                        return "<span class='start_up' id='idstart_up' style='cursor: pointer;'  lay-event='edit' >内容浏览</span> "
+                    }
+                }
+                , {
+                    field: 'score',
+                    width: 178,
+                    title: '删除公告',
+                    templet: function (value) {
+                        return "<span class='close' lay-event='del'>删除</span>"
+                    }
+                }
+            ]]
+            , page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
+
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent == "edit") {
+                $('.mescreen2').show()
+            }
+        })
+        $(".addtype").one("click",function () {
+
+            var seltype = $("#seltype").val()//公告类型
+            var selnum = $("#selnum").val()//活动次数
+            var selpacee = $("#selpacee").val()//活动速度
+            var seljian = $("#seljian").val()//活动间隔
+            var seltime = $("#seltime").val()//发送时间
+            var selseave = $("#selseave").val()//服务器
+            console.log(selseave)
+            var selheight = $("#selheight").val()//优先级
+            var seltextarea = $("#seltextarea").val()//公告内容
+            var statepepo = $("#statepepo").val()//发送人
+            var stateid = $("#stateid").val()//状态
+            var seltimenew
+            var day2 = newtime
+            console.log(day2)
+            // day2.setDate(day2.getDate());
+            // var s2 = day2.getFullYear()+"-" + (day2.getMonth()+1) + "-" + day2.getDate() + " " + "00"+ ":" + "00"+ ":" + "00";
+            // var s2 = day2.format("yyyy-MM-dd HH:mm:ss");
+            // console.log(seltime)
+            // console.log(s2)
+            if(selnum == ''){
+                alert('活动次数未填写')
+                return false;
+            }else if(selnum == 0){
+                alert('活动次数不能为0')
+                return false;
+            }else if(selpacee== ''){
+                alert('活动速度未填写')
+                return false;
+            }else if(selpacee == ""){
+                alert('活动速度不能为0')
+                return false;
+            }else if(seljian== ''){
+                alert('活动间隔未填写')
+                return false;
+            }else if(seljian == 0){
+                alert('活动间隔不能为0')
+                return false;
+            }else if(seltextarea == ""){
+                alert('公告内容未填写')
+                return false;
+            }
+
+
+            if (seltime == '') {
+                seltimenew = 0
+            }
+            else {
+                seltimenew = 1
+            }
+
+            $.ajax({
+                type: "post",
+                async: true,
+                url: '../insertNotices',
+                data: {
+                    noticeType: seltype,
+                    rollNumber: selnum,
+                    rollSpeed: selpacee,
+                    spaceSpeed: seljian,
+                    sendtime: seltime,
+                    server: selseave,
+                    priority: selheight,
+                    noticeContent: seltextarea,
+                    sender: statepepo,
+                    sendType: seltimenew,
+                },
+                success: function (obj) {
+                    console.log(obj)
+
+
+                    if (obj == true) {
+                        alert(obj.message)
+
+                    } else (
+                        alert(obj.message)
+                    )
+                    tableIns.reload()
+                    location.reload()
+
+                }
+
+            })
+
+
+
+        })
+
+        // 内容浏览
+        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var id = data.nId;
+            var looktype = data.noticeType;
+            var looknum = data.rollNumber
+            var lookspeed = data.rollSpeed
+            var lookjian = data.spaceSpeed
+            var looktime = data.sendtime
+            var lookserver = data.server
+            var lookprivate = data.priority
+            var looknoticeContent = data.noticeContent
+            var lookstatepepo = data.sender//发送人
+            var lookstateid = data.sendType//状态
+            var servv
+            if(lookserver == 'test'){
+                servv = 300
+            }
+            if(lookserver == '10049'){
+                servv = 10049
+            }
+            if(lookserver == 'kelvin'){
+                servv = 10034
+            }
+            if(lookserver == '本地'){
+                servv = 503
+            }
+            if(lookserver == 'test1'){
+                servv = 502
+            }
+            if(lookserver == 'herotest'){
+                servv = 900
+            }
+            if(lookserver == 'game3'){
+                servv = 10003
+            }
+            if(lookserver == 'game2'){
+                servv = 10002
+            }
+            if(lookserver == '1'){
+                servv = 1
+            }
+            if(lookserver == 'game1'){
+                servv = 10001
+            }
+
+
+            if (layEvent === 'edit') { //查看
+                $("#looktype").val(looktype);
+                $("#looknum").val(looknum);
+                $("#lookpacee").val(lookspeed);
+                $("#lookjian").val(lookjian);
+                $("#looktime").val(looktime);
+                $("#lookseave").val(servv);
+                $("#lookheight").val(lookprivate);
+                $("#looktextarea").val(looknoticeContent);
+                $("#statepepo").val(lookstatepepo); //发送人
+                $("#stateid").val(lookstateid); //状态
+                form.render('select');
+                $('.mescreen2').css("display", "block")
+                if(lookstateid==0){
+                    layer.open({
+                    type: 1,
+                    title: "更改处罚",
+                    shadeClose: false,
+                    shade: 0,
+                    content: $("#messlok"),
+                    area: ['750px', '700px'],
+                    btn: [ '返回',],
+                    yes: function (index, layero) {
+
+                        var looktype = $("#looktype").val();
+                        var looknum = $("#looknum").val()
+                        var lookspeed = $("#lookpacee").val()
+                        var lookjian = $("#lookjian").val()
+                        var looktime = $("#looktime").val()
+                        var lookserver = $("#lookseave").val()
+                        var lookprivate = $("#lookheight").val()
+                        var looknoticeContent = $("#looktextarea").val()
+                        var lookstatepepo = $("#statepepo").val()//发送人
+                        var lookstateid = $("#stateid").val()//状态
+
+                        layer.closeAll();
+                    },
+
+
+
+                })
+
+                }
+                if(lookstateid==1){
+                    layer.open({
+                    type: 1,
+                    title: "浏览滚屏公告",
+                    shadeClose: false,
+                    shade: 0,
+                    content: $("#messlok"),
+                    area: ['750px', '700px'],
+                    btn: ['保存','编辑', '返回',],
+                    yes: function (index, layero) {
+
+                        var looktype = $("#looktype").val();
+                        var looknum = $("#looknum").val()
+                        var lookspeed = $("#lookpacee").val()
+                        var lookjian = $("#lookjian").val()
+                        var looktime = $("#looktime").val()
+                        var lookserver = $("#lookseave").val()
+                        var lookprivate = $("#lookheight").val()
+                        var looknoticeContent = $("#looktextarea").val()
+                        var lookstatepepo = $("#statepepo").val()//发送人
+                        var lookstateid = $("#stateid").val()//状态
+                        $.ajax({
+                            type: "post",
+                            url: "../updateById",
+                            async: true,
+                            data: {
+                                nId: id,
+                                noticeType: looktype,
+                                rollNumber: looknum,
+                                rollSpeed: lookspeed,
+                                spaceSpeed: lookjian,
+                                sendtime: looktime,
+                                server: lookserver,
+                                priority: lookprivate,
+                                noticeContent: looknoticeContent,
+                                sender: lookstatepepo,
+                                sendType: lookstateid,
+                            },
+                            success: function (e) {
+                                alert(e.message)
+                                $("body").mLoading("hide")
+                                tableIns.reload()
+
+                            }
+                        })
+                        layer.closeAll();
+                    },
+                    btn2: function(index, layero){
+                        $("#looktype").removeAttr('disabled');
+                        $("#looktype").removeAttr('readonly');
+                        $("#looktype").removeClass('layui-disabled');
+                        // $(".layui-input").removeAttr('readonly');
+                        $("#looknum").removeAttr("disabled");
+                        $("#lookpacee").removeAttr("disabled");
+                        $("#lookjian").removeAttr("disabled");
+                        $("#looktime").removeAttr("disabled");
+                        $("#lookseave").removeAttr("disabled");
+                        $("#lookheight").removeAttr("disabled");
+                        $("#looktextarea").removeAttr("disabled");
+                        $('.layui-unselect').removeClass('layui-select-disabled');
+                        $('.layui-input').removeClass('layui-disabled');
+                        form.render('select');
+
+                        layui.use(['table', 'laydate', 'element'], function () {
+                            var table = layui.table;
+                            var laydate = layui.laydate;
+                            var element = layui.element;
+
+                            element.init();
+                            laydate.render({
+                            elem: '#looktime',
+                            type: 'datetime',//日期可选时分秒
+                            lang: 'cn', //国际化
+                            format: 'yyyy-MM-dd HH:mm:ss',
+                            theme: '日期', //自定义类名
+                            // value: sendTime,
+                            trigger: 'click',
+
+                            // done:function(res){
+                            // 	sendTime = res
+                            // 	$("#seltime").text(sendTime)
+                            // }
+                            });
+                        })
+                        return false
+
+                    },
+
+
+                })
+
+                }
+
+
+
+
+            }
+
+
+
+            else if (layEvent === 'del') { //删除
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);//向服务端发送删除指令
+                    $("body").mLoading("show")
+                    $.ajax({
+                        type: "post",
+                        url: "../deleteById",
+                        async: true,
+                        data: {
+                            nIds: id,
+
+                        },
+                        success: function (e) {
+                            alert(e.message)
+                            $("body").mLoading("hide")
+                            // tableIng.reload()
+                        }
+                    })
+                });
+            }
+
+
+        });
+
+        // 批量删除
+        table.on('toolbar(test)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event;
+            var arr = [];
+            if (layEvent === "getCheckData") {
+
+                var checkstatus = table.checkStatus(obj.config.id)
+                console.log(checkstatus)
+                for (var i = 0; i < checkstatus.data.length; i++) {
+                    arr.push(checkstatus.data[i].nId)
+                }
+                var jsons = arr.join(',')
+                if (jsons == "") {
+                    alert("操作成功")
+                    $("body").mLoading("hide")
+                    return false;
+                }
+                $.ajax({
+                    type: "get",
+                    url: '../deleteById',
+                    async: true,
+                    data: {
+                        nIds: jsons,
+
+                    },
+                    success: function (res) {
+                        alert(res.message);
+                        $("body").mLoading("hide")
+                        tableIns.reload()
+                    }
+                });
+            }
+        })
+    });
+
+
+
+</script>
+
+</html>

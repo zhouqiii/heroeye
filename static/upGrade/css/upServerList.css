@@ -1,0 +1,145 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.main{
+	clear: both;
+	border: 1px solid #707070;
+	margin-top: 1%;
+	height: 800px;
+	overflow-x: auto;
+	background-image: url("../../img/tableBgi.png");
+}
+.loadTag{
+	clear: both;
+	border: 1px solid #707070;
+	margin-top: 1%;
+	height: 800px;
+	overflow-x: auto;
+}
+.headerQuery{
+	display:flex;
+	justify-content:space-between
+}
+.area_title{
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+.start_up,.close{
+	color: #0078fb;
+	cursor: pointer;
+}
+.close{
+	margin-left: 10px;
+}
+.layui-table thead tr th{
+	color: #ffffff;
+}
+.layui-table tbody tr td{
+	height: 50px !important;
+	color: #ffffff;
+}
+.layui-table tbody tr{
+	border-bottom: 0px solid #414141;
+}
+#add_area,#modify_area,#add_proce,#modify_proce{
+	display: none;
+	padding-left: 5%;
+}
+.layui-form{
+	margin-top: 3%;
+}
+#search_Id{
+	background: transparent;
+	color: white;
+	height: 26px;
+	line-height: 26px;
+	border: 1px solid #707070;
+	padding-left: 2%;
+	width: 48%;
+}
+#add{
+	width:100px;
+	height:28px;
+	border:none;
+	border-radius:0;
+	background:#1E9FFF;
+	line-height:28px;
+	color:#ffffff;
+	cursor:pointer;
+}
+#add_process{
+	width:100px;
+	height:28px;
+	border:none;
+	border-radius:0;
+	background:#1E9FFF;
+	line-height:28px;
+	color:#ffffff;
+	cursor:pointer;
+}
+.backToServer{
+	width:100px;
+	height:28px;
+	border:none;
+	border-radius:0;
+	background:#1E9FFF;
+	line-height:28px;
+	color:#ffffff;
+	cursor:pointer;
+}
+#search,#test3{
+	height: 28px;
+	line-height: 28px;
+	width: 20.5%;
+	color: #ffffff;
+	border: 0;
+	margin-left:4.2%
+}
+#search{
+	background:#363636;
+}
+#test3{
+	background:#009688
+}
+.checkServer{
+	cursor: pointer;
+	width: 120px;
+	height: 26px;
+	border: 1px solid #1E9FFF;
+	background: inherit;
+	color: #ffffff;
+	font-size: 14px;
+}
+.layui-form-label{
+	padding: 6px 0px !important;
+	width: 90px !important;
+}
+#add_serverid,#add_servername,#add_serverip,#add_serverport,#add_serverremarks,#modify_serverid,#modify_servername,#modify_serverip,#modify_serverport,#modify_serverremarks,#modify_procename,#modify_remakers,#add_procename,#add_remakers{
+	height: 32px;
+	line-height: 32px;
+	border: 1px solid #707070;
+	border-radius: 5px;
+	background: inherit;
+}
+/* 全局滚动条样式 */
+.scrollable {
+	-webkit-overflow-scrolling: touch;
+}
+::-webkit-scrollbar {
+	width: 10px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background-color:#121212;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track:hover {
+	background-color: rgba(50, 50, 50, 1);
+}

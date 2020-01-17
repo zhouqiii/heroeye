@@ -1,0 +1,303 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#inner_head{
+	height: 40px;
+	border-radius: 5px;
+	background-color: #131313;
+	padding-left: 15px;
+	border-bottom: 1px solid #999;
+	background: -webkit-linear-gradient(#9f9d9d -270%, #111111 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#9f9d9d -270%, #111111 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#9f9d9d -270%, #111111 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#9f9d9d -270%, #111111 100%); /* 鏍囧噯鐨勮娉� */
+}
+#inner_head span{
+	color: white;
+	line-height: 40px;
+	margin-left: 5px;
+}
+.inner .inner_main{
+	width: 97%;
+	margin: 0 auto;
+	margin-top: 25px;
+}
+.main_box{
+    width: 97%;
+	margin: 0 auto;
+	margin-top: 30px;
+    height: 35px;
+    line-height: 35px;
+	background: #7d7c7c;
+	border-radius: 5px;
+	background: -webkit-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* 鏍囧噯鐨勮娉� */
+}
+.main_box h5{
+    margin-left: 20px;
+    color: white;
+}
+.selects{
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    color: #999999;
+    font-size: 14px;
+    border: 1px solid #707070;
+}
+.cfheaderborder{
+    border-radius: 5px;
+}
+.layui-input-block{
+    width: 8%;
+    margin-left: 97px;
+}
+.layui-input{
+    color: white;
+}
+.selects1{
+    width: 21%;
+    float: left;
+}
+.main_footer{
+    width: 100%;
+    border: 1px solid #707070;
+}
+.main_footer table th{
+    color: white;
+}
+.btn-se{
+    width: 8%;
+    height: 39px;
+    float: right;
+    background: #086CC9;
+    border-radius: 5px;
+}
+.stoppunish{
+    width: 9%;
+    margin-top:1%;
+    border: 0;
+    height: 30px;
+    line-height: 30px;
+    color: #ffffff;
+}
+#query{
+    height: 28px;
+    line-height: 28px;
+    border-radius: 0;
+    width: 6%;
+    background: #363636;
+    margin-top: 1%;
+    color: #ffffff;
+    border: 0;
+}
+#add_area{
+    display: none;
+    position: relative;
+    width:95%;
+    height: 98%;
+    margin: 0 auto;
+    z-index: 99;
+    margin-top: 1%;
+}
+.chufatitle{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.layui-form-label{
+    color: white;
+}
+.layui-input-inline{
+    width: 10%;
+    color: white;
+}
+.btnipmt{
+    margin-left:5%;
+    width: 14%;
+    text-align: center;
+    line-height: 25px;
+    background: #1E9FFF;
+    height: 25px;
+    border: 0;
+}
+.punishtable{
+    width: 99.8%;
+    /* height: 285px; */
+    border: 1px solid #707070;
+}
+.truebtn{
+    width: 14%;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 25px;
+    margin-left: 100px;
+    border: 0px;
+    background: #443b7c;
+    color: white;
+}
+button{
+    cursor: pointer;
+}
+.chfaannv{
+    width: 10px;
+    height: 10px;
+    border: 1px solid white;
+}
+.falsebtn{
+    width: 14%;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 300px;
+    margin-top: 25px;
+    border: 0px;
+    background: #414141;
+    color: white;
+}
+.hispan{
+    color: white;
+    background: transparent;
+    display: inline-block;
+    width: 26%;
+    /* height: 35px; */
+    /* line-height: 35px; */
+    text-align: right;
+}
+#allserver{
+    width: 72%;
+    height: 28px;
+    line-height: 28px;
+    background: #242424;
+    color: #999999;
+    border: 1px solid #707070;
+}
+#allserver2{
+    width: 72%;
+    height: 28px;
+    line-height: 28px;
+    background: #242424;
+    color: #999999;
+    border: 1px solid #707070;
+}
+.chafaspan{
+color: white;
+
+}
+.cfstarttime{
+display: inline-block;
+    width: 69%;
+    height: 28px;
+    line-height: 28px;
+    color: #999999;
+    border: 1px solid #707070;
+    border-radius: 0;
+}
+.cfstarttime input{
+    width: 100%;
+    height: 100%;
+    background: #242424;
+    border: none;
+}
+#genggai{
+    width: 93%;
+    height: 90%;
+    margin: 0 auto;
+    /* border: 1px solid #707070; */
+    display: none;
+    margin-top: 20px;
+}
+.chengfaput{
+margin-top: 21px;
+width: 50%;
+margin-left: 20px;
+}
+.layui-table-view .layui-table td{
+height:auto;
+overflow:hidden;
+text-overflow: ellipsis;
+border-bottom:1px solid #414141;
+    height: 50px !important;
+    color: #999999;
+}
+.punish1{
+position: relative;
+}
+
+.colsed{
+display: block;
+width: 20px;
+height: 20px;
+position: absolute;
+top: 0px;
+right: 0px;
+color: white;
+line-height: 20px;
+text-align: center;
+}
+#eidt_btn{
+margin-left: 154px;
+margin-top: -83px;
+}
+.btndelcl{
+    display: inline-block;
+    /* border-radius: 5px; */
+    border: 0px;
+    height: 25px;
+    width: 13%;
+    line-height: 25px;
+    color: #ffffff;
+    margin-top: 2%;
+    background: #FF5722 !important;
+}
+
+.layui-layer-ico {
+background: url(icon.png) no-repeat white !important;
+}
+#playerUID,#namegai,#palygai,#sergai,#starttime,#endtime,#xiela{
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid #707070;
+    border-radius: 0;
+    background: #414141;
+    width: 100%;
+    color: #ffffff;
+}
+.layui-form-select dl dd{
+    line-height: 26px !important;
+}
+#changeBad{
+    width:100px;
+    height:25px;
+    border:none;
+    border-radius:0;
+    background:#1E9FFF;
+    line-height:25px;
+    color:#ffffff;
+    cursor:pointer;
+}
+/* 全局滚动条样式 */
+.scrollable {
+    -webkit-overflow-scrolling: touch;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color:#121212;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track:hover {
+    background-color: rgba(50, 50, 50, 1);
+}

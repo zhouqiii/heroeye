@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>通用命令</title>
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/commonCommand.css" />
+		<link rel="stylesheet" href="/js/loading/jquery.mloading.css" />
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<ul class="tabnavs">
+					<li>设置主播账号</li>
+					<li>跨服开关</li>
+					<li>跨服PK开关</li>
+					<li>踢出军团长</li>
+					<li>删除物品</li>
+					<li>重新载入表格</li>
+					<li>批量发奖</li>
+					<li>清除缓存</li>
+				</ul>
+				<div class="inner">
+					<div class="inner_main">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server" onchange="selects(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<span class="gm_span">账号ID</span>
+									<input type="text" id="accountID" placeholder="请输入账号ID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content"></div>
+								<div class="right_content"></div>
+							</div>
+						</div>
+						<textarea class="main_right" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet1()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs1">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server1" onchange="select1(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 25%;margin-left: 3%;">
+									<span class="gm_span" style="width: 55%;">是否开启</span>
+									<select id="open">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend1()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content1"></div>
+								<div class="right_content1"></div>
+							</div>
+						</div>
+						<textarea class="main_right1" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet2()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs2">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server2" onchange="select2(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 25%;margin-left: 3%;">
+									<span class="gm_span" style="width: 55%;">是否开启</span>
+									<select id="open2">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend2()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content2"></div>
+								<div class="right_content2"></div>
+							</div>
+						</div>
+						<textarea class="main_right2" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet3()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs3">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server3" onchange="select3(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<span class="gm_span">军团GUID</span>
+									<input type="text" id="GUID" placeholder="请输入军团GUID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend3()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content3"></div>
+								<div class="right_content3"></div>
+							</div>
+						</div>
+						<textarea class="main_right3" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet4()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 40%;float: left;">
+									<span class="serve_span" style="width: 17.8%;">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs4">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server4" onchange="select4(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 40%;float: left;margin-left: 3%;">
+									<span class="gm_span">角色ID</span>
+									<input type="text" id="roleId" placeholder="请输入角色ID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend4()">发送</button>
+								<br /><br /><br />
+								<div class="form-group form_acc" style="width: 40%;float: left;">
+									<span class="gm_span" style="width:37%;">起始格子号</span>
+									<input type="text" id="start_lattice" placeholder="1-200" style="width: 58%;" />
+								</div>
+								<div class="form-group form_acc" style="width: 40%;float: left;margin-left: 3%;">
+									<span class="gm_span" style="width: 37%;">结束格子号</span>
+									<input type="text" id="end_lattice" placeholder="1-200" style="width: 58%;" />
+								</div>
+								<br /><br /><br />
+								<div class="form-group form_acc" style="width: 40%;">
+									<span class="gm_span" style="width: 30%;">背包类型</span>
+									<select id="knapsack_type">
+										<option value="1">装备</option>
+										<option value="2">道具包</option>
+										<option value="3">翅膀包</option>
+										<option value="4">坐骑包</option>
+										<option value="5">未装备的守护之灵的背包</option>
+										<option value="6">已装备的守护之灵的背包</option>
+										<option value="7">附件邮件物品包</option>
+										<option value="8">祈愿获得物品包</option>
+										<option value="9">未装备的元素之心的背包</option>
+										<option value="10">已装备的元素之心的背包</option>
+										<option value="11">时装</option>
+										<option value="12">已装备时装</option>
+										<option value="13">坐骑兽魂包</option>
+										<option value="14">羽翼兽魂包</option>
+										<option value="15">宝藏抽取包</option>
+										<option value="16">仓库背包</option>
+										<option value="17">未装备的信仰符文背包</option>
+										<option value="18">已装备的信仰符文背包</option>
+										<option value="19">已装备的精灵背包</option>
+										<option value="20">已装备的火种道具背包</option>
+										<option value="21">天空装备包</option>
+										<option value="22">技能书</option>
+										<option value="23">女神装备</option>
+										<option value="24">结婚装备</option>
+										<option value="25">核心符文</option>
+									</select>
+								</div>
+							</form>
+							<div class="left_bottom" style="height: 500px;">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content4"></div>
+								<div class="right_content4"></div>
+							</div>
+						</div>
+						<textarea class="main_right4" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet5()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs5">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server5" onchange="select5(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend5()">重新载入表格</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content5"></div>
+								<div class="right_content5"></div>
+							</div>
+						</div>
+						<textarea class="main_right5" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>填写邮件</span>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs6">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server6" onchange="select6(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content6"></div>
+								<div class="right_content6"></div>
+							</div>
+						</div>
+						<div class="main_right6">
+							<form>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;background: #363636;">
+									<span class="gm_span">邮件标题</span>
+									<input type="text" id="email_title" placeholder="请输入邮件标题" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend6()">发送</button>
+								<textarea id="email_content" placeholder="请输入邮件内容"></textarea>
+								<div class="form-group form_acc" style="border: 0;margin-bottom: 0;">
+									<span class="gm_span sp1">反馈信息</span>
+									<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet6()">清空</button>
+									<textarea class="form_bottom" readonly="readonly"></textarea>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet7()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs7">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server7" onchange="select7(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<span class="gm_span">角色ID</span>
+									<input type="text" id="roles" placeholder="请输入角色ID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend7()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content7"></div>
+								<div class="right_content7"></div>
+							</div>
+						</div>
+						<textarea class="main_right7" readonly="readonly"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/loading/jquery.mloading.js"></script>
+	<script src="/js/commonCommand.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".306").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".306").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+			var a = $("#server1").find("option:selected").text();
+			$(".logs1").text(a)
+			var b = $("#server2").find("option:selected").text();
+			$(".logs2").text(b)
+			var d = $("#server3").find("option:selected").text();
+			$(".logs3").text(d)
+			var e = $("#server4").find("option:selected").text();
+			$(".logs4").text(e)
+			var f = $("#server5").find("option:selected").text();
+			$(".logs5").text(f)
+			var g = $("#server6").find("option:selected").text();
+			$(".logs6").text(g)
+			var h = $("#server7").find("option:selected").text();
+			$(".logs7").text(h)
+		}
+		//切换头部导航
+		$(".tabnavs li").click(function(){
+			$(this).css("border-bottom","0").siblings().css("border-bottom","1px solid white");
+			var c = $(this).index();
+			if(c == 0){
+				$(".inner .inner_main").eq(0).css("display","block").siblings().css("display","none")
+			}else if(c == 1){
+				$(".inner .inner_main").eq(1).css("display","block").siblings().css("display","none")
+			}else if(c == 2){
+				$(".inner .inner_main").eq(2).css("display","block").siblings().css("display","none")
+			}else if(c == 3){
+				$(".inner .inner_main").eq(3).css("display","block").siblings().css("display","none")
+			}else if(c == 4){
+				$(".inner .inner_main").eq(4).css("display","block").siblings().css("display","none")
+			}else if(c == 5){
+				$(".inner .inner_main").eq(5).css("display","block").siblings().css("display","none")
+			}else if(c == 6){
+				$(".inner .inner_main").eq(6).css("display","block").siblings().css("display","none")
+			}else if(c == 7){
+				$(".inner .inner_main").eq(7).css("display","block").siblings().css("display","none")
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器更新</title>
+		<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="../upGrade/css/upResMonitor.css" />
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="margin: 20px;border: 1px solid #707070;display: flex;background: #202020">
+				<div class="leftSelect" style="width: 12.8%;border-right: 1px solid #707070">
+					<div class="selectContent">
+						<ul class="tabnavs">
+							<li>
+								<div>
+									<span>CPU占用率</span>
+									<br />
+									<span id="rateCpu">4%</span>
+									<span id="frequencyCpu">2.90GHz</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<span>内存</span>
+									<br />
+									<span id="subNet">4.9/15.9</span>
+									<span id="percentNet">(31%)</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<span>硬盘</span>
+									<br />
+									<span id="hardDisk">4%</span>
+									<span id="hardDiskPer">2.90GHz</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<span>网卡流量</span>
+									<br />
+									<span id="netCard">4%</span>
+									<span id="percentCard">2.90GHz</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="rightInner" style="width: 88.2%">
+					<div class="inner">
+						<div class="contentTitle" >
+							<div style="width: 25%">
+								<span id="titleSelect">CPU</span><span id="titleAnother">Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz</span>
+							</div>
+							<div class="form-group form_acc" style="width: 20%;">
+								<span class="gm_span">选择服务器</span>
+								<select id="server" onchange="regs()"></select>
+							</div>
+						</div>
+						<div class="inner_main">
+							<!--<div style="width: 2%;color: #707070;padding-top: 12%;font-size: 14px"><span  class="serverName"></span></div>-->
+							<div id="container" style="width: 97.5%;margin-left: .5%"></div>
+						</div>
+						<div class="inner_main" style="display: none;">
+							<div style="width: 100%">
+								<span>内存使用量：</span>
+								<span id="netUse">15.9GB</span>
+							</div>
+							<!--<div style="width: 2%;color: #707070;padding-top: 12%;font-size: 14px;"><span  class="serverName"></span></div>-->
+							<div id="Memory_container" style="width: 97.5%;margin-left: .5%"></div>
+						</div>
+						<div class="inner_main" style="display: none;">
+							<!--<div style="width: 2%;color: #707070;padding-top: 12%;font-size: 14px;"><span  class="serverName"></span></div>-->
+							<div id="hard_container" style="width: 97.5%;margin-left: .5%"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/highcharts.js"></script>
+	<script src="/js/data.js"></script>
+	<script src="../upGrade/js/upResMonitor.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".400").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".400").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		$(".tabnavs li").click(function(){
+			$(this).css("color","#ffffff").siblings().css("color","#999999");
+            $(this).css("font-size","14px").siblings().css("font-size","12px");
+            $(this).css("background","#363636").siblings().css("background","inherit");
+			var c = $(this).index();
+			if(c == 0){
+				$(".inner .inner_main").eq(0).css("display","block").siblings('.inner_main').css("display","none")
+                $("#titleSelect").html('CPU占用率');
+			}else if(c == 1){
+				$(".inner .inner_main").eq(1).css("display","block").siblings('.inner_main').css("display","none")
+                $("#titleSelect").html('内存占用率');
+			}else if(c == 2){
+				$(".inner .inner_main").eq(2).css("display","block").siblings('.inner_main').css("display","none")
+                $("#titleSelect").html('C盘占用率');
+
+			}
+		})
+		function defaultTab(){
+		    var tabclick=document.getElementsByClassName('inner_main')
+            inner_main[0]
+		}
+	</script>
+</html>

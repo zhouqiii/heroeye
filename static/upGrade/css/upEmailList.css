@@ -1,0 +1,246 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.main{
+	clear: both;
+	border: 1px solid #707070;
+	/* margin-top: 10%; */
+	height: 700px;
+	overflow-y: auto;
+	width: 100%;
+	margin: 0 auto;
+	margin-top: 3.8%;
+}
+
+.area_title{
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+.start_up,.close{
+	cursor: pointer;
+}
+.close{
+	margin-left: 10px;
+}
+.layui-table thead tr th{
+	color: #ffffff;
+}
+.layui-table tbody tr td{
+	color: #ffffff;
+	border-right:1px solid #707070;
+	border-bottom:1px solid #707070;
+	color: #E4E4E4;
+}
+.layui-table tbody tr{
+	border-bottom: 1px solid #707070;
+}
+#add_area,#modify_area{
+	display: none;
+}
+.layui-form{
+	margin-top: 3%;
+}
+
+#adds{
+	float: left;
+	margin-left: 2%;
+}
+#addsMod{
+	float: left;
+	margin-left: 2%;
+}
+#backList{
+	font-size: 12px;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 0;
+}
+#add{
+	width:100px;
+	height:28px;
+	border:none;
+	border-radius:0;
+	background:#1E9FFF;
+	line-height:28px;
+	color:#ffffff;
+	cursor:pointer;
+}
+/* 全局滚动条样式 */
+.scrollable {
+	-webkit-overflow-scrolling: touch;
+}
+::-webkit-scrollbar {
+	width: 10px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background-color:#121212;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track:hover {
+	background-color: rgba(50, 50, 50, 1);
+}
+#datatimes,#addname,#addnameId,#Expiration,#emailidmodify,#datatimesmodify,.Goodsidmodify,
+#Expirationmodify,.Goodsid,.Goodsnum,.Goodsnummodify{
+	height: 25px;
+	line-height: 25px;
+	border: 1px solid #707070;
+	border-radius: 0;
+	background: #414141;
+	margin-top: .7%;
+}
+#emailContent,#emailContentmodify{
+	border: 1px solid #707070;
+	border-radius: 0;
+}
+#sendEmail,#saveEmail,#loademail,.saveTemplate,.saveTemplateModify,#sendEmailmodify,#saveEmailmodify{
+	height: 28px !important;
+	line-height: 28px !important;
+	border-radius: 0 !important;
+	font-size: 12px;
+}
+
+.tabnavs{
+	width: 100%;
+	margin-top: .6%;
+	clear: both;
+	font-size: 12px;
+}
+.tabnavs li{
+	line-height: 35px;
+	color: #999999;
+	width: 8.8%;
+	text-align: center;
+	position: relative;
+	z-index: 99;
+	float: left;
+	cursor: pointer;
+}
+.tabnavs li:first-child{
+	border-bottom: 0;
+}
+#deleteSendBtn {
+	height: 28px;
+	line-height: 28px;
+	width: 80px;
+	border-radius: 0;
+	padding: 0;
+	color: #ffffff;
+	font-size: 12px;
+	background: #1E9FFF;
+	margin-left: -.9%;
+}
+.topTitle{
+	padding-left: 1.1%;
+	height: 40px;
+	line-height: 40px;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 400;
+	background: #121212;
+}
+.anutype{
+	height: 50px;
+	line-height: 50px;
+	color: #ffffff;
+	border-bottom: 1px solid #707070;
+	display: flex;
+}
+#emailid,#datatimes,#addname,#addnameId,#Expiration{
+	border: 0;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 0;
+	background: inherit;
+	color:#ffffff;
+}
+#emailidmodify,#datatimesmodify,#addnamemodify,#addnameIdmodify,#Expirationmodify{
+	border: 0;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 0;
+	background: inherit;
+	color:#ffffff;
+}
+.lableType,.labelNature,.lableAdd,.lableTime,.lableRate,.lableCenter,.lableActiv,.lablePromary,.lableServer,.lableGet{
+	background: #333333;
+	width: 11%;
+	border-right: 1px solid #707070;
+	text-align: right;
+}
+#sinadd_server,#add_server{
+	cursor: pointer;
+	line-height: 28px;
+	height: 28px;
+	opacity: 0;
+	background: #333333;
+	color: #ffffff;
+	margin-left: -20%;
+}
+#sinadd_servermodify,#add_servermodify{
+	cursor: pointer;
+	line-height: 28px;
+	height: 28px;
+	opacity: 0;
+	background: #333333;
+	color: #ffffff;
+	margin-left: -20%;
+}
+.anucontent{
+	color: #ffffff;
+	display: flex;
+	border-bottom: 1px solid #707070;
+}
+.textareapart{
+	padding-top: .4%;
+	background: #333333;
+	width: 11.25%;
+	border-right: 1px solid #707070;
+	text-align: right;
+}
+.addGoal{
+	float: left;
+	width: 25%;
+	margin-top: .7%;
+}
+.addGoalMod{
+	float: left;
+	width: 25%;
+	margin-top: .7%;
+}
+#templateNmae{
+	height: 32px;
+	line-height: 32px;
+	border: 1px solid #707070;
+	border-radius: 5px;
+	background: inherit;
+}
+
+/* 全局滚动条样式 */
+.scrollable {
+	-webkit-overflow-scrolling: touch;
+}
+::-webkit-scrollbar {
+	width: 10px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background-color:#121212;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track:hover {
+	background-color: rgba(50, 50, 50, 1);
+}

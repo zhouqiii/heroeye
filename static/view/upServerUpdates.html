@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器更新</title>
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../upGrade/css/upServerUpdates.css" />
+
+	</head>
+	<body class="layui-layout-body" style="background: #242424;">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="margin: 1% 1.2% 1% 1%">
+				<div class="topTool">
+					<form>
+						<div class="form-group" style="width: 13%;float: left;padding-left: 1.5%;padding-top: .8%;">
+										<span class="serve_span">
+											<i class="fa fa-server" style="margin-left: 4%;margin-right: 18%;"></i>
+											<span class="logs">单区多服</span>
+											<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+										</span>
+							<select id="server" onchange="selects(this);servers()">
+								<option value="2">单区多服</option>
+								<option value="0">全区全服</option>
+							</select>
+						</div>
+						<div class="form-group form_acc" style="width: 17.5%;float: left;margin-top: .8%;">
+							<span class="gm_span">路径</span>
+							<input type="text" id="urls" value="C:\FileUploadTest\" disabled />
+						</div>
+						<button type="button"  id="editBtn" onclick="path()">编辑</button>
+						<button type="button"  id="upload_server" >上传到更新服务器</button>
+					</form>
+				</div>
+				<div class="serverPage">
+					<div class="area">
+						<div class="box_right">
+							<span class="fa fa-list-ul" style="margin-left: 3%;color: #999999;"></span>
+							<span>大区列表</span>
+						</div>
+						<div class="left_content"></div>
+					</div>
+					<div class="server">
+						<div class="boxleft" >
+							<span class="fa fa-list-ul" style="margin-left: 3%;color: #999999;"></span>
+							<span>服务器列表</span>
+						</div>
+						<div class="right_content"></div>
+					</div>
+				</div>
+				<div class="filePage">
+					<div class="fileTool" >
+						<div style="width: 25%">
+							<span class="fa fa-folder-o" style="margin-left: 1.2%;font-size: 16px;color: #999999;"></span>
+							<span>文件名</span>
+						</div>
+						<div style="width: 25%">
+							<span>时间</span>
+						</div>
+						<div style="width: 25%">
+							<span>大小</span>
+						</div>
+						<div class="iconTool" style="width: 4.5%">
+							<span id="uploads"><img src="../img/导入.png"></span>
+							<!--<span class="fa fa-download" onclick="downloadFile()"></span>-->
+							<span onclick="filedelet()"><img src="../img/delete.png"></span>
+						</div>
+					</div>
+					<div>
+						<div class="check_inner" style="margin-top: 1px;background: #242424;height: auto;padding: 0px"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="../upGrade/js/upServerUpdates.js"></script>
+
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+		}
+		//全选
+		function checks_all(){
+			if($("#all").is(":checked")==true){
+				$(".check_inner input").prop("checked",true)
+			}else{
+				$(".check_inner input").prop("checked",false)
+			}
+		}
+		//编辑路径
+		function path(){
+			$("#urls").prop("disabled",false)
+		}
+	</script>
+</html>

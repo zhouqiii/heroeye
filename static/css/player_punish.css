@@ -1,0 +1,256 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.inner{
+	width: 98%;
+	height: 880px;
+	margin: 0 auto;
+	background: #363636;
+	margin-top: 27px;
+	border-radius: 5px;
+	border: 1px solid #fff;
+}
+#inner_head{
+	height: 40px;
+	border-radius: 5px;
+	background-color: #131313;
+	padding-left: 15px;
+	border-bottom: 1px solid #999;
+	background: -webkit-linear-gradient(#9f9d9d -270%, #111111 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#9f9d9d -270%, #111111 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#9f9d9d -270%, #111111 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#9f9d9d -270%, #111111 100%); /* 鏍囧噯鐨勮娉� */
+}
+#inner_head span{
+	color: white;
+	line-height: 40px;
+	margin-left: 5px;
+}
+.inner .inner_main{
+	width: 97%;
+	margin: 0 auto;
+	margin-top: 25px;
+}
+.main_box{
+    width: 97%;
+	margin: 0 auto;
+	margin-top: 30px;
+    height: 35px;
+    line-height: 35px;
+	background: #7d7c7c;
+	border-radius: 5px;
+	background: -webkit-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* 鏍囧噯鐨勮娉� */
+}
+.main_box h5{
+    margin-left: 20px;
+    color: white;
+}
+.selects{
+    width: 97%;
+    margin: 0 auto;
+    margin-top: 30px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    color: white;
+    /* background-color: red; */
+}
+.cfheaderborder{
+    border-radius: 5px;
+}
+.layui-input-block{
+    width: 8%;
+    margin-left: 97px;
+}
+.layui-input{
+    color: white;
+}
+.selects1{
+    width: 17%;
+    height: 39px;
+    border: 1px solid white;
+    float: left;
+    border-radius: 5px;
+    color: white;
+}
+.main_footer{
+    width: 97%;
+    height: 620px;
+    margin: 0 auto;
+    background: #0B0B0B;
+    border-radius: 5px;
+}
+.main_footer table th{
+    color: white;
+    border: 1px solid #333333;
+}
+.btn-se{
+    width: 8%;
+    height: 39px;
+    float: right;
+    background: #086CC9;
+    border-radius: 5px;
+}
+.stoppunish{
+    width: 7%;
+    margin-top: 20px;
+    margin-left: 25px;
+    border-radius: 5px;
+}
+#add_area{
+    display: none;
+    position: relative;
+    width:92%;
+    height: 99%;
+    margin: 0 auto;
+    border: 1px solid white;
+    background: #191919;
+    z-index: 99;
+}
+.chufatitle{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.layui-form-label{
+    color: white;
+}
+.layui-input-inline{
+    width: 10%;
+    color: white;
+}
+.btnipmt{
+    width: 14%;
+    text-align: center;
+    line-height: 30px;
+    background: #5b5b5b;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+.punishtable{
+    width: 92%;
+    /* height: 285px; */
+    margin: 0 auto;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+.truebtn{
+    width: 14%;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 25px;
+    margin-left: 100px;
+    border: 0px;
+    background: #443b7c;
+    color: white;
+}
+button{
+    cursor: pointer;
+}
+.chfaannv{
+    width: 10px;
+    height: 10px;
+    border: 1px solid white;
+}
+.falsebtn{
+    width: 14%;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 300px;
+    margin-top: 25px;
+    border: 0px;
+    background: #414141;
+    color: white;
+}
+.hispan{
+    color: white;
+    background: transparent;
+    display: inline-block;
+    width: 40%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-right: 1px solid #bababa;
+}
+#allserver{
+    width: 57%;
+    height: 35px;
+    background: #333333;
+    border: 0px;
+    color: white;
+}
+#allserver2{
+    width: 57%;
+    height: 35px;
+    background: #333333;
+    border: 0px;
+    color: white;
+}
+.chafaspan{
+    color: white;
+
+}
+.cfstarttime{
+    display: inline-block;
+    width: 57%;
+    height: 35px;
+}
+.cfstarttime input{
+    border: 0px;
+    color: white;
+}
+#genggai{
+   width: 80%;
+   height: 88%;
+   margin: 0 auto;
+   border:1px solid white;
+   display: none;
+   margin-top: 20px;
+}
+.chengfaput{
+    margin-top: 21px;
+    width: 50%;
+    margin-left: 20px;
+}
+.layui-table-view .layui-table td{
+    height:auto;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    
+}
+.punish1{
+    position: relative;
+}
+
+.colsed{
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+top: 0px;
+right: 0px;
+color: white;
+line-height: 20px;
+text-align: center;
+}
+#eidt_btn{
+    margin-left: 154px;
+    margin-top: -83px;
+}
+.btndelcl{
+    display: inline-block;
+    border-radius: 5px;
+    border: 0px;
+    height: 34px;
+    width: 89px;
+}
+
+.layui-layer-ico {
+    background: url(icon.png) no-repeat white !important;
+}

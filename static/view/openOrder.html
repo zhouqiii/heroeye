@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>开服指令</title>
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/openOrder.css" />
+		<link rel="stylesheet" href="/js/loading/jquery.mloading.css" />
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner">
+					<div id="inner_head">
+						<span>GM指令</span>
+						<span class="fa fa-angle-right"></span>
+						<span>开服指令</span>
+						<span class="fa fa-angle-double-right"></span>
+					</div>
+					<div class="inner_main">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 37.2%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server" onchange="selects(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group" style="width: 37.2%; float: left;margin-left: 3%;">
+									<span class="times_span">
+										<i class="fa fa-calculator" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="time"></span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<input type="text" id="datatimes" placeholder="请选择开服时间" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content"></div>
+								<div class="right_content"></div>
+							</div>
+						</div>
+						<textarea class="main_right" readonly="readonly"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/loading/jquery.mloading.js"></script>
+	<script src="/js/openOrder.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".300").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".300").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+		}
+	</script>
+
+</html>

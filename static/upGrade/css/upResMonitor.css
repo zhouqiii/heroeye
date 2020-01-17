@@ -1,0 +1,86 @@
+*{margin: 0;padding: 0;}
+.tabnavs li{
+	text-align: center;
+	color: #999999;
+	z-index: 99;
+	cursor: pointer;
+	height: 60px;
+	position: relative;
+}
+.tabnavs li div{
+	position: absolute;
+	top: 25%;
+	bottom: 25%;
+	margin: auto;
+	width: 100%;
+}
+#frequencyCpu{
+	margin-left: 3%;
+}
+.tabnavs li:first-child{
+	border-bottom: 0;
+}
+.inner .inner_main{
+	width: 100%;
+	margin: 0 auto;
+	margin-left: .7%;
+}
+
+.gm_span{
+	color: #999999;
+	background: transparent;
+	display: inline-block;
+	text-align: left;
+	font-size: 14px;
+}
+#server{
+	color: #999999;
+	font-size: 12px;
+	background: transparent;
+	width: 70%;
+	height: 22px;
+	border: 0;
+	line-height: 22px;
+	position: relative;
+	z-index: 100;
+	border: 1px solid #525252;
+}
+#server option{
+background: #262626;
+color: #999999;
+}
+#state{
+float: right;
+color: white;
+display: inline-block;
+height: 40px;
+line-height: 40px;
+background: #a53838;
+width: 10%;
+text-align: center;
+}
+#container,#Memory_container,#hard_container{
+height: 530px;
+}
+.serverName{
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	display: block;
+}
+.contentTitle{
+height: 38px;
+line-height: 38px;
+padding-left: 1.2%;
+	display: flex;
+	justify-content: space-between;
+	padding-top: .5%;
+}
+#titleSelect{
+	color: #ffffff;
+	font-size: 14px;
+}
+#titleAnother{
+	color: #999999;
+	font-size: 12px;
+	margin-left: 4%;
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>发送邮件</title>
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/sendMail.css" />
+		<link rel="stylesheet" href="/js/loading/jquery.mloading.css" />
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner">
+					<div id="inner_head">
+						<span>GM指令</span>
+						<span class="fa fa-angle-right"></span>
+						<span>发送邮件</span>
+						<span class="fa fa-angle-double-right"></span>
+					</div>
+					<div class="inner_main">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>填写信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" id="openSupplement">开启补单</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 37.2%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server" onchange="selects(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content"></div>
+								<div class="right_content"></div>
+							</div>
+						</div>
+						<div class="main_right">
+							<div class="main_right_left">
+								<form action="" class="form_box">
+									<div class="form-group form_time number" style="width: 50%;float: left;display: none;">
+										<span class="gm_span" style="width: 30%;">补单单号</span>
+										<input type="text" id="supplement_number" placeholder="请输入补单单号" style="width: 65%;" />
+									</div>
+									<div class="form-group form_time amount" style="width: 45%;float: right;display: none;">
+										<span class="gm_span" style="width: 46%;">补单充值金额</span>
+										<input type="text" id="supplement_amount" placeholder="请输入补单充值金额" style="width: 49%;" />
+									</div>
+									<div class="form-group form_roleid">
+										<span class="gm_span">角色ID</span>
+										<input type="text" id="roleID" placeholder="请输入角色ID" />
+									</div>
+									<div class="form-group form_time">
+										<span class="gm_span">过期时间</span>
+										<input type="text" id="times" placeholder="请输入过期时间(单位毫秒)" />
+									</div>
+									<div class="form-group form_email">
+										<span class="gm_span">邮件标题</span>
+										<input type="text" id="emailTit" placeholder="请输入邮件标题" />
+									</div>
+									<div class="form-group form_roleid" style="width: 45%;float: left;">
+										<span class="gm_span" style="width: 40%;">一号货币ID</span>
+										<select id="one_currencyID" style="width: 57%;">
+											<option value="">请选择</option>
+											<option value="0">经验值</option>
+									        <option value="1">游戏币</option>
+									        <option value="2">绑定游戏币</option>
+									        <option value="3">宝石</option>
+									        <option value="4">绑定宝石</option>
+									        <option value="5">信仰点数</option>
+									        <option value="6">魔晶</option>
+									        <option value="7">再造点数</option>
+									        <option value="8">兑换分数</option>
+									        <option value="9">灵晶</option>
+									        <option value="10">元素粉末</option>
+									        <option value="11">守护点数</option>
+									        <option value="12">成就点数</option>
+									        <option value="13">声望</option>
+									        <option value="14">祈福点数</option>
+									        <option value="15">战功</option>
+									        <option value="16">荣耀点数</option>
+									        <option value="17">天赋点数</option>
+									        <option value="18">助战值</option>
+									        <option value="19">宝藏寻宝积分</option>
+									        <option value="20">信仰符文分解碎片</option>	
+									        <option value="21">军团仓库积分</option>
+											<option value="22">属性天赋点数</option>
+											<option value="23">世界精粹</option>
+											<option value="24">跨服币</option>
+											<option value="25">红钻</option>
+											<option value="26">神翎之尘</option>
+											<option value="27">跨服天梯荣誉点数</option>
+										</select>
+									</div>
+									<div class="form-group form_time" style="width: 45%;float: right;">
+										<span class="gm_span" style="width: 46%;">一号货币数量</span>
+										<input type="text" id="one_currencyNum" placeholder="请输入一号货币数量" style="width: 49%;" />
+									</div>
+									<div class="form-group form_email" style="width: 45%;float: left;">
+										<span class="gm_span" style="width: 40%;">二号货币ID</span>
+										<select id="two_currencyID" style="width: 57%;">
+											<option value="">请选择</option>
+											<option value="0">经验值</option>
+									        <option value="1">游戏币</option>
+									        <option value="2">绑定游戏币</option>
+									        <option value="3">宝石</option>
+									        <option value="4">绑定宝石</option>
+									        <option value="5">信仰点数</option>
+									        <option value="6">魔晶</option>
+									        <option value="7">再造点数</option>
+									        <option value="8">兑换分数</option>
+									        <option value="9">灵晶</option>
+									        <option value="10">元素粉末</option>
+									        <option value="11">守护点数</option>
+									        <option value="12">成就点数</option>
+									        <option value="13">声望</option>
+									        <option value="14">祈福点数</option>
+									        <option value="15">战功</option>
+									        <option value="16">荣耀点数</option>
+									        <option value="17">天赋点数</option>
+									        <option value="18">助战值</option>
+									        <option value="19">宝藏寻宝积分</option>
+									        <option value="20">信仰符文分解碎片</option>	
+									        <option value="21">军团仓库积分</option>
+											<option value="22">属性天赋点数</option>
+											<option value="23">世界精粹</option>
+											<option value="24">跨服币</option>
+											<option value="25">红钻</option>
+											<option value="26">神翎之尘</option>
+											<option value="27">跨服天梯荣誉点数</option>
+										</select>
+									</div>
+									<div class="form-group form_email" style="width: 45%;float: right;">
+										<span class="gm_span" style="width: 46%;">二号货币数量</span>
+										<input type="text" id="two_currencyNum" placeholder="请输入二号货币数量" style="width: 49%;" />
+									</div>
+									<div class="form-group" style="margin-bottom: 2%;">
+										<span class="gm_span" style="border: 1px solid #bababa;border-bottom: 0;border-radius: 5px 5px 0 0;">邮件内容</span>
+										<textarea id="emailContent"></textarea>
+									</div>
+									<div class="form-group form_roleid" style="width: 35%;float: left;">
+										<span class="gm_span" style="width: 50%;">一号物品ID</span>
+										<input type="text" id="one_goodsID" placeholder="一号物品ID" style="width: 44%;" />
+									</div>
+									<div class="form-group form_time" style="width: 35%;float: left;margin-left: 2%;">
+										<span class="gm_span" style="width: 60%;">一号物品数量</span>
+										<input type="text" id="one_goodsNum" placeholder="一号物品数量" style="width: 32%;" />
+									</div>
+									<div class="form-group form_time" style="width: 25%;float: right;">
+										<span class="gm_span" style="width: 55%;">是否绑定</span>
+										<select id="bind">
+											<option value="1">是</option>
+											<option value="0">否</option>
+										</select>
+									</div>
+									<div class="form-group form_roleid" style="width: 35%;float: left;">
+										<span class="gm_span" style="width: 50%;">二号物品ID</span>
+										<input type="text" id="two_goodsID" placeholder="二号物品ID" style="width: 44%;" />
+									</div>
+									<div class="form-group form_time" style="width: 35%;float: left;margin-left: 2%;">
+										<span class="gm_span" style="width: 60%;">二号物品数量</span>
+										<input type="text" id="two_goodsNum" placeholder="二号物品数量" style="width: 32%;" />
+									</div>
+									<div class="form-group form_time" style="width: 25%;float: right;">
+										<span class="gm_span" style="width: 55%;">是否绑定</span>
+										<select id="two_bind">
+											<option value="1">是</option>
+											<option value="0">否</option>
+										</select>
+									</div>
+									<div class="form-group form_roleid" style="width: 35%;float: left;">
+										<span class="gm_span" style="width: 50%;">三号物品ID</span>
+										<input type="text" id="thr_goodsID" placeholder="三号物品ID" style="width: 44%;" />
+									</div>
+									<div class="form-group form_time" style="width: 35%;float: left;margin-left: 2%;">
+										<span class="gm_span" style="width: 60%;">三号物品数量</span>
+										<input type="text" id="thr_goodsNum" placeholder="三号物品数量" style="width: 32%;" />
+									</div>
+									<div class="form-group form_time" style="width: 25%;float: right;">
+										<span class="gm_span" style="width: 55%;">是否绑定</span>
+										<select id="thr_bind">
+											<option value="1">是</option>
+											<option value="0">否</option>
+										</select>
+									</div>
+									<div class="form-group form_roleid" style="width: 35%;float: left;">
+										<span class="gm_span" style="width: 50%;">四号物品ID</span>
+										<input type="text" id="for_goodsID" placeholder="四号物品ID" style="width: 44%;" />
+									</div>
+									<div class="form-group form_time" style="width: 35%;float: left;margin-left: 2%;">
+										<span class="gm_span" style="width: 60%;">四号物品数量</span>
+										<input type="text" id="for_goodsNum" placeholder="四号物品数量" style="width: 32%;" />
+									</div>
+									<div class="form-group form_time" style="width: 25%;float: right;">
+										<span class="gm_span" style="width: 55%;">是否绑定</span>
+										<select id="for_bind">
+											<option value="1">是</option>
+											<option value="0">否</option>
+										</select>
+									</div>
+									<div class="form-group form_roleid" style="width: 35%;float: left;">
+										<span class="gm_span" style="width: 50%;">五号物品ID</span>
+										<input type="text" id="fiv_goodsID" placeholder="五号物品ID" style="width: 44%;" />
+									</div>
+									<div class="form-group form_time" style="width: 35%;float: left;margin-left: 2%;">
+										<span class="gm_span" style="width: 60%;">五号物品数量</span>
+										<input type="text" id="fiv_goodsNum" placeholder="五号物品数量" style="width: 32%;" />
+									</div>
+									<div class="form-group form_time" style="width: 25%;float: right;">
+										<span class="gm_span" style="width: 55%;">是否绑定</span>
+										<select id="fiv_bind">
+											<option value="1">是</option>
+											<option value="0">否</option>
+										</select>
+									</div>
+								</form>
+							</div>
+						</div>
+						<button type="button" class="layui-btn layui-btn-normal" style="line-height: 34px;height: 34px;margin-top: 1%;" onclick="delet()">清空</button>
+						<textarea class="main_bottom" readonly="readonly"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/loading/jquery.mloading.js"></script>
+	<script src="/js/sendMail.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".305").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".305").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+		}
+	</script>
+
+</html>

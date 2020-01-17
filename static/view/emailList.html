@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>邮件列表</title>
+		<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/emailList.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<style type="text/css">
+			.layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even){
+				background-color: #262626;
+			}
+			.layui-form-radio *{
+				color: white;
+			}
+			.layui-form-select .layui-input{
+				color: white;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #363636;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner" style="padding: 45px 20px 0px 20px;">
+					<div class="header">
+						<span class="area_title">邮件列表</span>
+						<button class="layui-btn layui-btn-normal" id="add">添加邮件</button>
+						<script type="text/html" id="toolbarDemo">
+						  	<div class="layui-btn-container">
+						    	<button class="layui-btn layui-btn-danger" lay-event="delete" style="margin-left: 1%;">批量删除</button>
+						 	</div>
+						</script>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!--新建邮件弹出框-->
+	<div id="add_area">
+		<form class="layui-form" style="padding-bottom: 2%;">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">邮件名称</label>
+				<input type="text" class="layui-input" placeholder="请输入邮件名称最长16位" id="emailid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block radios" style="margin-left: 0;">
+					<label class="layui-form-label" style="color: white;">邮件性质</label>
+					<input type="radio" name="sex" value="0" title="单人邮件" id="singleEmail" style="color: white;" lay-filter = "jiedian" />
+					<input type="radio" name="sex" value="1" title="群发邮件" id="groupEmails" style="color: white;" lay-filter = "jiedian" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">发送时间</label>
+				<input type="text" class="layui-input" id="datatimes" placeholder="请选择发送时间" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item" id="single">
+				<label class="layui-form-label" style="color: white;">收件人</label>
+				<input type="text" class="layui-input" placeholder="请输入收件人名称" id="addname" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item" id="groupEmail" style="display: none;">
+				<label class="layui-form-label" style="color: white;">收件人</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="add_server"></select>
+				</div>
+			</div>
+			<div class="layui-form-item" id="singroupEmail">
+				<label class="layui-form-label" style="color: white;">服务器</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="sinadd_server"></select>
+				</div>
+			</div>
+			<div class="layui-form-item" id="singleId">
+				<label class="layui-form-label" style="color: white;">收件人ID</label>
+				<input type="text" class="layui-input" placeholder="请输入收件人ID" id="addnameId" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">过期时间</label>
+				<input type="text" class="layui-input" placeholder="请输入过期时间" id="Expiration" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">邮件内容</label>
+				<textarea type="text" class="layui-input" placeholder="邮件内容最多500字" id="emailContent" style="width: 70%;background: transparent;color: white;height: 150px;overflow-y: auto;" /></textarea>
+			</div>
+			<div class="layui-form-item" id="addDiv">
+				<label class="layui-form-label" style="color: white;" id="addpro">添加附件</label>
+			</div>
+			<button type="button" class="layui-btn layui-btn-normal" id="sendEmail">发送邮件</button>
+			<button type="button" class="layui-btn layui-btn-normal" id="saveEmail">保存邮件</button>
+			<button type="button" class="layui-btn layui-btn-normal saveTemplate">保存模板</button>
+			<button type="button" class="layui-btn layui-btn-normal" id="loademail">载入模板</button>
+		</form>
+	</div>
+	<!--添加模板名称弹出-->
+	<div id="Template" style="display: none;">
+		<form class="layui-form" style="margin-top: 8%;">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">模板名称</label>
+				<input type="text" class="layui-input" placeholder="请输入模板名称" id="templateNmae" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<!--选择模板弹窗-->
+	<div id="loadTemplate" style="display: none;">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">选择模板</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="selectTemplate"></select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!--邮件内容浏览弹出-->
+	<div id="add_modify" style="display: none;">
+		<form class="layui-form" style="padding-bottom: 2%;">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">邮件名称</label>
+				<input type="text" class="layui-input" placeholder="请输入邮件名称" id="emailidmodify" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block radios" style="margin-left: 0;">
+					<label class="layui-form-label" style="color: white;">邮件性质</label>
+					<input type="radio" name="sex" value="0" title="单人邮件" id="singleEmailmodify" style="color: white;" lay-filter = "sta" />
+					<input type="radio" name="sex" value="1" title="群发邮件" id="groupEmailsmodify" style="color: white;" lay-filter = "sta" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">发送时间</label>
+				<input type="text" class="layui-input" id="datatimesmodify" placeholder="请选择发送时间" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item" id="singlemodify">
+				<label class="layui-form-label" style="color: white;">收件人</label>
+				<input type="text" class="layui-input" placeholder="请输入收件人名称" id="addnamemodify" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item" id="groupEmailmodify" style="display: none;">
+				<label class="layui-form-label" style="color: white;">收件人</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="add_servermodify"></select>
+				</div>
+			</div>
+			<div class="layui-form-item" id="singroupEmailmodify">
+				<label class="layui-form-label" style="color: white;">服务器</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="sinadd_servermodify"></select>
+				</div>
+			</div>
+			<div class="layui-form-item"id="singleIdmodify">
+				<label class="layui-form-label" style="color: white;">收件人ID</label>
+				<input type="text" class="layui-input" placeholder="请输入收件人ID" id="addnameIdmodify" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">过期时间</label>
+				<input type="text" class="layui-input" placeholder="请输入过期时间" id="Expirationmodify" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">邮件内容</label>
+				<textarea type="text" class="layui-input" id="emailContentmodify" style="width: 70%;background: transparent;color: white;height: 150px;overflow-y: auto;" /></textarea>
+			</div>
+			<div class="layui-form-item" id="addDivmodify">
+				<label class="layui-form-label" style="color: white;" id="addpromodify">添加附件</label>
+			</div>
+			<button type="button" class="layui-btn layui-btn-normal" id="sendEmailmodify" style="margin-left: 12%;">编辑邮件</button>
+			<button type="button" class="layui-btn layui-btn-normal" id="saveEmailmodify" style="margin-left: 12%;">再次发送</button>
+			<button type="button" class="layui-btn layui-btn-normal saveTemplate"  style="margin-left: 12%;">保存模板</button>
+		</form>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery.cookie.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/emailList.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".313").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".313").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+			$('.313').click(function(){
+				$('#add_area').hide()
+			})
+		}
+	</script>
+
+</html>

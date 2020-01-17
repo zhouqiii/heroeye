@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>玩家处罚</title>
+    <link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" href="../css/player_punish.css" />
+    <link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+    <div id="navs"></div>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-body">
+            <div class="inner">
+                <div id="inner_head">
+                    <span>GM指令</span>
+                    <span class="fa fa-angle-right"></span>
+                    <span>玩家处罚</span>
+                    <span class="fa fa-angle-double-right"></span>
+                </div>
+                <div class="selects">
+                    <div class="selects1">
+                        <span class="hispan">所在区服</span>
+                        <select name="" id="allserver">
+
+                        </select>
+                    </div>
+                    <div class="selects1" style="margin-left: 40px;">
+                        <span class="hispan">处罚添加时间</span>
+                        <div class="cfstarttime">
+                            <input type="text" placeholder="不限制" class="layui-input" id="test1">
+                        </div>
+                    </div>
+                    <div class="selects1" style="margin-left: 40px;">
+                        <span class="hispan">处罚结束时间</span>
+                        <div class="cfstarttime">
+                            <input type="text" placeholder="不限制" class="layui-input" id="test2">
+                        </div>
+                    </div>
+                    <div class="selects1" style="margin-left: 40px;">
+                        <span class="hispan">处罚项目</span>
+                        <select name="" id="allserver2">
+                            <option value="">全部处罚</option>
+                            <option value="0">禁止登录</option>
+                            <option value="1">踢人下线</option>
+
+                        </select>
+                    </div>
+                    <button type="button" class="layui-btn btn-se" id="query">查询</button>
+                </div>
+                <div class="main_box">
+                    <h5>玩家处罚列表</h5>
+                </div>
+                <!-- 列表 -->
+                <div class="main_footer">
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+                    <div id="add_area">
+                        <form class="layui-form" lay-filer="edit-form">
+                            <div class="chufatitle">
+                                <h5>待处罚列表</h5>
+                            </div>
+                            <div class="layui-form-item">
+                                <!-- 处罚项目 -->
+                                <label class="layui-form-label">处罚项目</label>
+                                <div class="layui-input-inline" style="width:14%">
+                                    <select name="punish" id="punsihint1" lay-verify="required">
+                                        <option value="0">禁止登录</option>
+                                        <option value="1">踢人</option>
+                                    </select>
+                                </div>
+                                <!-- 导入玩家名单 -->
+                                <label class="layui-form-label" style="margin-left:45px; ">玩家名单</label>
+                                <button type="button" class="btnipmt" id="btndaoru" style="color: white; "><i class="layui-icon"></i>导入名单</button>
+
+                            </div>
+                            <!-- 待处罚列表表单 -->
+
+                            <div class="punishtable">
+                                <table id="demo2" lay-filter="test" lay-data="{id: 'idTest'}"></table>
+                                <!-- <script type="text/html" id="toolbarDemo">
+                                </script> -->
+                                <button type="button" id="but-removeBatch" class="btndelcl layui-bnt layui-bnt-danger layui-btn-normal">批量删除</button>
+                                <button type="button" id="but-removepunish" class="btndelcl layui-bnt layui-bnt-danger layui-btn-normal">批量处罚</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <button type="button" class="layui-btn stoppunish" id="punish1" style="background: #7c3b3a;">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    待处罚列表</button>
+                <!-- <button type="button" class="layui-btn stoppunish" style="background: #3a7c59;">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    更改处罚</button>
+                <button type="button" class="layui-btn stoppunish"  lay-event='edit' id="endpunish" style="background: #3a527c;">结束处罚</button> -->
+            </div>
+        </div>
+    </div>
+    <div id="genggai">
+        <form class="layui-form" action="" lay-filter="esit_form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">玩家UID</label>
+                <div class="layui-input-block chengfaput">
+                    <input type="text" name="playerUid" disabled="disabled" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">玩家账号</label>
+                <div class="layui-input-block chengfaput">
+                    <input type="text" name="playerName" disabled="disabled" id="namegai" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">玩家名称</label>
+                <div class="layui-input-block chengfaput">
+                    <input type="text" name="playerNumber" disabled="disabled" id="palygai" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在区服</label>
+                <div class="layui-input-block chengfaput">
+                    <input type="text" name="server" disabled="disabled" id="sergai" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">添加时间</label>
+                <div class="layui-input-block chengfaput">
+                    <input type="text" name="startime" disabled="disabled" id="starttime" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">结束时间</label>
+                <div class="layui-input-block chengfaput">
+                    <input type="text" name="endtime" disabled="disabled" id="endtime" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">处罚内容</label>
+                <div class="layui-input-block chengfaput">
+                    <select name="punish" lay-verify="required" id="xiela"  class="layui-input">
+                        <option value="0">禁止登录</option>
+                        <option value="1">踢人下线</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-top: 20px;">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">更改处罚</button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../js/player_punish.js"></script>
+<script>
+    $("#navs").load("left_Navigation.html")
+    function lo() {
+        $(".311").addClass("layui-this").siblings().removeClass("layui-this")
+        $(".311").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+    }
+</script>
+
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1'//指定元素
+        });
+    });
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test2'//指定元素
+        });
+    });
+</script>
+
+</html>

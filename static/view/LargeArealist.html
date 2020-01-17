@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>大区列表</title>
+		<link rel="stylesheet" href="/layui/css/layui.css" />
+		<link rel="stylesheet" href="/css/LargeArealist.css" />
+		<link rel="stylesheet" href="/js/loading/jquery.mloading.css" />
+		<style type="text/css">
+			.layui-form-select .layui-input{
+				color: white;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #363636;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner" style="padding: 45px 20px 0px 20px;">
+					<div class="header">
+						<span class="area_title">大区列表</span>
+						<button class="layui-btn layui-btn-normal" id="add">添加大区</button>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="add_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">大区ID</label>
+				<input type="text" class="layui-input" placeholder="请输入大区ID" id="add_areaid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">大区名称</label>
+				<input type="text" class="layui-input" placeholder="请输入大区名称" id="add_areaname" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">所属游戏</label>
+				<div class="layui-input-inline" style="width: 70%;background: transparent;color: white;">
+					<select id="addSubordinate_game" style="color: white;"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="add_arearemakers" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">大区ID</label>
+				<input type="text" class="layui-input" placeholder="请输入大区ID" id="modify_areaid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">大区名称</label>
+				<input type="text" class="layui-input" placeholder="请输入大区名称" id="modify_areaname" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">所属游戏</label>
+				<div class="layui-input-inline" style="width: 70%;background: transparent;color: white;">
+					<select id="modifySubordinate_game" style="color: white;"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="modify_arearemakers" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<script src="/layui/layui.js"></script>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/loading/jquery.mloading.js"></script>
+	<script src="/js/LargeArealist.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".201").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".201").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+	</script>
+
+</html>

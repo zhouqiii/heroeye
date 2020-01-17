@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>服务器预警</title>
+    <link rel="stylesheet" href="/css/ServerWarning.css" />
+    <link rel="stylesheet" href="/css/tableFilter.css" />
+    <link rel="stylesheet" href="/css/ServerOverviewAndMonitor.css" />
+    <link rel="stylesheet" href="/js/loading/jquery.mloading.css" />
+    <style type="text/css">
+        .layui-table{
+            background-color: #262626;
+            color: #C0C0C0;
+        }
+        .layui-table-filter-view{
+            color: #C0C0C0;
+            background: #363636;
+            border: 1px solid #5d5757;
+        }
+        .layui-table-filter-box ul{
+            border: 1px solid #5d5757;
+        }
+        .layui-form-select .layui-input{
+            color: white;
+        }
+        .inner {
+            /*position: absolute;*/
+            height:827px;
+            /*left: 0px;*/
+            /*right: 0;*/
+            /*top: 50px;*/
+            /*bottom: 0;*/
+            /*z-index: 998;*/
+            /*width: auto;*/
+            /*overflow: hidden;*/
+            /*overflow-y: auto;*/
+            /*box-sizing: border-box;*/
+            /*padding-bottom:10% !important;*/
+        }
+        .layui-table-tool{
+            background-color: #202020 !important;
+        }
+        .layui-table th {
+            position: relative;
+            padding: 9px 15px;
+            min-height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            background: #121212 !important;
+            color: #333132;
+            font-weight: bold;
+        }
+        /*.layui-table>tbody{*/
+
+        /*    background: red !important;*/
+        /*}*/
+        .layui-table {
+            background-color: #202020 !important;
+            color: #ffffff;
+        }
+        table {
+            display: table;
+            border-collapse: separate;
+            border-spacing: 2px;
+            border-color: grey;
+        }
+
+    </style>
+</head>
+<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+<div id="navs"></div>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-body">
+        <button class="layui-btn layui-btn-normal" id="add" style=" width:103px;height:28px;margin-left: 20px; margin-top: 15px;line-height: 1px;cursor: pointer;">添加</button>
+        <div class="inner" style="padding: 10px 20px 0px 20px;">
+            <div class="main" id="main" style="height: 100% !important; border:1px solid rgba(112,112,112,1);">
+                <table id="datatable" lay-filter="test" ></table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<div id="modify_area">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 70px;color: white;">姓名</label>
+            <input type="text" class="layui-input" placeholder="请输入姓名" id="modify_serverid" style="width: 70%;color: white;" />
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 70px;color: white;">手机号</label>
+            <input type="text" class="layui-input" placeholder="请输入手机号" id="modify_servername" style="width: 70%;color: white;" />
+        </div>
+    </form>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/loading/jquery.mloading.js"></script>
+<script src="/js/ServerWarning.js"></script>
+<script>
+    $("#navs").load("left_Navigation.html")
+    function lo() {
+        $(".603").addClass("layui-this").siblings().removeClass("layui-this")
+        $(".603").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+    }
+</script>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>角色查询</title>
+	<link rel="stylesheet" href="/layui/css/layui.css" />
+	<link rel="stylesheet" href="../upGrade/css/upRoleQuery.css" />
+	<link rel="stylesheet" href="/js/loading/jquery.mloading.css" />
+</head>
+
+<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+	<div id="navs"></div>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-body" style="margin: 1% 1.2% 1% 1%">
+			<div class="topTool">
+				<form>
+					<div class="form-group" style="width: 14%;float: left;">
+								<span class="serve_span">
+									<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+									<span class="logs">单区多服</span>
+									<i class="fa fa-caret-down"
+									   style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+								</span>
+						<select id="server" onchange="selects(this);servers()">
+							<option value="2">单区多服</option>
+							<option value="0">全区全服</option>
+						</select>
+					</div>
+					<div class="form-group" style="width: 20%; float: left;">
+						<input type="text" id="account" placeholder="请输入玩家名称" />
+					</div>
+					<div class="form-group" style="width: 5%; float: left;margin-top: 1%">
+						<button type="button"  id="sendOut" onclick="postsend()">发送</button>
+					</div>
+				</form>
+			</div>
+			<div class="serverPage">
+				<div class="area">
+					<div class="box_right">
+						<span class="fa fa-list-ul" style="margin-left: 3%;"></span>
+						<span>大区列表</span>
+					</div>
+					<div class="left_content"></div>
+				</div>
+				<div class="server">
+					<div class="boxleft" >
+						<span class="fa fa-bars" style="margin-left: 3%;"></span>
+						<span>服务器列表</span>
+					</div>
+					<div class="right_content"></div>
+				</div>
+			</div>
+			<div class="filePage">
+				<div class="fileTool" >
+					<div style="width: 25%">
+						<span class="fa fa-pencil-square-o"></span>
+						<span>反馈信息</span>
+					</div>
+				</div>
+				<div class="main_right" readonly="readonly">
+					<form class="layui-form"  lay-filter="esit_form" style="display: flex;flex-direction: column">
+						<!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+						<div style="display: flex;margin-top: 1%">
+							<div style="width: 32%">
+								<label class="layui-form-label">玩家UID</label>
+								<div class="layui-input-block">
+									<input type="text" name="userUid" id="pui" disabled="disabled">
+								</div>
+							</div>
+							<div style="width: 32%">
+								<label class="layui-form-label">玩家名称</label>
+								<div class="layui-input-block">
+									<input type="text" name="playerName" id="pname" disabled="disabled">
+								</div>
+							</div>
+							<div style="width: 32%">
+								<label class="layui-form-label">玩家账号</label>
+								<div class="layui-input-block">
+									<input type="text" name="playerAccount" id="pacc" disabled="disabled">
+								</div>
+							</div>
+						</div>
+						<div style="display: flex;margin-top: 1%">
+							<div style="width: 32%">
+								<label class="layui-form-label">玩家等级</label>
+								<div class="layui-input-block">
+									<input type="text" name="playerLevel" id="pleve" disabled="disabled">
+								</div>
+							</div>
+							<div style="width: 32%">
+								<label class="layui-form-label">注册时间</label>
+								<div class="layui-input-block">
+									<input type="text" name="registerTime" id="pti" disabled="disabled">
+								</div>
+							</div>
+							<div style="width: 32%">
+								<label class="layui-form-label">所在区服</label>
+								<div class="layui-input-block">
+									<input type="text" name="areaServer" id="paer" disabled="disabled">
+								</div>
+							</div>
+						</div>
+						<div style="display: flex;margin-top:1%">
+							<div style="width: 32%">
+								<label class="layui-form-label">是否在线</label>
+								<div class="layui-input-block">
+									<input type="text" name="onLine" id="plin" disabled="disabled">
+									<!-- <select name="onLine" id="plin" disabled="disabled">
+											<option value=""></option>
+										<option value="0">不在线</option>
+										<option value="1">在线</option>
+									</select> -->
+								</div>
+							</div>
+							<div style="width: 32%">
+								<label class="layui-form-label">处理状态</label>
+								<div class="layui-input-block">
+									<input type="text" id="chuli" disabled="disabled">
+								</div>
+							</div>
+						</div>
+						<div style="margin-top: 8%">
+							<div>
+								<div style="margin-left: 1.5%">
+									<button id="add-punish-btn" onclick="addpunishdd()" type="button">加入处罚</button>
+									<button id="add-addemail-btn" onclick="addemaillist()" type="button">加入邮件</button>
+
+								</div>
+							</div>
+						</div>
+						<!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+					</form>
+				</div>
+			</div>
+			<!--<div class="inner">-->
+				<!--<div id="inner_head">-->
+					<!--<span>GM指令</span>-->
+					<!--<span class="fa fa-angle-right"></span>-->
+					<!--<span>角色查询</span>-->
+					<!--<span class="fa fa-angle-double-right"></span>-->
+				<!--</div>-->
+				<!--<div class="inner_main">-->
+					<!--<div class="main_box">-->
+						<!--<div class="box_left">-->
+							<!--<span class="fa fa-list-ul" style="margin-left: 15px;"></span>-->
+							<!--<span>区服列表</span>-->
+						<!--</div>-->
+						<!--<div class="box_right">-->
+							<!--<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>-->
+							<!--<span>反馈信息</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="main_left">-->
+						<!--<div class="left_bottom">-->
+							<!--<div class="top">-->
+								<!--<span class="top_area">请选择大区</span>-->
+								<!--<span class="top_server">请选择服务器</span>-->
+							<!--</div>-->
+							<!--<div class="left_content"></div>-->
+							<!--<div class="right_content"></div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="main_right" readonly="readonly">-->
+						<!--&lt;!&ndash;<form class="layui-form"  lay-filter="esit_form">&ndash;&gt;-->
+							<!--&lt;!&ndash;&lt;!&ndash; 提示：如果你不想用form，你可以换成div等任何一个普通元素 &ndash;&gt;&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">玩家UID</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" name="userUid" id="pui" disabled="disabled" class="layui-input">&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">玩家名称</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" name="playerName" id="pname" disabled="disabled" class="layui-input">&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">玩家账号</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" name="playerAccount" id="pacc" disabled="disabled" class="layui-input">&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+									<!--&lt;!&ndash;<label class="layui-form-label">玩家等级</label>&ndash;&gt;-->
+									<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+										<!--&lt;!&ndash;<input type="text" name="playerLevel" id="pleve" disabled="disabled" class="layui-input">&ndash;&gt;-->
+									<!--&lt;!&ndash;</div>&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">注册时间</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" name="registerTime" id="pti" disabled="disabled" class="layui-input">&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">所在区服</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" name="areaServer" id="paer" disabled="disabled" class="layui-input">&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">是否在线</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" name="onLine" id="plin" disabled="disabled" class="layui-input">&ndash;&gt;-->
+									<!--&lt;!&ndash;&lt;!&ndash; <select name="onLine" id="plin" disabled="disabled">&ndash;&gt;-->
+											<!--&lt;!&ndash;<option value=""></option>&ndash;&gt;-->
+										<!--&lt;!&ndash;<option value="0">不在线</option>&ndash;&gt;-->
+										<!--&lt;!&ndash;<option value="1">在线</option>&ndash;&gt;-->
+									<!--&lt;!&ndash;</select> &ndash;&gt;&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<label class="layui-form-label">处理状态</label>&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<input type="text" id="chuli" disabled="disabled" class="layui-input">&ndash;&gt;-->
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+
+							<!--&lt;!&ndash;<div class="layui-form-item">&ndash;&gt;-->
+								<!--&lt;!&ndash;<div class="layui-input-block">&ndash;&gt;-->
+									<!--&lt;!&ndash;<button class="layui-btn" id="add-punish-btn" onclick="addpunishdd()" type="button">加入处罚</button>&ndash;&gt;-->
+									<!--&lt;!&ndash;<button class="layui-btn" id="add-addemail-btn" onclick="addemaillist()" type="button">加入邮件</button>&ndash;&gt;-->
+
+								<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;</div>&ndash;&gt;-->
+							<!--&lt;!&ndash;&lt;!&ndash; 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 &ndash;&gt;&ndash;&gt;-->
+						<!--&lt;!&ndash;</form>&ndash;&gt;-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		</div>
+	</div>
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="/js/loading/jquery.mloading.js"></script>
+<script src="../upGrade/js/upRoleQuery.js"></script>
+<script>
+	$("#navs").load("../upGrade/upNavigition.html")
+	function lo() {
+		$(".308").addClass("layui-this").siblings().removeClass("layui-this")
+		$(".308").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+	}
+	function servers() {
+		var c = $("#server").find("option:selected").text();
+		$(".logs").text(c)
+	}
+</script>
+
+</html>
