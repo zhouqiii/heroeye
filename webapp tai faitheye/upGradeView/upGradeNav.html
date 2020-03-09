@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.css" />
+        	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            margin: 0 auto;
+            background-color:#f3f3f4;
+        }
+        .left{
+            min-width: 170px ;
+            width: 10.5%;
+            height: 100%;
+            background:#121212 ;
+            position: fixed;
+            margin-top: 59px;
+        }
+        .nav{
+            width: 100%;
+        }
+        .right{
+            width: 89.5%;
+            float:right;
+            background: #363636;
+        }
+        .el-submenu .el-menu-item{
+            min-width: auto !important;
+        }
+        .el-menu-item.is-active{
+            background-color: #242424 !important;
+            color: #ffffff !important;
+        }
+        .el-menu-item:hover{
+            background-color:  #242424 !important;
+        }
+        .el-submenu__title:hover{
+            background-color:  #242424 !important;
+        }
+        .el-submenu.is-active.is-opened{
+            background-color: #363636 !important;
+        }
+        .el-menu.el-menu--inline{
+            background-color: #363636 !important;
+        }
+        a{
+            text-decoration:none;
+            color:white !important;
+        }
+        a:hover{
+            text-decoration:none;
+        }
+        .el-menu-item-group__title{
+            display: none;
+        }
+        .topTag{
+            color: #fff;
+            height: 60px;
+            line-height: 60px;
+            font-size: 20px;
+            font-weight: 300;
+            background:#121212 ;
+            padding-left: 2%;
+        }
+        .cancelbtn{
+            line-height: 32px;
+            font-size: 14px;
+            height: 32px;
+            border-radius: 22px;
+            text-align: center;
+            width: 150px;
+            float:right;
+        }
+        .el-menu{
+            border:none !important;
+        }
+        .laydate-btns-clear,.laydate-btns-confirm{
+            color:white;
+        }
+        .layui-laydate-content td.laydate-selected{
+            background:#4a2cf8 !important;
+        }
+        /*.layui-laydate-main {*/
+        /*width: 240px !important;*/
+        /*}*/
+        /*.layui-laydate-range {*/
+        /*width: 485px !important;*/
+        /*}*/
+        .highcharts-root{
+            padding-left:20px !important;
+            padding-right:40px !important;
+        }
+        .layui-nav .layui-nav-item a{
+            padding: 0 !important;
+        }
+        .layui-nav{
+            background-color: #121212 !important;
+            width: 200px;
+            padding: 0 !important;
+        }
+        .layui-nav-item{
+            position: fixed;
+        }
+        .layui-nav .layui-nav-more {
+            top:65% !important;
+        }
+        .layui-nav-bar{
+            background-color: #121212 !important;
+        }
+        .layui-nav-child{
+
+            min-width: 80% !important;
+            border-radius: 4px !important;
+        }
+        .triangle-up {
+            position: absolute;
+            left: 40%;
+            top: -17%;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 10px solid white;
+        }
+        .exitIn:hover .kkk{
+            color:#000 !important;
+        }
+        @media screen and (max-width: 1385px) {
+            .topTag{
+                font-size:18px;
+            }
+
+        }
+        .left{
+
+            height:100%;
+            overflow-y:auto;
+            padding-bottom:10%;
+        }
+        .left::-webkit-scrollbar{
+            display: none;
+        }
+        .el-submenu.is-active.is-opened>.el-submenu__title>.fa{
+				color:#ffffff;
+		}
+		.layui-nav .layui-nav-item a:hover{
+			background:inherit;
+		}
+		.layui-nav-child dd.layui-this{
+			background-color:inherit;
+		}
+		.layui-nav-child{
+			line-height:23px;
+			min-width:auto !important;
+		}
+		.layui-nav .layui-nav-item dd a {
+    color:#2953FF  !important;
+}
+.layui-nav .layui-nav-item dd a:hover {
+        color: #000 !important;
+}
+    </style>
+</head>
+	<body style="background: #363636">
+<div class="content">
+    <div style="width: 100%;position: fixed; height: 60px;line-height: 60px;z-index:10000;max-height:60px;background: #121212;">
+        <div class="topTag" style="width: 26%;float:left;min-width:170px;">
+            <img src="../img/faith.png" onclick="backtoIndex()" style="cursor: pointer" >
+        </div>
+        <div style="float: right;margin-right: 3.5%;height: 75px;width: 120px;" id="changett" onmouseover="fun()" onmouseout="functionout()">
+            <ul class="layui-nav" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0);" class="cancelbtn" style="margin-top: 12px;margin-right: -10%;text-decoration:none;" id="quit" >
+                        <img src="../img/联系人.png" style="margin-bottom: 8px;width: 16px">
+                        <span id="nameShow" style="font-size: 13px;color: white;margin-left: 10px;">admin</span>
+                        <span class="layui-nav-more" id="tabtabs"></span>
+                    </a>
+                    <dl class="layui-nav-child" style="display: none;margin-left:23%;padding-left:14%;padding-right:15%;margin-top: -2%;" id="alwaysChange"> 
+                        <div class="triangle-up"></div>
+                        <dd class="ddAlert" style="margin:3% 0">
+                            <a href="javascript:void(0)" class="exitIn" onclick="toFaithLog()" style="text-decoration:none;" onmouseover="document.images['heroeye'].src='../img/shuju.png'"
+                               onmouseout="document.images['heroeye'].src='../img/shuju.png'">
+                                <img alt="heroeye" id="heroeye" src="../img/shuju.png" style="vertical-align: sub;height: 19px;" />
+                                <span style="margin-left: 5px;font-size: 14px;color:#2953FF;opacity: .8;" class="kkk">数据平台</span>
+                            </a>
+                        </dd>
+                        <dd class="ddAlert" style="margin:10% 0 1% 0">
+                           <a href="javascript:void(0)" class="exitIn"  style="text-decoration:none;">
+                               <img alt="arrow" id="arrow" src="../img/userH.png" style="vertical-align: sub;height: 19px;" />
+                               <span style="margin-left: 5px;font-size: 14px;color:#2953FF;opacity: .8;" class="kkk">退出登录</span>
+                           </a>
+                      	</dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <!--  -->
+        <div style="float: right;margin-right: 2%;height: 75px;width: 120px;" id="adress" onmouseover="fun2()" onmouseout="functionout2()">
+            <ul class="layui-nav" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0);" class="cancelbtn" style="margin-top: 12px;margin-right: -10%;text-decoration:none;" id="" >
+                        <img src="../img/adress.png">
+                        地区
+                        <span class="layui-nav-more" id="tabtabs2" style="right: 15px;"></span>
+                    </a>
+                    <dl class="layui-nav-child" style="display: none;margin-left:20%;padding-left:0;margin-top: -2%;text-align: center;left: 7px;width: 82px;margin-left: 32% !important;min-width: 50% !important;"> <!-- 二级菜单 -->
+                        <div class="triangle-up"></div>
+                        <dd style="padding-bottom: 10px">
+                            <a class="didian" href="http://150.109.235.95:8080/centralOperations/view/ServerOverviewAndMonitor.html">韩服</a>
+                        </dd>
+                        <dd>
+                            <a class="didian" href="http://150.109.167.142:9120/centralOperations/view/upServeOverview.html">泰服</a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="left" style="z-index:10000">
+        <el-row class="tac" >
+            <el-col class="nav">
+                <el-menu :default-active="defaultActive" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" background-color="#121212" text-color="#fff" active-text-color="#242424" unique-opened="true">
+                    <el-submenu index="1">
+                        <template slot="title">
+                           <img src="../img/游戏服务器.png">
+							<span>游戏服务器</span>
+                        </template>
+                        <el-menu-item-group>
+							<div onclick="upServeOverview()"><el-menu-item index="1-1">服务器总览</el-menu-item></div>
+							<div onclick="upServeUpgrade()"><el-menu-item index="1-2" @click="upServeUpgrade()">服务器更新</el-menu-item></div>
+							<!-- <el-menu-item index="1-3" @click="serverCaveat()">服务器预警</el-menu-item> -->
+						</el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="2" >
+						<template slot="title">
+							<img src="../img/曲服管理.png">
+							<span>区服管理</span>
+						</template>
+							<el-menu-item-group>
+	 							<div  onclick="upGameList()"><el-menu-item index="2-1">游戏列表</el-menu-item></div>
+	 							<div  onclick="upLargeArealist()"><el-menu-item index="2-2">大区列表</el-menu-item></div>
+	 							<div  onclick="upServerList()"><el-menu-item index="2-3">服务器列表</el-menu-item></div>
+	 						</el-menu-item-group>
+ 					</el-submenu>
+ 					<el-submenu index="4">
+ 						<template slot="title">
+ 							<img src="../img/资源监控.png">
+ 							<span>资源监控</span>
+ 						</template>
+ 						<el-menu-item-group>
+ 							<div onclick="upResourceMonitoring()"><el-menu-item index="4-1">资源监控</el-menu-item></div>
+ 						</el-menu-item-group>
+ 					</el-submenu>
+ 					<el-submenu index="5">
+ 						<template slot="title">
+ 							<img src="../img/系统.png">
+ 							<span>系统</span>
+ 						</template>
+ 						<el-menu-item-group>
+ 							<div onclick="upOperational()"><el-menu-item index="5-1">服务器操作记录</el-menu-item></div>
+ 						</el-menu-item-group>
+ 					</el-submenu>
+ 					 <el-submenu index="6" >
+						<template slot="title">
+							<img src="../img/GM指令.png">
+ 							<span>GM指令</span>
+						</template>
+							<el-menu-item-group>
+	 							<div onclick="openOrder()"><el-menu-item index="6-1" >开服指令</el-menu-item></div>
+	 							<div onclick="forbiddenWords()"><el-menu-item index="6-2" >禁言指令</el-menu-item></div>
+	 							<div onclick="numberDirective()"><el-menu-item index="6-3" >封号指令</el-menu-item></div>
+	 							<div onclick="sendMail()"><el-menu-item index="6-4" >发送邮件</el-menu-item></div>
+	 							<div onclick="Replenishment()"><el-menu-item index="6-8" >发送补单</el-menu-item></div>
+	 							<div onclick="commonCommand()"><el-menu-item index="6-5" >通用命令</el-menu-item></div>
+	 							<div onclick="custom()"><el-menu-item index="6-6" >自定义指令</el-menu-item></div>
+	 							<div onclick="SendBulletin()"><el-menu-item index="6-7" >发送公告</el-menu-item></div>
+	 						</el-menu-item-group>
+ 					</el-submenu>
+ 					 <el-submenu index="7" >
+						<template slot="title">
+							<img src="../img/活动管理.png">
+ 							<span>活动管理</span>
+						</template>
+							<el-menu-item-group>
+	 							<div onclick="activity()"><el-menu-item index="7-1">活动</el-menu-item></div>
+	 							<div onclick="Cloudbuy()"><el-menu-item index="7-2">云购</el-menu-item></div>
+	 						</el-menu-item-group>
+ 					</el-submenu>
+ 					<el-submenu index="8" >
+						<template slot="title">
+							<img src="../img/自动化.png">
+ 							<span>自动化</span>
+						</template>
+							<el-menu-item-group>
+	 							<div onclick="mergeServer()"><el-menu-item index="8-1" >合服</el-menu-item></div>
+	 							<div onclick="DBoperations()"><el-menu-item index="8-2" >SQL升级</el-menu-item></div>
+	 							<!-- <el-menu-item index="8-3" @click="AutomaticUpload()">自动化上传</el-menu-item> -->
+	 							<div onclick="Automaticdown()"><el-menu-item index="8-4" >自动化下载</el-menu-item></div>
+	 							<div onclick="AutoManage()"><el-menu-item index="8-5" >自动化管理</el-menu-item></div>
+	 						</el-menu-item-group>
+ 					</el-submenu>
+                </el-menu>
+            </el-col>
+        </el-row>
+    </div>
+    <div class="right">
+    </div>
+</div>
+</body>
+</html>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+<script src="../js/cookie.js"></script>
+
+<script>
+var vm=new Vue({
+    el:'.content',
+    data:{
+        msg:'hello',
+        defaultActive:'1-1',
+    },
+    methods: {
+        handleOpen(key, keyPath) {
+            // console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+          
+        },
+       
+    }
+})
+
+function functionout() {
+    var ppp=document.getElementById('tabtabs')
+    ppp.className='layui-nav-more'
+    $('#changett .layui-nav-child').css('display','none')
+}
+function fun() {
+    var ppp=document.getElementById('tabtabs')
+    ppp.className='layui-nav-more layui-nav-mored'
+    $('#changett .layui-nav-child').css('display','block')
+}
+function functionout2() {
+    var ppp=document.getElementById('tabtabs2')
+    ppp.className='layui-nav-more'
+    $('#adress .layui-nav-child').css('display','none')
+}
+function fun2() {
+    var ppp=document.getElementById('tabtabs2')
+    ppp.className='layui-nav-more layui-nav-mored'
+    $('#adress .layui-nav-child').css('display','block')
+}
+function backtoIndex(){
+    window.location.href = "http://center.umi-game.cn/view/consoleLogin.html";
+}
+function toFaithLog(){
+	window.location.href = "http://150.109.167.142:9110/haddup/haddupOverview.html";
+}
+function upServeOverview(){
+    window.location.href = "upServeOverview.html";
+}
+function upServeUpgrade(){
+    window.location.href = "upServeUpgrade.html";
+}
+function serverCaveat(){
+    window.location.href = "upServerWarning.html";
+}
+function upGameList(){
+    window.location.href = "upGameList.html";
+}
+function upLargeArealist(){
+    window.location.href = "upLargeArealist.html";
+}
+function upServerList(){
+    window.location.href = "upServerList.html";
+}
+function upSendBulletin(){
+    window.location.href = "upSendBulletin.html";
+}
+function upSendMail(){
+    window.location.href = "upSendMail.html";
+}
+function upResourceMonitoring(){
+    window.location.href = "upResourceMonitoring.html";
+}
+function upOperational(){
+    window.location.href = "upOperational.html";
+}
+function openOrder(){
+    window.location.href = "upOpenOrder.html";
+}
+function forbiddenWords(){
+    window.location.href = "upForbiddenWords.html";
+}
+function numberDirective(){
+    window.location.href = "upNumberDirective.html";
+}
+function sendMail(){
+    window.location.href = "upSendEmail.html";
+}
+function commonCommand(){
+    window.location.href = "upCommonCommand.html";
+}
+function custom(){
+    window.location.href = "upCustom.html";
+}
+function SendBulletin(){
+    window.location.href = "upSendBulletin.html";
+}
+function Replenishment(){
+    window.location.href = "upReplenishment.html";
+}
+function mergeServer(){
+    window.location.href = "mergeServer.html";
+}
+function DBoperations(){
+    window.location.href = "DBoperations.html";
+}
+function AutomaticUpload(){
+    window.location.href = "AutomaticUpload.html";
+}
+function Automaticdown(){
+    window.location.href = "Automaticdown.html";
+}
+function AutoManage(){
+    window.location.href = "AutoManage.html";
+}
+function activity(){
+    window.location.href = "upActivity.html";
+}
+function Cloudbuy(){
+    window.location.href = "upCloudbuy.html";
+}
+var navigationDate=localStorage.getItem('navigation')
+if(navigationDate){
+    vm.defaultActive = navigationDate
+}
+
+</script>

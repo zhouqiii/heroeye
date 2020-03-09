@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>自动化执行</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../css/DBoperations.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<style>
+			.layui-colla-title {
+    			background-color: transparent !important;
+    			color: #fff !important;
+			}
+			.layui-colla-content {
+				overflow: auto;
+			}
+			.layui-colla-content p {
+				padding-left: 7px;
+				color: #ccc;
+			}
+			.layui-colla-item {
+				border-color: transparent !important;
+			}
+			.layui-collapse {
+				border:0;
+			}
+			.layui-layer-setwin .layui-layer-close1 {
+    			background-position: -67px -7px !important;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner">
+					<div id="inner_head">
+						<span>自动化</span>
+						<span class="fa fa-angle-right"></span>
+						<span>自动化执行</span>
+						<span class="fa fa-angle-double-right"></span>
+					</div>
+					<div class="inner_main">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>所有服务器</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 32px;"></span>
+								<span>操作区域</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="upload()">执行</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<input type="checkbox" class="checkall" onclick="checkall(this)"><span>全选/全不选</span>
+						</div>
+						<div class="main_right" >
+							<div class="main_top">
+								<div class="file_area">
+									<div style="margin-bottom:10px;">
+										<label>校验MD5</label>
+										<input type="text" class="md5" placeholder="请输入校验的MD5码">
+										<button type="button" class="layui-btn" onclick="decompression()" style="height: 30px;line-height: 30px;margin-left: 40px;">解压</button>
+										<button type="button" class="layui-btn" onclick="md5Check()" style="height: 30px;line-height: 30px;">MD5</button>
+									</div>
+									<span>文件名</span>
+									<div class="fileName">
+										<div class="layui-collapse" lay-accordion=""></div>
+									</div>
+								</div>
+								<div class="file_upload">
+									<div style="margin-top: 20px;margin-bottom:18px;">文件的执行路径</div>
+									<span style='margin-right: 21px;margin-left:12px;'>数据库名称</span>
+									<!-- <input class='saveRoute' style='margin-right:34%;margin-bottom: 12px;' type='text' placeholder="请输入数据库名称"> -->
+									<select class='saveRoute' style="width:34%;height:30px;background:transparent;color:#fff;padding-left:8px;">
+										<option>game</option>
+										<option>log</option>
+									</select>
+								</div>
+							</div>
+							<div class="main_bottom">
+								<div style="background-color:#121212;height: 45px;line-height: 40px;">
+									<span class="fa fa-list-ul" style="margin-left: 15px;"></span>反馈信息
+									<button type="button" class="layui-btn feedback-btn" style="width:86px;height:45px;float:right;">暂无反馈</button></div>
+								<div class="feedback"></div>
+							</div>
+						</div>
+					</div>
+					<div class="confirm_area" style="display:none;width: 165px;height: 50px;line-height: 50px;text-align: center;position: fixed;left: 53%;top: 41%;color: #fff;background: rgba(0,0,0,.8);">
+						请选择至少一个服务器
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/DBoperations.js"></script>
+	<script>
+	localStorage.setItem('navigation','8-2')
+		/* $("#navs").load("left_Navigation.html") */
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo(){
+			$(".701").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".701").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		} 
+		 layui.use(['element', 'form'], function() {
+			var element = layui.element;
+			element.init();
+			element.render();
+		}); 
+		layui.config({
+			  //dir: '../layui/layui.js' //layui.js 所在路径（注意，如果是script单独引入layui.js，无需设定该参数。），一般情况下可以无视
+			  version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
+			  ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
+			  ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
+			});  
+			
+	</script>
+
+</html>

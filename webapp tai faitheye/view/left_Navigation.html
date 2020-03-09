@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>页面导航</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.css" />
+		<style type="text/css">
+			.layui-bg-black,.layui-nav-item{
+				background-color: #121212 !important;
+			}
+			.layui-nav-tree .layui-nav-item a:hover{
+				background-color: #2577ff !important;
+			}
+			.layui-nav-tree .layui-nav-child dd.layui-this, 
+			.layui-nav-tree .layui-nav-child dd.layui-this a,
+			.layui-nav-tree .layui-this, 
+			.layui-nav-tree .layui-this>a, 
+			.layui-nav-tree .layui-this>a:hover{
+				background-color: #2577ff;
+				color: white;
+			}
+			.layui-nav .layui-nav-item .layui-nav-child a{
+				padding: 0 47px;
+			}
+			.layui-nav-tree .layui-nav-item a{
+				text-decoration: none;
+			}
+			.jumptab{
+				color:#298af3;
+				float: right;
+    			margin-right: 3%;
+    			margin-top: 1%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-header header header-demo" spring style="background: #121212;">
+				<div class="layui-main">
+					<a class="logo" href="javascript:void(0)" style="position: absolute;top: 12px;">
+						<img src="../img/nav-logo.png" alt="layui">
+					</a>
+				</div>
+			</div>
+			<div class="layui-side layui-bg-black">
+				<div class="layui-side-scroll">
+					<ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="test">
+						<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+						<li class="layui-nav-item layui-nav-itemed">
+							<a href="javascript:;">
+								<i class="fa fa-fw fa-pie-chart"></i>&nbsp;&nbsp;游戏服务器
+								<span class="layui-nav-more"></span> 
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="100">
+									<a href="ServerOverviewAndMonitor.html">服务器总览</a>
+								</dd>
+								 <dd class="101">
+									<a href="serverUpdates.html">服务器更新</a>
+								</dd>
+							</dl>
+						</li>
+						
+						<li class="layui-nav-item">
+							<a href="javascript:;">
+								<i class="fa fa-fw fa-file-text-o"></i>&nbsp;&nbsp;区服管理
+								<span class="layui-nav-more"></span>
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="200">
+									<a href="GameList.html">游戏列表</a>
+								</dd>
+								<dd class="201">
+									<a href="LargeArealist.html">大区列表</a>
+								</dd>
+								<dd class="202">
+									<a href="serverList.html">服务器列表</a>
+								</dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item">
+							<a href="javascript:;">
+								<i class="fa fa-cogs"></i>&nbsp;&nbsp;GM指令
+								<span class="layui-nav-more"></span>  
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="300">
+									<a href="openOrder.html">开服指令</a>
+								</dd>
+								<!--<dd class="301">
+									<a href="entryInstructions.html">登录指令</a>
+								</dd>-->
+								<dd class="303">
+									<a href="forbiddenWords.html">禁言指令</a>
+								</dd>
+								<dd class="304">
+									<a href="numberDirective.html">封号指令</a>
+								</dd>
+								<dd class="305">
+									<a href="sendMail.html">发送邮件</a>
+								</dd>
+								<dd class="306">
+									<a href="commonCommand.html">通用命令</a>
+								</dd>
+								<dd class="302">
+									<a href="custom.html">自定义指令</a>
+								</dd>
+								<dd class="307">
+									<a href=" SendBulletin.html">发送公告</a>
+								</dd>
+								<dd class="308">
+									<a href="mergeServer.html">合服</a>
+								</dd>
+								<!-- <dd class="309">
+									<a href="DBoperations.html">数据库</a>
+								</dd> -->
+								<!-- <dd class="310">
+									<a href="AutomaticUpload.html">自动化上传</a>
+								</dd> -->
+							</dl>
+						</li>
+						<li class="layui-nav-item">
+							<a href="javascript:;">
+								<i class="fa fa-fw fa-modx"></i>&nbsp;&nbsp;资源监控
+								<span class="layui-nav-more"></span>
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="400">
+									<a href="resourceMonitoring.html">资源监控</a>
+								</dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item">
+							<a href="javascript:;">
+								<i class="fa fa-fw fa-android"></i>&nbsp;&nbsp;系统
+								<span class="layui-nav-more"></span>  
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="500">
+									<a href="Operational.html" class="user_management">服务器操作记录</a>
+								</dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item">
+							<a href="javascript:;">
+								<i class="fa fa-fw fa-android"></i>&nbsp;&nbsp;活动管理
+								<span class="layui-nav-more"></span> 
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="600">
+									<a href="activity.html" class="user_management">活动</a>
+								</dd>
+								<dd class="601">
+									<a href="Cloudbuy.html" class="user_management">云购</a>
+								</dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item">
+							<a href="javascript:;">
+								<i class="fa fa-fw fa-modx"></i>&nbsp;&nbsp;自动化
+								<span class="layui-nav-more"></span>
+							</a>
+							<dl class="layui-nav-child">
+								<dd class="308">
+									<a href="mergeServer.html">合服</a>
+								</dd>
+								<dd class="701">
+									<a href="DBoperations.html">SQL升级</a>
+								</dd>
+								<dd class="310">
+									<a href="AutomaticUpload.html">自动化上传</a>
+								</dd> 
+								<dd class="703">
+									<a href="Automaticdown.html">自动化下载</a>
+								</dd> 
+								<!-- <dd class="704">
+									<a href="AutoManage.html">自动化管理</a>
+								</dd>  -->
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../js/cookie.js"></script>
+<script>
+function jumptoUp(){
+	window.location.href="upServeOverview.html"
+}
+//var str=location.href; //取得整个地址栏
+//var urlArr=str.split('?')//以？分割的数组
+//urlArr[1]=urlArr[1].split(',')
+//for(var i=0;i<urlArr[1].length;i++){
+	//	urlArr[1][i]=parseInt(urlArr[1][i].replace(/[^0-9]/ig,""));//urlArr[1]是父导航栏id[2,3,5]
+	//}
+//urlArr[2]=urlArr[2].split(',')
+//for(var i=0;i<urlArr[2].length;i++){
+	//	urlArr[2][i]=decodeURI(urlArr[2][i])
+//	urlArr[2][i]=urlArr[2][i].match(/[\u4e00-\u9fa5]/g).join('')//urlArr[2]是父导航栏名字["区服管理", "资源监控", "系统"]
+	
+	//}
+//urlArr[3]=urlArr[3].split('-')
+//for(var i=0;i<urlArr[3].length;i++){
+	//	urlArr[3][i]=urlArr[3][i].split(',');//urlArr[1]是父导航栏id[2,3,5]
+	//}
+//for(var i=0;i<urlArr[3].length;i++){
+	//	urlArr[3][i] = urlArr[3][i].filter(function(e){return e}); 
+	//for(var j=0;j<urlArr[3][i].length;j++){
+		//	urlArr[3][i][j]=parseInt(urlArr[3][i][j].replace(/[^0-9]/ig,""));
+		//	}
+	
+	//}
+//for(var i=0;i<urlArr[3].length;i++){
+	//	if(urlArr[3][i].length===0){
+		//		urlArr[3].splice(i,1)//urlArr[3]得到子菜单的id数组[[302,305],[400],[200]]
+		//	}
+	//}
+//urlArr[4]=urlArr[4].split('-')
+//for(var i=0;i<urlArr[4].length;i++){
+	//	urlArr[4][i]=decodeURI(urlArr[4][i])
+	
+	//}
+//for(var i=0;i<urlArr[4].length;i++){
+	//	urlArr[4][i]=urlArr[4][i].split(',')
+	
+	//}
+//for(var i=0;i<urlArr[4].length;i++){
+//	urlArr[4][i] = urlArr[4][i].filter(function(e){return e}); 
+//	for(var j=0;j<urlArr[4][i].length;j++){
+//		urlArr[4][i][j]=urlArr[4][i][j].match(/[\u4e00-\u9fa5]/g).join('')
+		//	}
+	//
+	//}
+//for(var i=0;i<urlArr[4].length;i++){
+//	if(urlArr[4][i].length===0){
+//		urlArr[4].splice(i,1)//urlArr[4]得到子菜单的名称数组[["游戏列表", "大区列表", "服务器列表"],["资源监控"],["服务器操作记录"]]
+//	}
+//}
+//urlArr[5]=urlArr[5].split('-')
+//for(var i=0;i<urlArr[5].length;i++){
+ //   urlArr[5][i]= urlArr[5][i].split(',')
+//}
+//for(var i=0;i<urlArr[5].length;i++){
+//	urlArr[5][i] = urlArr[5][i].filter(function(e){return e});
+//}
+//for(var i=0;i<urlArr[5].length;i++){
+//	if(urlArr[5][i].length===0){
+//		urlArr[5].splice(i,1)//urlArr[5]得到子菜单的url数组[["GameList", "LargeArealist", "serverList"],["resourceMonitoring"],["Operational"]]
+//	}
+////}
+
+</script>

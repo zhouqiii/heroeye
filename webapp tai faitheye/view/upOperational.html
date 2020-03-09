@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器操作记录</title>
+		
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../upGradeView/css/upOperational.css" />
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+				    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style type="text/css">
+			.exitIn{
+				display: flex !important;
+			}
+			.layui-table-page .layui-laypage input,.layui-table-page .layui-laypage button{
+			   
+			    background: inherit !important;
+			   
+			}
+			#heroeye{
+				margin-top: 9px !important;
+				margin-bottom: 8px !important;
+				vertical-align: middle !important;
+			}
+			.kkk{
+				margin-top: 8px !important;
+			}
+			.layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even){
+				background-color: #242424;
+			}
+			.layui-table{
+				background-color: #242424 !important;
+			}
+			.pagination>li>a, .pagination>li>span{
+				color: white;
+				background-color: transparent;
+				border: 0;
+			}
+			.bootstrap-table .fixed-table-pagination>.pagination-detail .page-list{
+				color: #999999;
+			}
+			.pagination>li>a, .pagination>li>span:hover{
+				background: #464545;
+			}
+			.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{
+				color: #C0C0C0;
+				background-color: #464545;
+				border: 0;
+			}
+			.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+				color: #428BCA;
+				background: #464545;
+				border: 0;
+			}
+			.pagination-info{
+				color: #999999;
+			}
+			.checkbox{
+				color: #999999;
+				font-size: 14px;
+				line-height: 30px;
+			}
+			.btn-default{
+				background: #242424;
+				color: #999999;
+				height: 28px;
+				line-height: 5px;
+				border: 1px solid #707070;
+				border-radius: 0;
+			}
+			.dropdown-menu{
+				background: #242424;
+				color: #999999;
+				border: 1px solid #707070;
+				border-radius: 0;
+			}
+			.btn-default:hover{
+				background: #242424;
+				color: #999999;
+				border-color:#707070;
+			}
+			.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
+				color: #999999;
+				background: #242424;
+			}
+			.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{
+				color: #999999;
+				background: #242424;
+			}
+			.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+				background: #242424;
+			}
+			.btn-default.focus, .btn-default:focus{
+				background: #242424;
+				color: #999999;
+			}
+			.bootstrap-table{
+				clear: both;
+			}
+			.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+				background: #555555;
+				border-color: #555555;
+			}
+			.pagination>li>a:hover, .pagination>li>span:hover{
+				color: white;
+			}
+			.layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even){
+				border: 0;
+			}
+			/*表格样式*/
+			.layui-table td{
+				color: #999999 !important;
+			}
+			.layui-table-header>table>thead>tr>th{
+				background:#121212;
+			}
+			.layui-table-header>table>thead>tr>th>.layui-table-cell{
+				color:#ffffff;
+				font-weight:400;
+			}
+			.layui-table-header{
+				border-bottom:0 !important;
+			}
+			.layui-table thead tr{
+				border-bottom:0 !important;
+				height:50px;
+			}
+			.layui-layer-title{
+				background-color:#414141 !important;
+				border-bottom:1px solid #242424 !important;
+				font-size:14px !important;
+			}
+			.layui-layer{
+				background-color:#414141 !important;
+			}
+			.layui-layer-content{
+				border-bottom:1px solid #242424 !important;
+			}
+			.layui-form-label{
+				padding: 0 15px !important;
+			}
+			.layui-layer-btn0{
+				width: 58px;
+				height: 25px !important;
+				line-height: 25px !important;
+				color: #ffffff;
+				font-size: 14px;
+				border-radius: 0 !important;
+				padding: 0 30px 0 0 !important;
+				margin-right: 3.2% !important;
+			}
+			.layui-layer-btn1{
+				width:52px;
+				height:24px !important;
+				line-height:24px !important;
+				color:#ffffff !important;
+				font-size:14px;
+				background:#666666 !important;
+				border-radius:0 !important;
+				border:0 !important;
+				padding: 0 24px 0 0 !important;
+			}
+			.layui-input{
+				height: 25px !important;
+				line-height: 25px !important;
+				border: 1px solid #707070 !important ;
+				border-radius: 0 !important;
+				background-color:#414141 !important;
+			}
+			.layui-table-cell{
+				height:50px !important;
+				line-height: 50px !important;
+			}
+			/*分页样式*/
+			.layui-laypage-btn{
+				border-radius: 0 !important;
+				border: 1px solid #707070 !important;
+				background: #363636 !important;
+			}
+			.layui-table-view select[lay-ignore]{
+				border-radius: 0;
+				border: 1px solid #707070;
+				
+			}
+			.layui-laypage-em{
+				border-radius:0 !important;
+			}
+			.layui-form-label{
+				padding: 0 15px !important;
+			}
+			.layui-table-view .layui-table td {
+				overflow: hidden !important;
+				padding:0 !important
+			}
+			.ddAlert{
+				margin:0 !important
+			}
+			.triangle-up {
+				 top: -13% !important;
+			}
+			#arrow{
+				margin-top:5px !important
+			}
+			.didian{
+				margin:3% !important
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #242424;" >
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="padding: 20px 1.5% 0px 20px;background: #242424;">
+				<div class="sum_div">
+					<div class="Recharge">
+						<form role="form" class="form-inline" style="height: 60px;line-height: 60px;border: 1px solid #707070;padding-left: 1.2%">
+							<div class="form-group" style="width: 20%;float: left;">
+								<label for="">操作类型</label>
+								<select id="district_service" multiple="multiple">
+									<option value="0">登录</option>
+									<option value="1">登出</option>
+									<option value="2">启动服务器</option>
+									<option value="3">停止服务器</option>
+									<option value="4">添加</option>
+									<option value="5">修改</option>
+									<option value="6">删除</option>
+									<option value="7">GM指令</option>
+									<option value="8">上传</option>
+									<option value="9">下载</option>
+									<option value="10">补单</option>
+									<option value="11">发布活动</option>
+								</select>
+							</div>
+							<div class="form-group" style="width: 20%;float: left;margin-left: 1%">
+								<label for="">操作结果</label>
+								<select id="state" multiple="multiple">
+									<option value="0">成功</option>
+									<option value="1">失败</option>
+								</select>
+							</div>
+							<div class="form-group layui-inline" style="width: 23%;float: left;margin-left: 1%">
+								<label for="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期</label>
+								<input type="text" id="datatimes" />
+							</div>
+							<div class="form-group" style="width: 20%;float: left;margin-left: 1%">
+								<label for="">用户名称</label>
+								<input type="text" id="username" placeholder="请输入用户名称" />
+							</div>
+							<button type="button" class="layui-btn layui-btn-normal" id="query">查询</button>
+
+						</form>
+						<!--<div class="loadTag" style="display: none;">-->
+							<!--<div class="titleLoadAdd" style="font-size: 12px;float: left;padding-top: 1%; margin-top:20%;margin-left:50%;text-align: center;color:#ffffff;" id="loadres"><i class="el-icon-loading" style="font-size: 28px;vertical-align: middle;"></i><div style="margin-top: 5px;margin-left: 10px">加载中...</div></div>-->
+						<!--</div>-->
+						<div class="tableBox">
+							<table id="datatable"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/multiple/bootstrap-multiselect.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../upGradeView/js/upOperational.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script>
+    localStorage.setItem('navigation','5-1')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+	</script>
+
+</html>

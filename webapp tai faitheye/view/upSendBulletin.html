@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>发送公告</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../upGradeView/css/upRollingscreen.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+	</head>
+	<body class="layui-layout-body" style="background: #242424;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="padding: 20px 1.5% 0px 20px;display:flex;flex-direction:column">
+				<!-- <div class="topTool">
+					<form>
+						<div class="form-group" style="width: 13%;float: left;margin-left:1.5%;margin-top:.8%">
+										<span class="serve_span">
+											<i class="fa fa-server" style="margin-left: 4%;margin-right: 18%;"></i>
+											<span class="logs">单区多服</span>
+											<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+										</span>
+							<select id="server" onchange="selects(this);servers()">
+								<option value="2">单区多服</option>
+								<option value="0">全区全服</option>
+							</select>
+						</div>
+					</form>
+				</div>-->
+				<div style="display:flex;height:68%">
+					<div class="serverPage" style=" ">
+						<div class="area">
+						
+							<div class="box_right">
+								<span class="fa fa-list-ul" style="margin-left: 3%;color: #999999;"></span>
+								<span>区服列表</span>
+							</div>
+							<div style="display:flex">
+								<div  class="titleSel" style="padding-top:2%"><span>请选择大区</span></div>
+								<div style="margin-left:61.3%;margin-top:2%">
+												<span class="serve_span">
+													<i class="fa fa-server" style="margin-left: 4%;margin-right: 18%;"></i>
+													<span class="logs">单区多服</span>
+													<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+												</span>
+									<select id="server" onchange="selects(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+							</div>
+							<div class="left_content"></div>
+							<div class="titleSel"><span>请选择服务器</span></div>
+							<div class="right_content"></div>
+						</div>
+						
+					                </div>
+	                <div class="inner">
+                    <div class="addContent" style="width: 100%;height: 100%;">
+                        <div class="topTitle">
+                            <span class="fa fa-pencil-square-o" style="font-size: 16px;color: #999999;margin-right: .3%;margin-left:1.5%"></span>
+                            <span>填写信息</span>
+                            <button type="button" class="layui-btn layui-btn-normal" id="sendOut" onclick="postsend()" style="float: right;margin-right: 20px;margin-top: .7%;width:82px;height:28px;;font-size:14px;line-height:28px;border-radius:0">发送</button>
+                        </div>
+                        <div class="bodyContent" style="padding:20px">
+                           <div style="display: flex;flex-direction: column;">
+							<div class='lineInfo'>
+								<div class="form-group form_roleid">
+									<span class="gm_span">公告ID</span>
+									<input type="text" id="noticeID" placeholder="请输入公告ID" style="width:72.4%;padding-left:24px" />
+								</div>
+								<div class="form-group form_time">
+									<span class="gm_span" style="margin-left:6%">起止时间</span>
+									<input type="text" id="seltime" placeholder="请输入公告时间" style="float:right;" />
+								</div>
+							</div>
+							<div class='lineInfo'>
+								<div class="form-group form_email">
+									<span class="gm_span">间隔时间</span>
+									<input type="text" id="emailTit" placeholder="请输入间隔时间(单位毫秒)" />
+								</div>
+								<div class="form-group form_roleid">
+									<span class="gm_span" style="margin-left:6%">添加删除</span>
+									<select id="addordele" style="width:75%;float:right;color: #ffffff;background: #333333;">
+										<option value="true">添加</option>
+										<option value="false">删除</option>
+									</select>
+								</div>
+							</div>
+							<div class='lineInfo'>
+								<div class="form-group" style="margin-bottom:1%">
+									<span class="gm_span" >公告内容</span>
+								</div>
+							</div>
+							<textarea id="emailContent" placeholder="请输入公告内容"></textarea>
+							</div>
+                    </div>
+                </div>
+            </div>
+            	</div>
+            <div style="margin-top:1.4%;height: 25%;border: 1px solid #707070; ">
+            	<div class="topTitle">
+                     <span class="fa fa-list-ul" style="font-size: 16px;color: #999999;margin-right: .3%;margin-left:.5%"></span>
+                     <span>反馈信息</span>
+                     <button type="button" class="layui-btn layui-btn-normal" onclick="delet()" style="float: right;margin-right: 20px;margin-top: .4%;width:82px;height:28px;;font-size:14px;line-height:28px;border-radius:0">清空</button>
+                 </div>
+                 <div class="bodyContent" style="padding:20px">
+                 <textarea class="main_bottom" readonly="readonly" id="contentBack"></textarea>
+                 </div>
+			</div>
+					
+			</div>
+		</div>
+	</body>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../upGradeView/js/upSendBulletin.js"></script>
+	<script>
+    localStorage.setItem('navigation','6-7')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+		}
+		function serversType(){
+			var c = $("#seltype").find("option:selected").text();
+			$("#logsType").text(c)
+		}
+		function serversPromary(){
+			var c = $("#selheight").find("option:selected").text();
+			$("#logspromary").text(c)
+		}
+	</script>
+
+</html>

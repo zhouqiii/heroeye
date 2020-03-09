@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>通用命令</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/commonCommand.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+			<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style>
+			.main_right8 .layui-table-header{
+				overflow-x:auto;
+				overflow-y:auto;
+			}
+			.main_right8  .bootstrap-table {
+				height:100%;
+			}
+			.main_right8 .fixed-table-container {
+				height:100%;
+			}
+			.fixed-table-body {
+				height:100%;
+				overflow-x:auto;
+				overflow-y:auto;
+			}
+			#role_table tr {
+				text-align:center;
+			}
+			#role_table tr td,
+			#role_table tr th {
+				line-height:45px;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<ul class="tabnavs" id="tabsUl">
+					<li>设置主播账号</li>
+					<li>跨服开关</li>
+					<li>跨服PK开关</li>
+					<li>踢出军团长</li>
+					<li>删除物品</li>
+					<li>重新载入表格</li>
+					<li>批量发奖</li>
+					<li>清除缓存</li>
+					<li>删除货币</li>
+					<li>实时角色信息查询</li>
+				</ul>
+				<div class="inner">
+					<div class="inner_main">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server" onchange="selects(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<span class="gm_span">账号ID</span>
+									<input type="text" id="accountID" placeholder="请输入账号ID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content"></div>
+								<div class="right_content"></div>
+							</div>
+						</div>
+						<textarea class="main_right" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet1()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs1">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server1" onchange="select1(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<input type="text" id="gateId" placeholder="请输入Gate服id" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend1()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content1"></div>
+								<div class="right_content1"></div>
+							</div>
+						</div>
+						<textarea class="main_right1" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet2()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs2">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server2" onchange="select2(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 25%;margin-left: 3%;">
+									<span class="gm_span" style="width: 55%;">是否开启</span>
+									<select id="open2">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend2()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content2"></div>
+								<div class="right_content2"></div>
+							</div>
+						</div>
+						<textarea class="main_right2" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet3()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs3">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server3" onchange="select3(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<span class="gm_span">军团GUID</span>
+									<input type="text" id="GUID" placeholder="请输入军团GUID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend3()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content3"></div>
+								<div class="right_content3"></div>
+							</div>
+						</div>
+						<textarea class="main_right3" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet4()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 40%;float: left;">
+									<span class="serve_span" style="width: 17.8%;">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs4">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server4" onchange="select4(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 40%;float: left;margin-left: 3%;">
+									<span class="gm_span">角色ID</span>
+									<input type="text" id="roleId" placeholder="请输入角色ID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend4()">发送</button>
+								<br /><br /><br />
+								<div class="form-group form_acc" style="width: 40%;float: left;">
+									<span class="gm_span" style="width:37%;">起始格子号</span>
+									<input type="text" id="start_lattice" placeholder="1-200" style="width: 58%;" />
+								</div>
+								<div class="form-group form_acc" style="width: 40%;float: left;margin-left: 3%;">
+									<span class="gm_span" style="width: 37%;">结束格子号</span>
+									<input type="text" id="end_lattice" placeholder="1-200" style="width: 58%;" />
+								</div>
+								<br /><br /><br />
+								<div class="form-group form_acc" style="width: 40%;">
+									<span class="gm_span" style="width: 30%;">背包类型</span>
+									<select id="knapsack_type">
+										<option value="1">装备</option>
+										<option value="2">道具包</option>
+										<option value="3">翅膀包</option>
+										<option value="4">坐骑包</option>
+										<option value="5">未装备的守护之灵的背包</option>
+										<option value="6">已装备的守护之灵的背包</option>
+										<option value="7">附件邮件物品包</option>
+										<option value="8">祈愿获得物品包</option>
+										<option value="9">未装备的元素之心的背包</option>
+										<option value="10">已装备的元素之心的背包</option>
+										<option value="11">时装</option>
+										<option value="12">已装备时装</option>
+										<option value="13">坐骑兽魂包</option>
+										<option value="14">羽翼兽魂包</option>
+										<option value="15">宝藏抽取包</option>
+										<option value="16">仓库背包</option>
+										<option value="17">未装备的信仰符文背包</option>
+										<option value="18">已装备的信仰符文背包</option>
+										<option value="19">已装备的精灵背包</option>
+										<option value="20">已装备的火种道具背包</option>
+										<option value="21">天空装备包</option>
+										<option value="22">技能书</option>
+										<option value="23">女神装备</option>
+										<option value="24">结婚装备</option>
+										<option value="25">核心符文</option>
+									</select>
+								</div>
+							</form>
+							<div class="left_bottom" style="height: 500px;">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content4"></div>
+								<div class="right_content4"></div>
+							</div>
+						</div>
+						<textarea class="main_right4" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet5()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs5">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server5" onchange="select5(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend5()">重新载入表格</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content5"></div>
+								<div class="right_content5"></div>
+							</div>
+						</div>
+						<textarea class="main_right5" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>填写邮件</span>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs6">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server6" onchange="select6(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content6"></div>
+								<div class="right_content6"></div>
+							</div>
+						</div>
+						<div class="main_right6">
+							<form>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;background: #363636;">
+									<span class="gm_span">邮件标题</span>
+									<input type="text" id="email_title" placeholder="请输入邮件标题" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend6()">发送</button>
+								<textarea id="email_content" placeholder="请输入邮件内容"></textarea>
+								<div class="form-group form_acc" style="border: 0;margin-bottom: 0;">
+									<span class="gm_span sp1">反馈信息</span>
+									<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet6()">清空</button>
+									<textarea class="form_bottom" readonly="readonly"></textarea>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet7()">清空</button>
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 35%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs7">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server7" onchange="select7(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 3%;">
+									<span class="gm_span">角色ID</span>
+									<input type="text" id="roles" placeholder="请输入角色ID" />
+								</div>
+								<button type="button" class="layui-btn" id="sendOut" onclick="postsend7()">发送</button>
+							</form>
+							<div class="left_bottom">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content7"></div>
+								<div class="right_content7"></div>
+							</div>
+						</div>
+						<textarea class="main_right7" readonly="readonly"></textarea>
+					</div>
+					<div class="inner_main" style="display: none;">
+					<div id="moneySelectAno" style="display: none;">
+					<ul id="litag">
+						<li value="0" class="litag">经验值</li>
+						<li value="1" class="litag">游戏币</li>
+						<li value="2" class="litag">绑定游戏币</li>
+						<li value="3" class="litag">宝石</li>
+						<li value="4" class="litag">绑定宝石</li>
+						<li value="5" class="litag">信仰点数</li>
+						<li value="6" class="litag">魔晶</li>
+						<li value="7" class="litag">再造点数</li>
+						<li value="8" class="litag">兑换分数</li>
+						<li value="9" class="litag">灵晶</li>
+						<li value="10" class="litag">元素粉末</li>
+						<li value="11" class="litag">守护点数</li>
+						<li value="12" class="litag">成就点数</li>
+						<li value="13" class="litag">声望</li>
+						<li value="14" class="litag">祈福点数</li>
+						<li value="15" class="litag">战功</li>
+						<li value="16" class="litag">荣耀点数</li>
+						<li value="17" class="litag">天赋点数</li>
+						<li value="18" class="litag">助战值</li>
+						<li value="19" class="litag">宝藏寻宝积分</li>
+						<li value="20" class="litag">信仰符文分解碎片</li>
+						<li value="21" class="litag">军团仓库积分</li>
+						<li value="22" class="litag">属性天赋点数</li>
+						<li value="23" class="litag">世界精粹</li>
+						<li value="24" class="litag">跨服币</li>
+						<li value="25" class="litag">红钻</li>
+						<li value="26" class="litag">神翎之尘</li>
+						<li value="27" class="litag">跨服天梯荣誉点数</li>
+					</ul>
+	</div>
+					
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 40%;float: left;">
+									<span class="serve_span" style="width: 17.8%;">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs8">单区多服</span>
+									</span>
+									<!--<input id="server8" onclick="select8(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option> 
+									</input> -->
+								</div>
+								<div class="form-group form_acc" style="width: 40%;float: left;margin-left: 3%;">
+									<span class="gm_span">角色ID</span>
+									<input type="text" id="roleidD" placeholder="请输入角色ID" />
+								</div>
+								<button type="button" class="layui-btn" id="queryId">查询</button>
+								<br /><br /><br />
+								<!-- <div class="form-group form_acc" style="width: 40%;float: left;">
+									<span class="gm_span" style="width:37%;">账号</span>
+									<input type="text" id="accout" placeholder="请输入账号" style="width: 58%;" />
+								</div> -->
+								<div class="form-group form_acc" style="width: 42%;float: left;">
+									<span class="gm_span" style="width: 37%;">角色名称</span>
+									<input type="text" id="rolename" placeholder="请输入角色名" style="width: 58%;" />
+								</div>
+							</form>
+							<div class="left_bottom" style="height: 500px;">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content8"></div>
+								<div class="right_content8"></div>
+							</div>
+						</div>
+						<div class="main_right8" style="position: relative;">
+							<table id="datatable" style="color: white;"></table>
+							<div style="position:absolute;float: right;line-height: 34px;height: 34px;left:88%;top:90%;">
+							<button type="button" class="layui-btn layui-btn-danger" id="deleteMoney" style="width:70px; background-color: #cc3607f5;">扣除</button>
+							</div> 
+						</div>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div class="main_box">
+							<div class="box_left">
+								<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+								<span>区服列表</span>
+							</div>
+							<div class="box_right">
+								<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+								<span>反馈信息</span>
+								<!-- <button type="button" class="layui-btn layui-btn-normal" style="float: right;line-height: 34px;height: 34px;" onclick="delet9()">清空</button> -->
+							</div>
+						</div>
+						<div class="main_left">
+							<form>
+								<div class="form-group" style="width: 36%;float: left;">
+									<span class="serve_span">
+										<i class="fa fa-server" style="margin-left: 4%;margin-right: 3%;"></i>
+										<span class="logs9">单区多服</span>
+										<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+									</span>
+									<select id="server9" onchange="select9(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 8%;">
+									<span class="gm_span">角色名称</span>
+									<input type="text" id="realRoleName" placeholder="请输入角色名称" />
+								</div>
+								<button type="button" class="layui-btn" id="query_role" >查询</button>
+								<div class="form-group form_acc" style="width: 36.7%;float: left;">
+									<span class="gm_span">角色ID</span>
+									<input type="text" id="realRoleId" placeholder="请输入角色ID" />
+								</div>
+								<div class="form-group form_acc" style="width: 37.2%;float: left;margin-left: 7.3%;">
+									<span class="gm_span">职业</span>
+									<input type="text" id="Occupation" placeholder="请输入职业" />
+								</div>
+								<button type="button" class="layui-btn" id="export_role" >导出</button>
+							</form>
+							<div class="left_bottom" style="height:543px;">
+								<div class="top">
+									<span class="top_area">请选择大区</span>
+									<span class="top_server">请选择服务器</span>
+								</div>
+								<div class="left_content role_left_area" style="height:506px;"></div>
+								<div class="right_content role_right_area" style="height:506px;"></div>
+							</div>
+						</div>
+						<div class="main_right8" style="position: relative;">
+							<table id="role_table" style="color: white;width:2613px;"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="modify_area">
+		<form class="layui-form" style="color: white;">
+			<div class="layui-form-item" style="color: white;">
+				<label class="layui-form-label" style="color: white;">删除货币</label>
+				<input type="text" class="layui-input" placeholder="请输入要删除的数量" id="deleteNumber" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery.table2excel.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/multiple/bootstrap-multiselect.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/commonCommand.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/bootstrap-table/bootstrap-table.min.js"></script>
+	<script>
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo() {
+			$(".306").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".306").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+			var a = $("#server1").find("option:selected").text();
+			$(".logs1").text(a)
+			var b = $("#server2").find("option:selected").text();
+			$(".logs2").text(b)
+			var d = $("#server3").find("option:selected").text();
+			$(".logs3").text(d)
+			var e = $("#server4").find("option:selected").text();
+			$(".logs4").text(e)
+			var f = $("#server5").find("option:selected").text();
+			$(".logs5").text(f)
+			var g = $("#server6").find("option:selected").text();
+			$(".logs6").text(g)
+			var h = $("#server7").find("option:selected").text();
+			$(".logs7").text(h)
+            //var z = $("#server8").find("option:selected").text();
+            //$(".logs8").text(z)
+            var n = $("#server9").find("option:selected").text();
+			$(".logs9").text(n)
+		}
+		//切换头部导航
+		$(".tabnavs li").click(function(){
+			$(this).css("border-bottom","0").siblings().css("border-bottom","1px solid white");
+			var c = $(this).index();
+			if(c == 0){
+				$(".inner .inner_main").eq(0).css("display","block").siblings().css("display","none")
+			}else if(c == 1){
+				$(".inner .inner_main").eq(1).css("display","block").siblings().css("display","none")
+			}else if(c == 2){
+				$(".inner .inner_main").eq(2).css("display","block").siblings().css("display","none")
+			}else if(c == 3){
+				$(".inner .inner_main").eq(3).css("display","block").siblings().css("display","none")
+			}else if(c == 4){
+				$(".inner .inner_main").eq(4).css("display","block").siblings().css("display","none")
+			}else if(c == 5){
+				$(".inner .inner_main").eq(5).css("display","block").siblings().css("display","none")
+			}else if(c == 6){
+				$(".inner .inner_main").eq(6).css("display","block").siblings().css("display","none")
+			}else if(c == 7){
+				$(".inner .inner_main").eq(7).css("display","block").siblings().css("display","none")
+			}else if(c == 8){
+                $(".inner .inner_main").eq(8).css("display","block").siblings().css("display","none")
+            }else if(c == 9){
+                $(".inner .inner_main").eq(9).css("display","block").siblings().css("display","none")
+            }
+		})
+		//删除货币清除影响
+		var items=document.getElementsByTagName("ul");
+		var allLi=items[0].getElementsByTagName("li");
+			var setLi=allLi[0]//设值帐号
+			var scopeLi=allLi[1]//跨服
+			var pkLi=allLi[2]//跨服pk
+			var shockLi=allLi[3]//军团
+			var delGoalLi=allLi[4]//删物品
+			var excelLi=allLi[5]//载表格
+			var rewardLi=allLi[6]//发奖
+			var clearLi=allLi[7]//清缓存
+			var deleteMoneyLi=allLi[8]//删货币
+			$(setLi).click(function(){
+				$(".right_content").empty();
+				var areaid = $(".left_content input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content input").prop("disabled",false);
+			$(".right_content input").prop("disabled",false);
+			$(".left_content input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(scopeLi).click(function(){
+				$(".right_content1").empty();
+				var areaid = $(".left_content1 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content1").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content1 input").prop("disabled",false);
+			$(".right_content1 input").prop("disabled",false);
+			$(".left_content1 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content1 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(pkLi).click(function(){
+				$(".right_content2").empty();
+				var areaid = $(".left_content2 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content2").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content2 input").prop("disabled",false);
+			$(".right_content2 input").prop("disabled",false);
+			$(".left_content2 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content2 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(shockLi).click(function(){
+				$(".right_content3").empty();
+				var areaid = $(".left_content3 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content3").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content3 input").prop("disabled",false);
+			$(".right_content3 input").prop("disabled",false);
+			$(".left_content3 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content3 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(delGoalLi).click(function(){
+				$(".right_content4").empty();
+				var areaid = $(".left_content4 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content4").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content4 input").prop("disabled",false);
+			$(".right_content4 input").prop("disabled",false);
+			$(".left_content4 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content4 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(excelLi).click(function(){
+				$(".right_content5").empty();
+				var areaid = $(".left_content5 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content5").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content5 input").prop("disabled",false);
+			$(".right_content5 input").prop("disabled",false);
+			$(".left_content5 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content5 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(rewardLi).click(function(){
+				$(".right_content6").empty();
+				var areaid = $(".left_content6 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content6").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content6 input").prop("disabled",false);
+			$(".right_content6 input").prop("disabled",false);
+			$(".left_content6 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content6 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+			$(clearLi).click(function(){
+				$(".right_content7").empty();
+				var areaid = $(".left_content7 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						$(".right_content7").append("<input type='checkbox' checked='checked' value="+json.rows[i].serverId+" />"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content7 input").prop("disabled",false);
+			$(".right_content7 input").prop("disabled",false);
+			$(".left_content7 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content7 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			})
+		$(deleteMoneyLi).click(function(){
+			var flag=false
+			$(".right_content8").empty();
+			var areaid = $(".left_content8 input").eq(0).val();
+			$.ajax({
+				type:"get",
+				url:"../getServerListNoPage.action",
+				async:true,
+				data:{
+					pId:areaid
+				},
+				success:function(json){
+					for(var i = 0;i<json.rows.length;i++){
+						 $(".right_content8").append("<input type='checkbox'  value="+json.rows[i].serverId+"  name='server' onclick='choose(this)'/>"+"<span>"+json.rows[i].serverName+"</span>");
+					}
+				}
+			});
+			$(".left_content8 input").prop("disabled",false);
+			$(".right_content8 input").prop("disabled",false);
+			$(".left_content8 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+			$(".right_content8 input").eq(0).prop("checked",true).siblings().prop("checked",false);
+		})
+		
+	</script>
+</html>

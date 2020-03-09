@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>游戏列表</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/GameList.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<style type="text/css">
+			.layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even){
+				background-color: #262626;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #363636;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner" style="padding: 45px 20px 0px 20px;">
+					<div class="header">
+						<span class="area_title">游戏列表</span>
+						<button class="layui-btn layui-btn-normal" id="add">添加游戏</button>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="add_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">游戏ID</label>
+				<input type="text" class="layui-input" placeholder="请输入游戏ID" id="add_gameid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">游戏名称</label>
+				<input type="text" class="layui-input" placeholder="请输入游戏名称" id="add_gamename" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="add_gameremakers" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">游戏ID</label>
+				<input type="text" class="layui-input" placeholder="请输入大区ID" id="modify_gameid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">游戏名称</label>
+				<input type="text" class="layui-input" placeholder="请输入大区名称" id="modify_gamename" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="modify_gameremakers" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/GameList.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".200").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".200").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+	</script>
+
+</html>

@@ -1,0 +1,155 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.currently,#currently_num,.upper,#upper_num{
+	font-size: 18px;
+	color: #333132;
+	font-weight: bold;
+}
+#currently_num{
+	margin-right: 20px;
+}
+.left{
+	width: 50%;
+	float: left;
+}
+.right{
+	width: 53%;
+	float: right;
+	margin-bottom: 10px;
+}
+#search_id,#search_ip{
+	width: 43%;
+	float: left;
+	margin-right: 1%;
+	background: transparent;
+    color: white;
+}
+
+#datatable{
+	width: 100%;
+}
+#datatable thead tr{
+	background: #262626;
+	border-bottom: 4px solid #464646;
+}
+#datatable thead tr th{
+	background: #262626;
+	color: #C0C0C0;
+}
+.layui-table>tbody>tr{
+	height: 60px;
+	border-bottom: 4px solid #464646;
+}
+
+.ip_server{
+	display: inline-block;
+	margin-top: 2%;
+}
+.ip_server,.start_up,.close{
+	color: #298af3;
+}
+.close{
+	margin-left: 5%;
+}
+.layui-table .layui-table-cell{
+	color: #C0C0C0;
+}
+#proce{
+	width: 100%;
+	height: 100%;
+	border:hidden;
+}
+.footer{
+	width: 100%;
+	height: 45px;
+	background: #262626;
+	position: relative;
+	bottom: 0;
+	left: 220px;
+	display: none;
+}
+.batch_startup,.batch_close,.batch_down,.batch_clos{
+	color: #298af3;
+	margin-left: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	float: left;
+}
+.state_tips{
+	float: left;
+	width: 70%;
+}
+.state_tips li{
+	list-style: none;
+	float: left;
+	margin-left: 3%;
+	line-height: 20px;
+}
+.state_tips li span{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+.state_tips li p{
+	display: inline-block;
+	float: right;
+	margin-right: -5%;
+	color: #C0C0C0;
+}
+.break_off{
+	background: #c8823c;
+}
+.starp_in{
+	background: #cab238;
+}
+.close_in{
+	background: #cb3234;
+}
+.update_in{
+	background: #9d33cb;
+}
+.out_contact{
+	background: #3285c9;
+}
+.closure{
+	background: #4132c9;
+}
+.funct_in{
+	background: #34ca73;
+}
+.police_in{
+	background: #a8cb33;
+}
+.main{
+	clear: both;
+}
+.start_up,.close{
+	cursor: pointer;
+}
+.starts,.closes{
+	color:#298af3;
+	cursor: pointer;
+}
+#selecs{
+	display: none;
+}
+#modify_area{
+	display: none;
+	margin-top: 6%;
+}
+#datatable tbody tr td:first-child{
+	display: none;
+}
+.headere{
+	height: 40px;
+    background: #363636;
+    position: relative;
+    z-index: 999;
+}
+.headers{
+	height: 40px;
+    background: #363636;
+    display: none;
+}

@@ -1,0 +1,39 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.main{
+	clear: both;
+}
+.header button{
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+.area_title{
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+.start_up,.close{
+	color: #0078fb;
+	cursor: pointer;
+}
+.close{
+	margin-left: 10px;
+}
+.layui-table thead tr th{
+	color: #C0C0C0;
+}
+.layui-table tbody tr td{
+	color: #C0C0C0;
+}
+.layui-table tbody tr{
+	border: 4px solid #262626;
+}
+#add_area,#modify_area{
+	display: none;
+}
+
+.layui-form{
+	margin-top: 10%;
+}

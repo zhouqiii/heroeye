@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器总览</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/tableFilter.css" />
+		<link rel="stylesheet" href="../css/ServerOverviewAndMonitor.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<style type="text/css">
+			.layui-table{
+				background-color: #262626;
+				color: #C0C0C0;
+			}
+			.layui-table-filter-view{
+				color: #C0C0C0;
+				background: #363636;
+				border: 1px solid #5d5757;
+			}
+			.layui-table-filter-box ul{
+				border: 1px solid #5d5757;
+			}
+			.layui-form-select .layui-input{
+				color: white;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #363636;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="height: 827px;">
+				<div class="inner" style="padding: 10px 20px 0px 20px;">
+					<div class="headers"></div>
+					<div class="headere">
+						<div class="right">
+							<input type="text" class="layui-input" id="search_id" placeholder="请输入ID搜索" />
+							<input type="text" class="layui-input" id="search_ip" placeholder="请输入IP搜索" />
+							<button type="button" class="layui-btn layui-btn-normal" id="search" style="float: right;">搜索</button>
+						</div>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+				</div>
+				<div class="footer">
+					<span id="toobar">
+						<span class="batch_startup" lay-event="start">启动</span>
+						<span class="batch_close" lay-event="end">关闭</span>
+						<!--<span class="batch_down" lay-event="down">开启宕机恢复</span>
+						<span class="batch_clos" lay-event="clos">关闭宕机恢复</span>-->
+						<ul class="state_tips">
+							<li>
+								<span class="break_off"></span>
+								<p>网络断开</p>
+							</li>
+							<!--<li>
+								<span class="starp_in"></span>
+								<p>启动中</p>
+							</li>-->
+							<li>
+								<span class="close_in"></span>
+								<p>进程异常</p>
+							</li>
+							<!--<li>
+								<span class="update_in"></span>
+								<p>更新中</p>
+							</li>
+							<li>
+								<span class="out_contact"></span>
+								<p>服务器与faithEye失联</p>
+							</li>-->
+							<li>
+								<span class="closure"></span>
+								<p>正常关闭</p>
+							</li>
+							<li>
+								<span class="funct_in"></span>
+								<p>正常运行中</p>
+							</li>
+							<!--<li>
+								<span class="police_in"></span>
+								<p>正常报警中</p>
+							</li>-->
+						</ul>
+					</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div class="testDemo" style="display:none">
+		你好你好
+	</div>
+	<div id="selecs">
+		<form role="form" class="layui-form">
+			<div class="form-group layui-form-item" style="margin-top: 5%;">
+				<label class="layui-form-label" style="color: white;">选择进程</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="process">
+						<option value="">全部</option>
+						<option value="1">Gate</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<!-- <option value="4">LS</option> -->
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器ID</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器ID" id="modify_serverid" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器名称</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器名称" id="modify_servername" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">所属大区</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="modifySubordinate_area"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器IP</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器IP" id="modify_serverip" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器端口</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器端口号" id="modify_serverport" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="modify_serverremarks" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<!-- <div id="showcontent">hellllll</div> -->
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/ServerOverviewAndMonitor.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".100").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".100").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		$(document).ready(function(){
+			$(".layui-body").scroll(function(){
+				var winPos = $(".layui-body").scrollTop()
+//				console.log(winPos)
+				if(winPos >= 20){
+					$(".headere").css({
+						"position":"fixed",
+						"top":"60px",
+						"width":"86.6%",
+						"z-index":"666"
+					})
+					$(".headers").css("display","block")
+				}
+				if(winPos <= 20){
+					$(".headere").css({
+						"position":"static",
+						"width":"100%",
+					})
+					$(".headers").css("display","none")
+				}
+			})
+		})
+	</script>
+</html>

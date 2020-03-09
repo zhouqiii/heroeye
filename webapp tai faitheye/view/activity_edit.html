@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>活动管理</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" href="../css/activity_edit.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+	href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+
+<body class="layui-layout-body" style="background: #262626;" onload="lo()">
+    <div id="navs"></div>
+    <div class="layui-layout layui-layout-admin">
+
+        <div class="layui-body">
+            <div class="header_title">
+                <span class="title_span">
+                    <b> ＜ </b>
+                    活动编辑 
+                </span>
+                <!-- <form action="" class="layui-form"> -->
+                <div class="active_edit">
+                    <span>活动ID</span>
+                    <input type="text" id="activeid_id" class="active_edit_input" disabled style="margin-left:10px" placeholder="请输入活动ID">
+                </div>
+
+                <div class="active_edit">
+                    <span>活动名称</span>
+                    <input type="text" class="active_edit_input" id="activename_name"  style="margin-left:10px" placeholder="请输入活动名称">
+                </div>
+
+                <div class="active_edit">
+                    <span>活动类型</span>
+                    <select class="active_select_type qiehuan" id="activename_type" disabled>
+                        
+                    </select>
+                </div>
+                <div class="active_edit">
+                    <span>周期参数类型</span>
+                    
+                    <select name="city" lay-verify=""  id="activename_typecanshu" lay-search class="zhouqi active_select_type">
+                            
+                            <option value="1" selected>按照周期数目计算</option>
+                            <!-- <option value="2" selected>按照世界等级计算</option> -->
+                    </select>     
+                </div>
+
+                <div class="active_edit">
+                    <span>周期参数</span>
+                    <input type="text" class="active_edit_input canshu" id="activename_canshu"   style="margin-left:10px" placeholder="1,2,3,999">
+                </div>
+
+                <div class="active_edit">
+                    <span>活动排序</span>
+                     <input type="text" class="active_select_type yuliu" id="activename_yuliu">
+                </div>
+                <div class="active_edit">
+                    <span>小图标资源ID</span>
+                     <input type="text" class="active_select_type yuliu" id="activename_yuliuTwo">
+                </div>
+                <div class="active_edit">
+                    <span>暂无使用</span>
+                     <input type="text" class="active_select_type yuliu" id="activename_yuliuThree">
+                </div>
+                <div class="active_edit">
+                    <span>暂无使用</span>
+                     <input type="text" class="active_select_type yuliu" id="activename_yuliuFour">
+                </div>
+                <div class="active_edit">
+                    <span>生效服务器类型</span>
+                     <input type="text" class="active_select_type yuliu" id="activename_yuliuFif">
+                </div>
+
+				<div class="active_edit">
+                    <span>周期首位ID</span>
+                    <input type="text" id="activename_shouwei" class="active_edit_input shouwei" style="margin-left:10px" placeholder="1,2,3,999">
+                </div>
+                <div class="active_edit">
+                    <span>文件图片资源</span>
+                    <input type="text"  id="activename_image" class="active_edit_input wimage">
+                </div>
+				
+                <div class="active_edit">
+                    <span>活动编号</span>
+                    <input type="text" id="activename_bianhao"  class="active_edit_input bianhao" placeholder="请输入编号">
+                </div>
+                
+                <!-- </form> -->
+                <div class="active_edit" style="border: 0px;">
+                        <button class="Preservation">保存</button>
+                        <button class="time_to">时间配置</button>
+                </div>
+            </div>
+
+            <!-- 活动分支 -->
+            <div class="main_box">
+                <div class="box_left">
+                    <span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+                    <span>活动分支</span>
+                     <button type="button" class="addBranchBtn">增加</button>
+                </div>
+            </div>
+
+
+            <!-- 活动分支内容 黑色大盒子start -->
+            <div class="liebiao_big_box">
+                <!--表格数据外面的大盒子  -->
+                <div class="liebiao_big_box_body">
+                    <!-- 表格模板 -->
+                    <table id="demoBranch" lay-filter="test" style="color: white"></table>
+                </div>
+               
+            </div>
+
+            <!-- 活动分支内容 黑色大盒子end -->
+        </div>
+
+        <!-- 活动时间配置 start -->
+        <div id="time_peizhi">
+            <span class="time_activestart" style="border-bottom:none !important;">活动开始</span>
+            <div class="layui-input-block" style="margin-left: 80px">
+                <br>
+                <br>
+                <input type="radio" name="statusDate" value="2"> <span class="startime_span">具体日期开启</span>
+                <input type="text" class="layui-input" id="data2">
+                <i class="fa fa-calculator" style="margin-left: 4%;margin-right: 3%;"></i>
+                <br>
+                <br>
+                <input type="radio" name="statusDate" value="1"> 
+                <span class="span_color">开服<input type="text" id="data1" class="starttime_input">天后开启</span>
+                <span class="descrip">*填写阿拉伯数字</span>
+                <br>
+                <br>
+                <input type="radio" name="statusDate" value="3"> 
+                <span class="span_color">跨服<input type="text" class="starttime_input" id="data3">天后开启</span>
+                <span class="descrip">*填写阿拉伯数字</span>
+                <br>
+                <br>
+                <input type="radio" name="statusDate" value="4"> 
+                <span class="span_color">合服<input type="text" class="starttime_input" id="data4">天后开启</span>
+                <span class="descrip">*填写阿拉伯数字</span>
+                <br>
+                <br>
+                <input type="checkbox" name="statusWeek"> 
+                <span class="span_color">第一个星期<input type="text" class="starttime_input" id="start_time">开启</span>
+                <span class="descrip">*勾选填写后优先级高于上方四项</span>
+            </div>
+
+            <span class="time_activestart">活动循环与持续</span>
+            <span class="span_color" style="margin-left: 80px; margin-top:30px;">活动持续</span>
+            <input list="chixu"  id="chixuDay" style="background: #333;color: white;width: 75px;height: 24px;border: 1px solid #c2c2c2;"/>
+            <datalist id="chixu" style="width:50%;">
+                <option value="5"></option>
+                <option value="10"></option>
+                <option value="15"></option>
+                <option value="20"></option>
+            </datalist>
+            <span class="span_color"> 天</span>
+            <br>
+            <br>
+            <span class="span_color" style="margin-left: 80px; margin-top:30px;">活动循环</span>
+            <input list="xunhuan" id="xunhuanDay" style="background: #333;color: white;width: 75px;height: 24px;border: 1px solid #c2c2c2;"/>
+            <datalist id="xunhuan" style="width:50%;">
+                    <option>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+            </datalist>
+            <span class="span_color">天</span> <span class="descrip">*活动循环时间应该不小于活动持续时间</span>
+        </div>
+        <!-- 活动时间配置end -->
+
+        
+        <!-- 活动奖励配置end -->
+    </div>
+    <div id="rewardEquipment" style="display:none;">
+	<div id='formPeiZhiVue' style='overflow:auto;height:420px'>
+		<div class="yihang"  v-for="(value,key) in addMoreSelect">
+			<div class="shengming_one" style="margin-left:5px">
+				<el-select v-model="value.selectValue" filterable remote placeholder="请选择"  :remote-method="getOptionsInput" class="inputName">
+				    <el-option
+				      v-for="item in optionsList"
+				      :key="item.rewardId"
+				      :lable="item.rewardId"
+				      :value="item.goodsName"
+				      >
+				    </el-option>
+				</el-select>
+			</div>
+			<span class="shengmingspan">数量</span> <input type="text"
+					class="jiangli_peizhi_input" v-model="value.number" style="color:black"> <input type="button"
+					class="delContent" value="删除" @click="delTheDate(key)" style="color:black">
+		</div>
+		</div>
+	<div>
+	<button type="button" class="add_btn_jiangli" id='addSelect'><i class="fa fa-plus-circle" style="font-size:28px;opacity:.6"></i></i></button>
+    <button type="button" class="cun_btn_jiangli" id='saveSelect'>保存</button> 
+    <button type="button" class="cancleBtn">取消</button> 
+    </div>
+	</div>
+	<!-- 限时商店奖励配置 -->
+	<div id="rewardEquipment1" style="display:none;">
+	<div id='formPeiZhiVue1' style='overflow:auto;height:420px'>
+		<div class="yihang"  v-for="(value,key) in addMoreSelect">
+			<div class="shengming_one" style="margin-left:5px">
+				<el-select v-model="value.selectValue" filterable remote placeholder="请选择"  :remote-method="getOptionsInput" class="inputName">
+				    <el-option
+				      v-for="item in optionsList"
+				      :key="item.rewardId"
+				      :lable="item.rewardId"
+				      :value="item.goodsName"
+				      >
+				    </el-option>
+				</el-select>
+			</div>
+			<span class="shengmingspan">数量</span> <input type="text" class="jiangli_peizhi_input" v-model="value.number" style="color:black">
+			<span class="bing">是否绑定</span>
+			<select class="jiangli_peizhi_input" v-model="value.isbing" id="bing" style="color:#000;">
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select>
+			<input type="button" class="delContent" value="删除" @click="delTheDate(key)" style="color:black">
+		</div>
+		</div>
+	<div>
+	<button type="button" class="add_btn_jiangli" id='addSelect1'><i class="fa fa-plus-circle" style="font-size:28px;opacity:.6"></i></i></button>
+    <button type="button" class="cun_btn_jiangli" id='saveSelect1'>保存</button> 
+    <button type="button" class="cancleBtn1">取消</button> 
+    </div>
+	</div>
+</body>
+<!-- 活动奖励配置start 
+        <div id="jiangli_peizhi">
+            <form action="" class="layui-form" id="formPeiZhi">
+            <div class="yihang" >
+                    <div class="shengming_one">
+                            <select name="city" lay-verify="" lay-search class="shengmingyaoshui" id="reward1" onclick='dataAll()'></select>     
+                    </div>
+                    <span class="shengmingspan">数量</span>
+                    <input type="text" class="jiangli_peizhi_input" id="num1">
+                    <input type="button" class="delContent" value="删除"></button>
+            </div>
+            
+            <div class="yihang">
+                    <div class="shengming_one">
+                            <select name="city" lay-verify="" lay-search class="shengmingyaoshui" id="reward2"></select>     
+                    </div>
+                    <span class="shengmingspan">数量</span>
+                    <input type="text" class="jiangli_peizhi_input" id="num2">
+                    <input type="button" class="delContent" value="删除"></button>
+
+            </div>
+
+            <div class="yihang">
+                    <div class="shengming_one">
+                            <select name="city" lay-verify="" lay-search class="shengmingyaoshui" id="reward3"></select>     
+                    </div>
+                    <span class="shengmingspan">数量</span>
+                    <input type="text" class="jiangli_peizhi_input" id="num3">
+                    <input type="button" class="delContent" value="删除"></button>
+
+            </div>
+            <div class="yihang">
+                    <div class="shengming_one">
+                            <select name="city" lay-verify="" lay-search class="shengmingyaoshui" id="reward4"></select>     
+                    </div>
+                    <span class="shengmingspan">数量</span>
+                    <input type="text" class="jiangli_peizhi_input" id="num4">
+                    <input type="button" class="delContent" value="删除"></button>
+
+            </div>
+            <div class="yihang">
+                    <div class="shengming_one">
+                            <select name="city" lay-verify="" lay-search class="shengmingyaoshui" id="reward5"></select>     
+                    </div>
+                    <span class="shengmingspan">数量</span>
+                    <input type="text" class="jiangli_peizhi_input" id="num5">
+                    <input type="button" class="delContent" value="删除"></button>
+
+            </div>
+            
+            
+            <button type="button" class="add_btn_jiangli">增加</button>
+            <button type="button" class="cun_btn_jiangli">保存</button>
+        </form>
+        
+        </div> -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/multiple/bootstrap-multiselect.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../js/activity_edit.js"></script>
+<script>
+    $("#navs").load("../upGradeView/upGradeNav.html")
+    function lo() {
+        $(".600").addClass("layui-this").siblings().removeClass("layui-this")
+        $(".600").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+    }
+    $(".title_span").click(function () {
+        self.location.href = "activity.html"
+    })
+</script>
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器列表</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../upGradeView/css/upServerList.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<link rel="stylesheet" type="text/css" href="https://raw.githack.com/hnzzmsf/layui-formSelects/master/dist/formSelects-v4.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style type="text/css">
+			.layui-form-label{
+				width: 85px !important;
+			}
+			.layui-form-select .layui-input{
+				color: white;
+    height: 32px;
+    line-height: 32px;
+    background: inherit;
+    border: 1px solid #707070;
+    border-radius: 5px;
+			}
+			.xm-select-parent .xm-select-title div.xm-select-label>span {
+				background-color: #1E9FFF;
+			}
+			div[xm-select-skin] .xm-select-title div.xm-select-label>span {
+    			border: 1px solid #1E9FFF;
+			}
+			.xm-select-parent dl dd.xm-select-this div i {
+				color: #1E9FFF;
+			}
+			.xm-select-parent .xm-select {
+				height: 30px;
+    line-height: 30px;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    background: #242424;
+    min-height:32px;
+			}
+			.xm-select-parent .xm-input{
+				background-color:#242424 !important;
+			}
+			.xm-select-parent .xm-form-select dl{
+				background:#242424;
+			}
+			.xm-select-tips{
+				background:#242424;
+			}
+			.xm-form-selected .xm-select, .xm-form-selected .xm-select:hover {
+    			border-color: #1E9FFF!important;
+			}
+			.xm-form-checkbox > i  {
+				border: 1px solid #1E9FFF;
+			}
+			.layui-table-header>table>thead>tr>th{
+				background:#121212;
+			}
+			.layui-table-header>table>thead>tr>th>.layui-table-cell{
+				color:#ffffff;
+				font-weight:400;
+			}
+			.layui-table-header{
+				border-bottom:0 !important;
+			}
+			.layui-table thead tr{
+				border-bottom:0 !important;
+					height:50px;
+			}
+			.layui-table tbody tr{
+				height:50px !important;
+			}
+			.layui-layer-title{
+				background-color: #C9C9C9 !important;
+                font-size: 14px !important;
+                color: #000000 !important;
+			}
+			.layui-layer{
+				background-color:#242424 !important;
+			}
+			.layui-table-click{
+				border-bottom:0px !important;
+			}
+				.layui-layer-btn0{
+				width: 78px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1{
+				width: 78px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn0:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn{
+				text-align: center !important;
+				padding:0 15px !important;
+			}
+			.layui-layer-content{
+			border-bottom:0 !important;
+				height: auto !important;
+			}
+		
+			/*分页按钮*/
+			.layui-laypage-btn{
+				border-radius: 0 !important;
+    			border: 1px solid #707070 !important;
+    			background: #363636 !important;
+			}
+			.layui-table-view select[lay-ignore]{
+				border-radius: 0;
+    			border: 1px solid #707070;
+    			background: #363636 !important;
+			}
+			.layui-laypage-em{
+			 border-radius:0 !important;
+			}
+			.layui-table-page .layui-laypage input{
+			    border: 1px solid #707070;
+   				border-radius: 0;
+			}
+			/*分页按钮结束*/
+			.layui-btn-normal {
+    height: 28px !important;
+    line-height: 28px !important;
+    border-radius: 0 !important;
+}
+			.layui-layer-dialog {
+    			height: 166px;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #242424;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner" style="padding: 20px 1.5% 0px 20px;">
+					<div class="header">
+						<button  id="add">添加服务器</button>
+						<div style="display:flex;width: 30%;">
+							<input type="text"  id="search_Id" placeholder="请输入ID搜索"/>
+							<button type="button" id="search">搜索</button>
+							<button type="button" id="test3">上传文件</button>
+						</div>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+					<div class="loadTag" style="display: none;">
+						<div class="titleLoadAdd" style="font-size: 14px;float: left;padding-top: 1%; margin-top:20%;margin-left:50%;text-align: center;color:#ffffff;" id="loadres"><i class="el-icon-loading" style="font-size: 40px;vertical-align: middle;"></i><div style="margin-top: 5px;margin-left: 10px">加载中...</div></div>
+					</div>
+				</div>
+				<div class="process" style="padding: 20px 20px 0px 20px;display: none;">
+					<div class="header">
+						<!-- <span class="area_title" id="server_proce"></span> -->
+						<!--<span id="server_proce"></span>-->
+						<button class="layui-btn layui-btn-normal" id="add_process">添加进程</button>
+						<button class="layui-btn layui-btn-normal" onclick="proce()">返回服务器列表</button>
+					</div>
+					<div class="loadTagTwo" style="display: none;">
+						<div class="titleLoadAdd" style="font-size: 14px;float: left;padding-top: 1%; margin-top:20%;margin-left:50%;text-align: center;color:#ffffff;" id="loadres"><i class="el-icon-loading" style="font-size: 40px;vertical-align: middle;"></i><div style="margin-top: 5px;margin-left: 10px">加载中...</div></div>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable_two" lay-filter="process_test" lay-skin="row" ></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="add_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器ID：</label>
+				<input type="text"  placeholder="请输入服务器ID" id="add_serverid" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器名称：</label>
+				<input type="text"  placeholder="请输入服务器名称" id="add_servername" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">所属大区：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="addSubordinate_area"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器IP：</label>
+				<input type="text"   placeholder="请输入服务器IP" id="add_serverip" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器端口：</label>
+				<input type="text"   placeholder="请输入服务器端口号" id="add_serverport" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">开启进程：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="whether_process" name="whether_process" xm-select-skin="default" lay-filter="whether_process" xm-select="whether_process" xm-select-type="1" xm-select-show-count="3">
+						<!-- <option value="1">是</option>
+						<option value="0">否</option> -->
+						<option value="">请选择</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select> 
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注：</label>
+				<input type="text"  placeholder="请输入备注" id="add_serverremarks" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">选择数据库：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="dataserver" name="dataserver"  lay-filter="selectServer">
+						<option value="game">game</option>
+						<option value="log">log</option> 
+					</select> 
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">game：</label>
+				<input type="text" disabled id="game_message" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">log：</label>
+				<input type="text"  disabled id="log_message" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器ID：</label>
+				<input type="text"  placeholder="请输入服务器ID" id="modify_serverid" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器名称：</label>
+				<input type="text"  placeholder="请输入服务器名称" id="modify_servername" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">所属大区：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="modifySubordinate_area"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器IP：</label>
+				<input type="text"  placeholder="请输入服务器IP" id="modify_serverip" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器端口：</label>
+				<input type="text" placeholder="请输入服务器端口号" id="modify_serverport" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注：</label>
+				<input type="text" placeholder="请输入备注" id="modify_serverremarks" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">选择数据库：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="modifyServer" name="modifyServer"  lay-filter="modifyServer">
+						<option value="game">game</option>
+						<option value="log">log</option> 
+					</select> 
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">game：</label>
+				<input type="text" disabled id="game_modify" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">log：</label>
+				<input type="text" disabled id="log_modify" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="add_proce">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">类型：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="add_proceType">
+						<option value=""></option>
+						<option value="1">Gate</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<option value="4">LS</option>
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">名称：</label>
+				<input type="text"  placeholder="请输入服务器名称" id="add_procename" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注：</label>
+				<input type="text"  placeholder="请输入备注" id="add_remakers" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">IP：</label>
+				<input type="text"  placeholder="请输入服务器IP" id="add_ip" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_proce">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">类型：</label>
+				<div class="layui-input-inline" style="width: 70%;color: white;">
+					<select id="modify_proceType">
+						<option value="1">Gate</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<option value="4">LS</option>
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">名称：</label>
+				<input type="text"  placeholder="请输入服务器名称" id="modify_procename" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注：</label>
+				<input type="text"   placeholder="请输入备注" id="modify_remakers" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">IP：</label>
+				<input type="text"  placeholder="请输入服务器IP" id="modify_ip" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="data_proce" style="display:none;">
+	<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">用户名：</label>
+				<input type="text" placeholder="请输入用户名" id="data_user" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">密码：</label>
+				<input type="text" placeholder="请输入密码" id="data_pwd" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">IP：</label>
+				<input type="text"  placeholder="请输入IP" id="data_IP" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">端口号：</label>
+				<input type="text"  placeholder="请输入端口号" id="data_port" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">数据库名：</label>
+				<input type="text" placeholder="请输入数据库名" id="data_name" style="width: 70%;color: white;" />
+			</div>
+		</form>
+</div>
+<div id="deleteTop" style="display:none">
+	<div class="TitleBtn">是否确认删除？</div>
+</div>
+<div id="deleteNext" style="display:none">
+	<div class="TitleBtn">是否确认删除？</div>
+</div>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="https://raw.githack.com/hnzzmsf/layui-formSelects/master/dist/formSelects-v4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../upGradeView/js/upServerList.js"></script>
+	<script>
+   		localStorage.setItem('navigation','2-3')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo() {
+			$(".202").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".202").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		function proce(){
+			$(".inner").css("display","block");
+			$(".process").css("display","none")
+		}
+		layui.use(['jquery', 'formSelects'], function () {
+	        var formSelects = layui.formSelects;
+	        formSelects.value('whether_process', "请选择")
+	    });
+	</script>
+
+</html>

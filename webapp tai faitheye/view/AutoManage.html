@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>自动化编译</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/AutoManage.css" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+    	<link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style>
+			.layui-colla-title {
+    			background-color: transparent !important;
+    			color: #fff !important;
+			}
+			.layui-colla-content {
+				overflow: auto;
+			}
+			.layui-colla-content p {
+				padding-left: 7px;
+				color: #ccc;
+			}
+			.layui-colla-item {
+				border-color: transparent !important;
+			}
+			.layui-collapse {
+				border:0;
+			}
+			.layui-layer-setwin .layui-layer-close1 {
+    			background-position: -67px -7px !important;
+			}
+			.myown .btn-default {
+    			background-color: #363636 !important;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #202020;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="background:#212421;">
+				<div class="inner">
+					<div id="inner_head">
+						<ul class="layui-nav">
+							<span class="layui-breadcrumb" lay-separator="|">
+  								<a href="/centralOperations/view/AutoManage.html" style="color:#fff !important;">自动编译</a>
+  								<a href="/centralOperations/view/AutoMD5.html">校验MD5</a>
+  								<a href="/centralOperations/view/AutoCMD.html">CMD指令</a>
+							</span>
+						</ul>
+					</div>
+					<div class="inner_main">
+						<div class="main_box">
+							<div class="layui-input-inline" style="margin-left: 1%;width: 25%;">
+								<!-- <input id="buildName" type="text" class="layui-input" name="name" lay-verify="required" placeholder="请输入需要编译的项目名" style="text-align:center;padding: 0;"> -->
+								<div  style="margin-top: 1%;" id="serverCos" style="width:400px">
+                    <div class="myown">
+                        <label style="font-weight:400;font-size: 14px;float:left;margin-right:2%;margin-top:4px" class="lableServer" >项目名</label>
+                        <select name="district" id="district" style=" border-radius: 5px; width: 251px;height: 30px;color: #fff;background-color: #363636;" class="form-control">
+                        
+                        </select>
+                    </div>
+                </div>
+							</div>
+							<button type="button" class="layui-btn layui-btn-normal" onclick="decompression()" style="height: 39px;line-height: 39px;margin-left: 40px;">编译</button>
+						</div>
+						<div class="mess_box">
+							<div class="messbox_head">
+								<span class="fa fa-pencil-square-o" style="margin-left: 22px;font-size:18px;vertical-align: middle;color: #525552;"></span>
+								<span style="font-size:16px;">编译信息</span>
+							</div>
+							<div class="messbox_main"></div>
+						</div>
+					</div>
+					<div class="confirm_area" style="display:none;width: 165px;height: 50px;line-height: 50px;text-align: center;position: fixed;left: 53%;top: 41%;color: #fff;background: rgba(0,0,0,.8);">
+						请选择至少一个服务器
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/multiple/bootstrap-multiselect.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<!-- <script src="../js/DBoperations.js"></script>
+	<script src="../js/AutoMAnage.js"></script> -->
+	<script>
+	localStorage.setItem('navigation','8-5')
+		/* $("#navs").load("left_Navigation.html") */
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo(){
+			$(".704").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".704").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		} 
+		 layui.use(['element', 'form'], function() {
+			var element = layui.element;
+			
+			//监听导航点击
+			  element.on('nav(demo)', function(elem){
+			    //console.log(elem)
+			    layer.msg(elem.text());
+			  });
+			
+			element.init();
+			element.render();
+		}); 
+		layui.config({
+			  //dir: '../layui/layui.js' //layui.js 所在路径（注意，如果是script单独引入layui.js，无需设定该参数。），一般情况下可以无视
+			  version: false //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
+			  ,debug: false //用于开启调试模式，默认false，如果设为true，则JS模块的节点会保留在页面
+			  ,base: '' //设定扩展的Layui模块的所在目录，一般用于外部模块扩展
+			}); 
+		var district = $("#district").val();
+		change()
+		function change(){
+			$.ajax({
+		        type: "get",
+		        url:"../getSvnProject.action?job=",
+		        async: false,
+		        /* data: {
+		            job:"maven-test"
+		        }, */
+		        success: function (obj) {
+		            for (var i = 0; i < obj.data.length; i++) {
+		                $("#district").append("<option value='" + obj.data[i].pName + "'>" + obj.data[i].pName + "</option>");
+		            }
+		            $("#district").each(function () {
+		                $(this).find("option").attr("selected", "selected")
+		            })
+		            /* $('#district').multiselect("destroy").multiselect({
+		                buttonWidth: '80%',
+		                nonSelectedText: '请选择',
+		                maxHeight: 200,
+		                numberDisplayed: 1,
+		                includeSelectAllOption: true,
+		                selectAllText: '全选/全不选', //全选按钮显示的文本
+		                nSelectedText: '项被选中',
+		                allSelectedText: '已选中所有区服',
+		            }); */
+		        }
+		    });
+		}
+		function decompression(){
+			var buildName = $("#district").val();
+			/* if(buildName != null){
+				buildName = buildName.join(",")
+			} */
+			$.ajax({
+				type:"post",
+				url:"../autoBuild.action",
+				async:"true",
+				data:{
+					job:buildName
+				},
+				success:function(data){
+					alert(data.message)
+					$(".messbox_main").html(data.data)
+				}
+			})
+		}
+	</script>
+
+</html>

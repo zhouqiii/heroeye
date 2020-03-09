@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>自动化下载</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/AutomaticDown.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style>
+			.layui-colla-title {
+    			background-color: transparent !important;
+    			color: #fff !important;
+			}
+			.layui-colla-content {
+				overflow: auto;
+			}
+			.layui-colla-content p {
+				padding-left: 7px;
+				color: #ccc;
+			}
+			.layui-colla-item {
+				border-color: transparent !important;
+			}
+			.layui-collapse {
+				border:0;
+			}
+			.layui-layer-setwin .layui-layer-close1 {
+    			background-position: -67px -7px !important;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #202020;color:#fff;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="serverList">
+					<div id="server_head">
+						<span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+						服务器列表
+					</div>
+					<div class="server_main"></div>
+				</div>
+				<div class="inner">
+					<div id="inner_head">
+						<span class="fa fa-pencil-square-o" style="margin-left: 15px;"></span>
+						CMD指令区
+					</div>
+					<div class="inner_main">
+						<div class="main_left">
+							<p>指令列表
+								<button class="layui-btn" style="" onclick="getOrder()">载入</button>
+								<button class="layui-btn" style="" onclick="deleteOrder()">删除</button>
+							</p>
+							<div class="orderList"></div>
+						</div>
+						<div class="main_right">
+							<form>
+								<label>指令名称：</label>
+								<input name="orderName" id="orderName" placeholder="请输入指令名称"/>
+								<label>指令内容：</label>
+								<textarea name="orderContent" id="orderContent" placeholder="请在此输入指令内容"></textarea>
+								<button type="button" class="layui-btn layui-btn-normal" style="float:right;margin-top:10px;margin-right: 10px;margin-left: 20px;" onclick="sendOrder()">发送</button>
+								<button type="button" class="layui-btn" style="float:right;margin-top:10px;" onclick="saveOrder()">保存</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="confirm_area" style="display:none;width: 220px;height: 50px;line-height: 50px;text-align: center;position: fixed;left: 53%;top: 41%;color: #fff;background: rgba(0,0,0,.8);">
+					请选择一个需要删除的指令列表
+				</div>
+			</div>
+		</div>
+	</body>
+	   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/AutomaticDown.js"></script> 
+	<script>
+	localStorage.setItem('navigation','8-4')
+		/* $("#navs").load("left_Navigation.html") */
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo() {
+			$(".703").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".703").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		layui.use(['element', 'form'], function() {
+			var element = layui.element;
+			element.init();
+			element.render();
+		});
+	</script>
+
+</html>

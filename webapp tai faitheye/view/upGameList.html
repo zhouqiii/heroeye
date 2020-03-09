@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>游戏列表</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../upGradeView/css/upGameList.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style type="text/css">
+			.layui-table-click, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even){
+				background-color: #242424;
+			}
+			.layui-table-header>table>thead>tr>th{
+				background:#121212;
+			}
+			.layui-table-header>table>thead>tr>th>.layui-table-cell{
+				color:#ffffff;
+				font-weight:400;
+			}
+			.layui-table-header{
+				border-bottom:0 !important;
+			}
+			.layui-table thead tr{
+				border-bottom:0 !important;
+				height:50px;
+			}
+			.layui-table tbody tr{
+				height:50px !important;
+			}
+			.layui-layer-title{
+				background-color: #C9C9C9 !important;
+                font-size: 14px !important;
+                color: #000000 !important;
+			}
+			.layui-table-body{
+				overflow-x:hidden !important;
+			}
+			.layui-layer{
+				background-color:#242424 !important;
+			}
+			.layui-table-click{
+				border-bottom:0px !important;
+			}
+				.layui-layer-btn0{
+				width: 78px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1{
+				width: 78px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn0:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn{
+				text-align: center !important;
+				padding:0 15px !important;
+			}
+			.layui-layer-content{
+			border-bottom:0 !important;
+				height: auto !important;
+			}
+			.layui-form-label{
+				width:70px !important;
+			}
+			.layui-layer-dialog {
+    			height: 166px;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #242424;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner" style="padding: 20px 1.5% 0px 20px;">
+					<div class="header">
+						<button id="add">添加游戏</button>
+					</div>
+					<div class="loadTag" style="display: none;">
+						<div class="titleLoadAdd" style="font-size: 14px;float: left;padding-top: 1%; margin-top:20%;margin-left:50%;text-align: center;color:#ffffff;" id="loadres"><i class="el-icon-loading" style="font-size: 40px;vertical-align: middle;"></i><div style="margin-top: 5px;margin-left: 10px">加载中...</div></div>
+					</div>
+					<div class="main" id="main" >
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="add_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;padding-top:0;">游戏ID：</label>
+				<input type="text" placeholder="请输入游戏ID" id="add_gameid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;padding-top:0;">游戏名称：</label>
+				<input type="text" placeholder="请输入游戏名称" id="add_gamename" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;padding-top:0;">备注：</label>
+				<input type="text" placeholder="请输入备注" id="add_gameremakers" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;padding-top:0;">游戏ID：</label>
+				<input type="text" placeholder="请输入大区ID" id="modify_gameid" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;padding-top:0;">游戏名称：</label>
+				<input type="text" placeholder="请输入大区名称" id="modify_gamename" style="width: 70%;background: transparent;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;padding-top:0;">备注：</label>
+				<input type="text" placeholder="请输入备注" id="modify_gameremakers" style="width: 70%;background: transparent;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="deleteTop" style="display:none">
+		<div class="TitleBtn">是否删除选中游戏？</div>
+	</div>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../upGradeView/js/upGameList.js"></script>
+	<script>
+		localStorage.setItem('navigation','2-1')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo() {
+			$(".200").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".200").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+	</script>
+
+</html>

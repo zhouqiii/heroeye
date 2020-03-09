@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>发送补单</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../upGradeView/css/upRollingscreen.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<style type="text/css">
+			#roleID,#times,#emailTit,#one_currencyID,#one_currencyNum,#two_currencyNum,#two_currencyID,#supplement_number,#supplement_amount{
+				border: 1px solid #707070;
+			    background: inherit;
+			    height: 26px;
+			    line-height: 26px;
+			    width: 72%;
+			    padding-left: 10px;
+			    color:#999999
+			}
+			#one_goodsID,#one_goodsNum,#bind,#two_goodsID,#two_goodsNum,#two_bind,#thr_goodsID,#thr_goodsNum,#thr_bind,#for_goodsID,#for_goodsNum,#for_bind,#fiv_goodsID,#fiv_goodsNum,#fiv_bind{
+				border: 1px solid #707070;
+			    background: inherit;
+			    height: 26px;
+			    line-height: 26px;
+			    width: 65%;
+			    padding-left: 10px;
+			    color:#999999
+			}
+			#one_currencyID option,#two_currencyID option,#fiv_bind option,#for_bind option,#thr_bind option,#two_bind option,#bind option{
+				background:#333333;
+				color:#ffffff
+			}
+			.titleSpan{
+				color:#ffffff;
+				font-size:14px
+			}
+			.titleSpanGoal{
+				color:#ffffff;
+				font-size:14px;
+				width:40%
+			}
+			.goalInfo{
+				display: flex;
+			    justify-content: space-between;
+				margin:1% 0;
+			}
+			.groupGoal{
+				width:33%;
+				display:flex
+			}
+			.layui-layer-btn1{
+				background: #999999 !important;
+    			border: 1px solid #999999 !important;
+			}
+			.firstMonSelect{
+				color: #999999;
+			    border: 1px solid #707070;
+			    height: 24px;
+			    line-height: 24px;
+			    width: 69.5%;
+			    float: left;
+			    margin-left: 2%;
+			    padding-left: 4%;
+			}
+			/*el-select多选框样式*/
+			.el-select{
+				float: right;
+			    margin-top: -7%;
+			    margin-right: 6%;
+			    width: 74%;
+			    opacity: 0;
+			}
+			.el-input__inner{
+				height: 26px !important;
+    			line-height: 26px !important;
+			}
+			.el-scrollbar__thumb{
+				border-radius:0 !important
+			}
+			.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+				background-color:#333333 !important
+			}
+			.el-select-dropdown{
+				background: #242424 !important;
+			    border: 1px solid #707070 !important;
+			    border-radius: 0 !important;
+			}
+			.popper__arrow{
+				display:none !important
+			}
+			.el-select-dropdown__item.selected{
+				color:#ffffff !important
+			}
+			.el-select-dropdown__item{
+				color:#999999 !important
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #242424;">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="padding: 20px 1.5% 0px 20px;display:flex;flex-direction:column">
+				<div style="display:flex;height:73%">
+					<div class="serverPage" style=" ">
+						<div class="area">
+						
+							<div class="box_right">
+								<span class="fa fa-list-ul" style="margin-left: 3%;color: #999999;"></span>
+								<span>区服列表</span>
+							</div>
+							<div style="display:flex">
+								<div  class="titleSel" style="padding-top:2%"><span>请选择大区</span></div>
+								<div style="margin-left:61.3%;margin-top:2%">
+												<span class="serve_span">
+													<i class="fa fa-server" style="margin-left: 4%;margin-right: 18%;"></i>
+													<span class="logs">单区多服</span>
+													<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+												</span>
+									<select id="server" onchange="selects(this);servers()">
+										<option value="2">单区多服</option>
+										<option value="0">全区全服</option>
+									</select>
+								</div>
+							</div>
+							<div class="left_content"></div>
+							<div class="titleSel"><span>请选择服务器</span></div>
+							<div class="right_content"></div>
+						</div>
+						
+					                </div>
+	                <div class="inner">
+                    <div class="addContent" style="width: 100%;height: 100%;">
+                        <div class="topTitle">
+                            <span class="fa fa-pencil-square-o" style="font-size: 16px;color: #999999;margin-right: .3%;margin-left:1.5%"></span>
+                            <span>填写信息</span>
+                            <button type="button" class="layui-btn layui-btn-normal" id="sendOut" style="float: right;margin-right: 20px;margin-top: .7%;width:82px;height:28px;;font-size:14px;line-height:28px;border-radius:0">发送</button>
+                        </div>
+                        <div class="bodyContent" style="padding:10px 20px">
+                           <div style="display: flex;flex-direction: column;">
+                           <div class='lineInfo' style="margin:1% 0 0 0;">
+								<div class="form-group form_roleid">
+									<span class="titleSpan">补单单号</span>
+									<input type="text" id="supplement_number" placeholder="请输入补单单号" style="width:72.4%;margin-left:2%" />
+								</div>
+								<div class="form-group form_time">
+									<span class="titleSpan" style="margin-left:7%;line-height:30px">补单充值金额</span>
+									<input type="text" id="supplement_amount" placeholder="请输入补单充值金额" style="margin-left:2%;width:65%" />
+								</div>
+							</div>
+							<div class='lineInfo'>
+								<div class="form-group form_roleid">
+									<span class="titleSpan">角色ID</span>
+									<input type="text" id="roleID" placeholder="请输入角色ID" style="width:72.4%;margin-left:5.5%" />
+								</div>
+								<div class="form-group form_time">
+									<span class="titleSpan" style="margin-left:7%;line-height:30px">过期时间</span>
+									<input type="text" id="times" placeholder="请输入过期时间(单位毫秒)" style="margin-left:2.4%" />
+								</div>
+							</div>
+							<div class='lineInfo' style="margin:0 0 1% 0">
+								<div class="form-group form_email">
+									<span class="titleSpan">邮件标题</span>
+									<input type="text" id="emailTit" placeholder="请输入邮件标题" style="width:89.7%"/>
+								</div>
+							</div>
+							<div class='lineInfo' style="margin:0 0 0 0">
+								<div class="form-group" style="margin-bottom:1%">
+									<span class="titleSpan" >邮件内容</span>
+								</div>
+							</div>
+							<textarea id="emailContent" placeholder="请输入邮件内容" style="height:120px"></textarea>
+							</div>
+							<div class='lineInfo'>
+								<div class="form-group form_roleid">
+									<span class="titleSpan" style="float:left">一号货币ID</span>
+									<div class="firstMonSelect">
+										<span class="showSpan">
+											<span class="monSec">请选择</span>
+											<i class="fa fa-caret-down" style="float: right;margin-top: 2%;margin-right: 2%;"></i>
+										</span>
+									</div>
+									<el-select v-model="oneMoneyType" placeholder="请选择" @change="selNext">
+									    <el-option
+									      v-for="item in gamestype"
+									      :key="item.value"
+									      :label="item.label"
+									      :value="item.value">
+									      <span style="text-align: center">{{ item.label }}</span>
+									    </el-option>
+									  </el-select>
+								</div>
+								<div class="form-group form_time">
+									<span class="titleSpan" style="margin-left:6.5%;line-height:30px">一号货币数量</span>
+									<input type="text" id="one_currencyNum" placeholder="请输入一号货币数量" style="margin-left: 2%;width: 65.5%;" />
+								</div>
+							</div>
+							<div class='lineInfo'>
+								<div class="form-group form_roleid">
+									<span class="titleSpan" style="float:left">二号货币ID</span>
+									<div class="firstMonSelect">
+										<span class="showSpan">
+											<span class="monFir">请选择</span>
+											<i class="fa fa-caret-down" style="float: right;margin-top: 2%;margin-right: 2%;"></i>
+										</span>
+									</div>
+									<el-select v-model="twoMoneyType" placeholder="请选择" @change="selFir">
+									    <el-option
+									      v-for="item in gamestype"
+									      :key="item.value"
+									      :label="item.label"
+									      :value="item.value">
+									      <span style="text-align: center">{{ item.label }}</span>
+									    </el-option>
+									  </el-select>
+								</div>
+								<div class="form-group form_time">
+									<span class="titleSpan" style="margin-left:6.5%;line-height:30px">二号货币数量</span>
+									<input type="text" id="two_currencyNum" placeholder="请输入二号货币数量" style="margin-left: 2%;width: 65.5%;" />
+								</div>
+							</div>
+							<div class='goalInfo'>
+								<div class="groupGoal">
+									<span class="titleSpanGoal">一号物品ID</span>
+									<input type="text" id="one_goodsID" placeholder="请输入一号物品ID" style="margin-left:-9%" />
+								</div>
+								<div class="groupGoal" style="margin-left:3%">
+									<span class="titleSpanGoal" style="line-height:30px">一号物品数量</span>
+									<input type="text" id="one_goodsNum" placeholder="请输入一号物品数量" style="margin-left:2.5%" />
+								</div>
+								<div class="groupGoal">
+									<span class="titleSpanGoal" style="line-height:30px;width: 27%;margin-left: 8%;">是否绑定</span>
+									<select id="bind">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+							</div>
+							<div class='goalInfo'>
+								<div class="groupGoal">
+									<span class="titleSpanGoal">二号物品ID</span>
+									<input type="text" id="two_goodsID" placeholder="请输入二号物品ID" style="margin-left:-9%" />
+								</div>
+								<div class="groupGoal" style="margin-left:3%">
+									<span class="titleSpanGoal" style="line-height:30px">二号物品数量</span>
+									<input type="text" id="two_goodsNum" placeholder="请输入二号物品数量" style="margin-left:2.5%" />
+								</div>
+								<div class="groupGoal">
+									<span class="titleSpanGoal" style="line-height:30px;width: 27%;margin-left: 8%;">是否绑定</span>
+									<select id="two_bind">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+							</div>
+							<div class='goalInfo'>
+								<div class="groupGoal">
+									<span class="titleSpanGoal">三号物品ID</span>
+									<input type="text" id="thr_goodsID" placeholder="请输入三号物品ID" style="margin-left:-9%" />
+								</div>
+								<div class="groupGoal" style="margin-left:3%">
+									<span class="titleSpanGoal" style="line-height:30px">三号物品数量</span>
+									<input type="text" id="thr_goodsNum" placeholder="请输入三号物品数量" style="margin-left:2.5%" />
+								</div>
+								<div class="groupGoal">
+									<span class="titleSpanGoal" style="line-height:30px;width: 27%;margin-left: 8%;">是否绑定</span>
+									<select id="thr_bind">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+							</div>
+							<div class='goalInfo'>
+								<div class="groupGoal">
+									<span class="titleSpanGoal">四号物品ID</span>
+									<input type="text" id="for_goodsID" placeholder="请输入四号物品ID" style="margin-left:-9%" />
+								</div>
+								<div class="groupGoal" style="margin-left:3%">
+									<span class="titleSpanGoal" style="line-height:30px">四号物品数量</span>
+									<input type="text" id="for_goodsNum" placeholder="请输入四号物品数量" style="margin-left:2.5%" />
+								</div>
+								<div class="groupGoal">
+									<span class="titleSpanGoal" style="line-height:30px;width: 27%;margin-left: 8%;">是否绑定</span>
+									<select id="for_bind">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+							</div>
+							<div class='goalInfo' style="margin:0%">
+								<div class="groupGoal">
+									<span class="titleSpanGoal">五号物品ID</span>
+									<input type="text" id="fiv_goodsID" placeholder="请输入五号物品ID" style="margin-left:-9%" />
+								</div>
+								<div class="groupGoal" style="margin-left:3%">
+									<span class="titleSpanGoal" style="line-height:30px">五号物品数量</span>
+									<input type="text" id="fiv_goodsNum" placeholder="请输入五号物品数量" style="margin-left:2.5%" />
+								</div>
+								<div class="groupGoal">
+									<span class="titleSpanGoal" style="line-height:30px;width: 27%;margin-left: 8%;">是否绑定</span>
+									<select id="fiv_bind">
+										<option value="1">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div style="margin-top:1.4%;height: 23%;border: 1px solid #707070; ">
+            	<div class="topTitle">
+                     <span class="fa fa-list-ul" style="font-size: 16px;color: #999999;margin-right: .3%;margin-left:.5%"></span>
+                     <span>反馈信息</span>
+                     <button type="button" class="layui-btn layui-btn-normal" onclick="delet()" style="float: right;margin-right: 20px;margin-top: .4%;width:82px;height:28px;;font-size:14px;line-height:28px;border-radius:0">清空</button>
+                 </div>
+                 <div class="bodyContent" style="padding:20px">
+                 <textarea class="main_bottom" readonly="readonly" style="height:120px"></textarea>
+                 </div>
+			</div>
+					
+			</div>
+		</div>
+	</body>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../upGradeView/js/upReplenishment.js"></script>
+	<script>
+	var sendRep=new Vue({
+	    el:'.layui-body',
+	    data:{
+	    	gamestype: [
+	    		{value: '1',label: '游戏币'}, 
+	    		{value: '2',label: '绑定游戏币'},
+	    		{value: '3',label: '宝石'},
+	          	{value: '4',label: '绑定宝石'},
+	         	{value: '5',label: '信仰点数'}, 
+	         	{value: '6',label: '魔晶'},
+	         	{value: '7',label: '再造点数'},
+	         	{value: '8',label: '兑换分数'}, 
+	         	{value: '9',label: '灵晶'},
+	         	{value: '10',label: '元素粉末'},
+	         	{value: '11',label: '守护点数'}, 
+	         	{value: '12',label: '成就点数'},
+	         	{value: '13',label: '声望'},
+	         	{value: '14',label: '祈福点数'}, 
+	         	{value: '15',label: '战功'},
+	         	{value: '16',label: '荣耀点数'},
+	         	{value: '17',label: '天赋点数'}, 
+	         	{value: '18',label: '助战值'},
+	         	{value: '19',label: '宝藏寻宝积分'},
+	         	{value: '20',label: '信仰符文分解碎片'},
+	         	{value: '21',label: '军团仓库积分'}, 
+	         	{value: '22',label: '属性天赋点数'}, 
+	         	{value: '23',label: '世界精粹'},
+	         	{value: '24',label: '跨服币'},
+	         	{value: '25',label: '红钻'},
+	         	{value: '26',label: '神翎之尘'}, 
+	         	{value: '27',label: '跨服天梯荣誉点数'}],
+	         	twoMoneyType:'',
+	         	oneMoneyType:'',
+	    },
+	    methods: {
+	        handleOpen(key, keyPath) {
+	        },
+	        handleClose(key, keyPath) {
+	          
+	        },
+	       selFir(value){
+	        	//console.log(this.twoMoneyType)
+	        	var obj={}
+	        	obj=this.gamestype.find((item)=>{
+	        		return item.value===value
+	        	})
+				$(".monFir").text(obj.label)
+			},
+	        selNext(value){
+	        	//console.log(this.oneMoneyType)
+	        	var obj={}
+	        	obj=this.gamestype.find((item)=>{
+	        		return item.value===value
+	        	})
+				$(".monSec").text(obj.label)
+				changeToAll()
+			}
+	       
+	    }
+	})
+	localStorage.setItem('navigation','6-8')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+		}
+		function serversType(){
+			var c = $("#seltype").find("option:selected").text();
+			$("#logsType").text(c)
+		}
+		function serversPromary(){
+			var c = $("#selheight").find("option:selected").text();
+			$("#logspromary").text(c)
+		}
+		$("#sendOut").click(function(){
+			postsend()
+		})
+	</script>
+
+</html>

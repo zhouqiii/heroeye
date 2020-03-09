@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器列表</title>
+		<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/serverList.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<link rel="stylesheet" type="text/css" href="https://raw.githack.com/hnzzmsf/layui-formSelects/master/dist/formSelects-v4.css" />
+		<style type="text/css">
+			.layui-form-label{
+				width: 70px;
+			}
+			.layui-form-select .layui-input{
+				color: white;
+			}
+			.xm-select-parent .xm-select-title div.xm-select-label>span {
+				background-color: #1E9FFF;
+			}
+			div[xm-select-skin] .xm-select-title div.xm-select-label>span {
+    			border: 1px solid #1E9FFF;
+			}
+			.xm-select-parent dl dd.xm-select-this div i {
+				color: #1E9FFF;
+			}
+			.xm-select-parent .xm-select {
+				background-color: #363636;
+			}
+			.xm-form-selected .xm-select, .xm-form-selected .xm-select:hover {
+    			border-color: #1E9FFF!important;
+			}
+			.xm-form-checkbox > i  {
+				border: 1px solid #1E9FFF;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #363636;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body">
+				<div class="inner" style="padding: 45px 20px 0px 20px;">
+					<div class="header">
+						<span class="area_title">服务器列表</span>
+						<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
+						<button class="layui-btn layui-btn-normal" id="add">添加服务器</button>
+						<button type="button" class="layui-btn layui-btn-normal" id="search">搜索</button>
+						<input type="text" class="layui-input" id="search_Id" placeholder="请输入ID搜索" style="width: 20%;" />
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="test" lay-skin="row" ></table>
+					</div>
+				</div>
+				<div class="process" style="padding: 45px 20px 0px 20px;display: none;">
+					<div class="header">
+						<span class="area_title" id="server_proce"></span>
+						<!--<span id="server_proce"></span>-->
+						<button class="layui-btn layui-btn-normal" onclick="proce()">返回服务器列表</button>
+						<button class="layui-btn layui-btn-normal" id="add_process">添加进程</button>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable_two" lay-filter="process_test" lay-skin="row" ></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="add_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器ID</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器ID" id="add_serverid" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器名称</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器名称" id="add_servername" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">所属大区</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="addSubordinate_area"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器IP</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器IP" id="add_serverip" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器端口</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器端口号" id="add_serverport" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">开启进程</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="whether_process" name="whether_process" xm-select-skin="default" lay-filter="whether_process" xm-select="whether_process" xm-select-type="1" xm-select-show-count="3">
+						<!-- <option value="1">是</option>
+						<option value="0">否</option> -->
+						<option value="">请选择</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select> 
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="add_serverremarks" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">选择数据库</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="dataserver" name="dataserver"  lay-filter="selectServer">
+						<option value="game">game</option>
+						<option value="log">log</option> 
+					</select> 
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">game</label>
+				<input type="text" class="layui-input" disabled id="game_message" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">log</label>
+				<input type="text" class="layui-input" disabled id="log_message" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器ID</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器ID" id="modify_serverid" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器名称</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器名称" id="modify_servername" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">所属大区</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="modifySubordinate_area"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器IP</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器IP" id="modify_serverip" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">服务器端口</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器端口号" id="modify_serverport" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="modify_serverremarks" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">选择数据库</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="modifyServer" name="modifyServer"  lay-filter="modifyServer">
+						<option value="game">game</option>
+						<option value="log">log</option> 
+					</select> 
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">game</label>
+				<input type="text" class="layui-input" disabled id="game_modify" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">log</label>
+				<input type="text" class="layui-input" disabled id="log_modify" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="add_proce">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">类型</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="add_proceType">
+						<option value=""></option>
+						<option value="1">Gate</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<option value="4">LS</option>
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">名称</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器名称" id="add_procename" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="add_remakers" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="modify_proce">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">类型</label>
+				<div class="layui-input-inline" style="width: 70%;color: white;">
+					<select id="modify_proceType">
+						<option value="1">Gate</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<option value="4">LS</option>
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">名称</label>
+				<input type="text" class="layui-input" placeholder="请输入服务器名称" id="modify_procename" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">备注</label>
+				<input type="text" class="layui-input" placeholder="请输入备注" id="modify_remakers" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="data_proce" style="display:none;">
+	<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">用户名</label>
+				<input type="text" class="layui-input" placeholder="请输入用户名" id="data_user" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">密码</label>
+				<input type="text" class="layui-input" placeholder="请输入密码" id="data_pwd" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">IP</label>
+				<input type="text" class="layui-input" placeholder="请输入IP" id="data_IP" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">端口号</label>
+				<input type="text" class="layui-input" placeholder="请输入端口号" id="data_port" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 70px;color: white;">数据库名</label>
+				<input type="text" class="layui-input" placeholder="请输入数据库名" id="data_name" style="width: 70%;color: white;" />
+			</div>
+		</form>
+</div>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="https://raw.githack.com/hnzzmsf/layui-formSelects/master/dist/formSelects-v4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/serverList.js"></script>
+	<script>
+		$("#navs").load("left_Navigation.html")
+		function lo() {
+			$(".202").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".202").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		function proce(){
+			$(".inner").css("display","block");
+			$(".process").css("display","none")
+		}
+		layui.use(['jquery', 'formSelects'], function () {
+	        var formSelects = layui.formSelects;
+	        formSelects.value('whether_process', "请选择")
+	    });
+	</script>
+
+</html>

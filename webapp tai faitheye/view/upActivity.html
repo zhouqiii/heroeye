@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>活动管理</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" href="../upGradeView/css/upActivity.css" />
+    <!--<link rel="stylesheet" href="../css/activityT.css" />-->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+       	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+    	<style>
+    	.layui-table-page{
+    		position:fixed !important;
+    		margin-top:.6%;
+    	}
+    	.layui-laypage{
+    		float: right !important;
+    		margin-right: 14% !important;
+    	}
+    	.layui-laypage-em,.layui-laypage-btn{
+    		border-radius:0 !important;
+    	}
+    	.layui-laypage-skip>.layui-input{
+    	 	border-radius:0 !important;
+    	}
+    	.layui-input:click{
+    		border-color:#ffffff !important
+    	}
+    	.layui-laypage-limits select{
+    		border-radius:0 !important;
+    	}
+    	.layui-layer-btn1 {
+    			background: #999999 !important;
+    			border:1px solid #999999 !important;
+    		}
+    		.start_up{
+				cursor:pointer
+			}
+			.ddAlert{
+				margin:0 !important
+			}
+			.triangle-up {
+				 top: -13% !important;
+			}
+			#arrow{
+				margin-top:5px !important
+			}
+			.didian{
+				margin:3% !important
+			}
+			#alwaysChange{
+				width: 130px !important;
+			}
+			/*确认删除*/
+			.TitleBtn{
+				color: #ffffff;
+			    margin: 4.5% 25%;
+			}
+			.layui-layer-title{
+				background-color: #C9C9C9 !important;
+                font-size: 14px !important;
+                color: #000000 !important;
+			}
+			.layui-layer{
+				background-color:#242424 !important;
+			}
+						.layui-layer-btn0{
+				width: 110px;
+				height: 36px !important;
+				line-height: 36px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1{
+				width: 110px;
+				height: 36px !important;
+				line-height: 36px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn0:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn{
+				text-align: center !important;
+				padding:0 15px !important;
+			}
+			.layui-layer-content{
+			border-bottom:0 !important;
+			height:auto !important;
+
+			}
+			/*确认删除结束*/
+    	</style>
+</head>
+
+<body class="layui-layout-body" style="background: #262626;" onload="lo()">
+    <div id="navs"></div>
+    <div class="layui-layout layui-layout-admin">
+        
+        <div class="layui-body" style="padding:20px 1.5% 20px 20px">
+              <div style="height:80px;line-height: 80px;border: 1px solid #707070;background:#333333">
+					<ul class="tabnavs">
+						<li class='tabchange liebiao_fabu_btn btn2f' value="" id="allAnou"><span class="getTitleBlank" style="background:#141414;padding:12px 41px">全部</span><span class="tabline"></span></li>
+						<li class='tabchange liebiao_fabu_btn btn3f' value="2" id="hadAnou"><span class="getTitleBlank">已发布</span><span class="tabline"></span></li>
+						<li class='tabchange liebiao_fabu_btn btn4f' value="3" id="noAnou"><span class="getTitleBlank">未发布</span></li>
+					</ul>
+				</div>
+            <!-- 列表分析内容 黑色大盒子start -->
+            <div class="liebiao_big_box">
+ <!-- 新部分 -->                   <!--表格数据外面的大盒子  -->
+                    <div class="liebiao_big_box_body" style=" ">
+                    	<div class="box_right">
+							<button id="addactive">新增活动</button>
+							<button id="but-removeData" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display:block;background-color: #1e9fff !important;">清除数据</button>
+							<button id="but-removeBatch" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display: none;background-color: #1e9fff !important;">全部发布</button>
+                        	<button id="but-hotUpdate" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display: none;background-color: #1e9fff !important;color: #ffffff;font-weight: 400;">热更新</button>
+							<button id="but-allRemove" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display:block;">批量删除</button>
+							<div style="float:right;margin-top:.5%">
+								<el-tooltip class="item" effect="dark" content="下载" placement="top"><img src="../img/导出.png" id="down" style="cursor: pointer;" class="download"></el-tooltip>
+								<el-tooltip class="item" effect="dark" content="上传" placement="top"><img src="../img/导入.png" id="upl" style="cursor: pointer;" class="upload"></el-tooltip>
+							</div>
+						</div>
+						<div style="display: flex;padding: 1% 15px;">
+							<div class="inputTime" style="width:22%">
+								<span class="titleTag" style="width:14%;padding-top:4px">活动ID</span>
+								<input type="text" id="seachactiver_id" name="title" required  lay-verify="required" placeholder="请输入活动ID" autocomplete="off" class="active_id" style="width:85%">
+							</div>
+							<div class="inputTime" style="width:25%;margin-left:1.5%">
+								<span class="titleTag" style="width:16%;padding-top:4px">活动名称</span>
+								<input type="text" id="seachactiver_name" name="title" required  lay-verify="required" placeholder="请输入活动名称" autocomplete="off" class="active_id" style="width:75%">
+							</div>
+							 <button id="header_title_seach">查询</button>
+						</div>
+                        <!-- 表格模板 -->
+                        <div style="margin:0 15px" class="tableMain">
+                        	<table id="demo" lay-filter="test"></table>
+                        </div>
+                        <div style="display:none;">
+                        	<table id="demoBranch" lay-filter="test" style="display:none;"></table>
+                        </div>
+                    </div>
+                    <!-- 大区--服务器选择 -->
+                    <div class="active_server">
+                        <div class="left_bottom">
+                            <div class="top">
+                                <span class="top_area">请选择大区</span>
+                                <div onclick="changeAreaServer()">
+                                    <span class="top_server">请选择服务器<i class="fa fa-close" aria-hidden="true" style="font-size: 18px;margin-left: 75%;"></i></span>
+                                </div>
+                        	</div>
+                        	<div class="serverListAno" style="height:500px;border-bottom:2px solid #484645">
+	                            <div class="left_content"></div>
+	                            <div class="right_content" style="padding-top:2%"></div>
+                            </div>
+                            <div>
+                            	<button id="sendSure" style="display:none">确定发布</button>
+                            	<button id="export" style="display:none">导出</button>
+                            	<button id="delSure" style="display:none">确认清除数据</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 查询服务器 -->
+                    <div class="active_serverB">
+                        <div class="left_bottomB">
+                                <div class="topB">
+                                    <!-- <span class="top_areaB">请选择大区</span> -->
+                                    <div onclick="changeAreaServerB()">
+                                        <span class="top_serverB"> 查看发布成功的服务器<i class="fa fa-close" aria-hidden="true" style="font-size: 18px;margin-left: 79%;"></i></span>
+                                    </div>
+                                </div>
+                                <div class="left_contentB"></div>
+                                <div class="right_contentB" style="padding-top:2%"></div>
+                                <button id="exportB" >导出</button>
+                        </div>
+                    </div>
+                    <!-- 编辑详情 -->
+                    <div id="eidts_box">
+                        <form action="">
+                                <label class="eidts_lable">活动编号</label>
+                                <input type="text" class="eidts_input"  id="edit_activityId">
+                                <br>
+                                <label class="eidts_lable">活动ID</label>
+                                <input type="text"  id="edit_attributeId" class="eidts_input" style="margin-left: 23px;">
+                                <br>
+                                <label class="eidts_lable">活动类型</label>
+                                <input type="text" id="edit_activityType" class="eidts_input"><br>
+
+                                <label class="eidts_lable">活动名称</label>
+                                <input type="text" id="edit_activityName" class="eidts_input"><br>
+                                <label class="eidts_lable">开始时间</label>
+                                <input type="text" id="edit_startTime" class="eidts_input"><br>
+                                <label class="eidts_lable">周期参数</label>
+                                <input type="text" id="edit_cycleParamNum" class="eidts_input"><br>
+                                <label class="eidts_lable">持续天数</label>
+                                <input type="text" id="edit_durationDays" class="eidts_input"><br>
+                                <label class="eidts_lable">循环天数</label>
+                                <input type="text" id="edit_cycleDays" class="eidts_input"><br>
+                                <label class="eidts_lable">发布状态</label>
+                                <input type="text" id="edit_status" class="eidts_input">
+
+                                <!-- <button id="eidts_baocun">保存</button> -->
+                                <!-- <button type="reset" class="eidts_reset">重置</button> -->
+                        </form>
+                      
+                       
+                    </div>
+                   
+            </div>
+             <!-- 列表分析内容 黑色大盒子end -->
+        </div>
+    </div>
+</body>
+ <!--上传文件 -->
+ <iframe id="iframe_display" name="iframe_display" style="display: none;"></iframe>  
+ <div id="daoru" style="display: none">
+          <form action="../importCSVFile.action" method="post" enctype="multipart/form-data" target="iframe_display">
+                <p style="color: white;margin-top: 4%">
+                    <input type="file" name="file" class="myFileUpload" onchange="changeOpen1()" id="uploadInput1"/>
+                    <span class="blueButton" style="margin-left: 4%">主表</span>
+                    <div id="show1">暂无上传文件</div>
+                </p>
+	            <br/>
+                <br/>
+                <p style="color: white;margin-top: 6%"> 
+                    <input type="file" name="file" class="myFileUpload" onchange="changeOpen2()" id="uploadInput2"/>
+                    <span class="blueButton" style="margin-left: 4%">子表</span>
+                    <div id="show2">暂无上传文件</div>
+                </p>
+	            <button type="submit" class="upButton">上传</button>
+          </form>
+  </div>
+  <div id="deleteTop" style="display:none">
+		<div class="TitleBtn">是否删除活动？</div>
+	</div>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/multiple/bootstrap-multiselect.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../upGradeView/js/upActivity.js"></script>
+<script>
+
+localStorage.setItem('navigation','7-1')
+$("#navs").load("../upGradeView/upGradeNav.html")
+var vmActivity=new Vue({
+    el:'.layui-body',
+    data:{
+       
+    },
+    methods: {
+       
+    }
+})
+    function lo() {
+        $(".600").addClass("layui-this").siblings().removeClass("layui-this")
+        $(".600").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+    }
+    function changeOpen1(){
+        document.getElementById("show1").innerHTML = document.querySelector("#uploadInput1").files[0].name
+    }
+    function changeOpen2(){
+        document.getElementById("show2").innerHTML = document.querySelector("#uploadInput2").files[0].name
+    }
+    var arr=[]
+    $("#iframe_display").load(function(){
+    	var textstr = $(this)[0].contentDocument.body.textContent;
+    	textstr= textstr.substring(0,textstr.length-1)
+    	textstr= textstr.substring(1)
+    	arr = textstr.split(",")
+    	arr=arr[1].split(":")
+    	textstr = arr[1]
+    	textstr= textstr.substring(0,textstr.length-1)
+    	textstr= textstr.substring(1)
+    	alert(textstr)
+    	location.reload() 
+    })
+    
+    $('#addactive').click(function(){
+        self.location.href="upActivityAdd.html"
+    })
+    function changeAreaServer() {
+        $(".active_server").css("display","none")
+    }
+    function changeAreaServerB() {
+        $(".active_serverB").css("display","none")
+    }
+	$(".tabnavs li").click(function(){
+		var index = $(this).index();
+		var len=document.getElementsByClassName("getTitleBlank")
+		for(var i=0;i<len.length;i++){
+			if(index===i){
+				document.getElementsByClassName("getTitleBlank")[i].style.backgroundColor="#141414"
+				console.log(document.getElementsByClassName("getTitleBlank")[i])
+			}else{
+				document.getElementsByClassName("getTitleBlank")[i].style.backgroundColor="inherit"
+			}
+		}
+	})
+</script>
+
+</html>

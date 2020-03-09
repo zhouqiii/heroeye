@@ -1,0 +1,141 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.inner,.serverList{
+	width: 98%;
+	height: 65%;
+	margin: 0 auto;
+	background: #242424;
+	margin-top: 27px;
+	border: 1px solid #707070;
+}
+.serverList {
+	height:25%;
+}
+#inner_head,#server_head{
+	height: 38px;
+	line-height: 36px;
+	background-color: #121212;
+	padding-left: 15px;
+	color:#fff;
+	border-bottom: 1px solid #707070;
+}
+#inner_head span{
+	color: white;
+	line-height: 40px;
+	margin-left: 5px;
+}
+.inner .inner_main{
+	width: 100%;
+	height: 93.4%;
+}
+.serverList .server_main{
+	width: 97%;
+	margin: 0 auto;
+	margin-top: 12px;
+	overflow-y:auto;
+	height: 77%;
+}
+.inner .inner_main .main_box{
+	height: 35px;
+	background: #7d7c7c;
+	border-radius: 5px;
+	background: -webkit-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* 标准的语法 */
+}
+.inner .inner_main .main_box .box_left{
+	float: left;
+	width: 11%;
+	color: #fff;
+	height: 35px;
+	line-height: 35px;
+}
+.inner .inner_main .main_box .box_right{
+	float: left;
+	width: 89%;
+	color: #fff;
+	border-left: 1px solid #B6B2B2;
+	box-sizing: border-box;
+	height: 35px;
+	line-height: 35px;
+}
+.inner .inner_main .main_left{
+	width: 14%;
+	float: left;
+	height: 100%;
+	/* padding: 1%; */
+	background-color: #333;
+	color:#fff;
+	overflow:auto;
+	border-right: 1px solid #707070;
+    box-sizing: border-box;
+}
+.inner .inner_main .main_left p {
+	height: 70px;
+    line-height: 69px;
+    font-size: 16px;
+    padding-left: 5%;
+    border-bottom: 1px solid #707070;
+}
+.inner .inner_main .main_right{
+	width: 86%;
+	float: right;
+	background-color: #242424;
+	height: 100%;
+	overflow-y: auto;
+	color: white;
+	padding: 2%; 
+	border: 0;
+	box-sizing:border-box;
+}
+.inner .inner_main .main_right label {
+	width:5%;
+	font-size:16px;
+}
+.inner .inner_main .main_right form {
+	height:100%;
+}
+#orderName,#orderContent {
+	width: 92%;
+    background: transparent;
+    border: 1px solid #707070;
+    height: 40px;
+    color: #fff;
+    padding-left:1%;
+}
+#orderContent{
+	width: 91%;
+	margin-top: 2%;
+    height: 67%;
+    vertical-align: middle;
+    padding:1%;
+    resize:none;
+}
+ input[type = "checkbox"]{
+	background: transparent;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #CCCCCC;
+	-webkit-appearance:none;
+	float: left;
+}
+input[type = "checkbox"]:checked{
+	background-image: url(../img/duihao.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.hide{
+	display:none;
+}
+.inputchecked {
+	background-image: url(../img/duihao.png) !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+}
+.orderList input {
+	vertical-align: text-bottom;
+	margin-bottom: 1px;
+}

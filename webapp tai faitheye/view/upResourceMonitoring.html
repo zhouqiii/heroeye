@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>资源监控</title>
+			<link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/>
+		<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+				    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../upGradeView/css/upResourceMonitoring.css" />
+	</head>
+	<body class="layui-layout-body" style="background: #242424;" onload="lo()">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="padding: 20px 1.5% 0px 20px;">
+				<div style="height: 60px;line-height: 60px;border: 1px solid #707070;">
+					<ul class="tabnavs">
+						<li style="border-left:0;text-align: left;margin-left: 1.2%;width:7%;font-size: 14px;color:#ffffff">CPU占用率<span style="border-left: 1px solid #ffffff;float: left;color: #ffffff;height: 23px;margin-top: 5px;float: right"></span></li>
+						<li>内存占用率<span style="border-left: 1px solid #ffffff;float: left;color: #ffffff;height: 23px;margin-top: 5px;float: right"></span></li>
+						<li>C盘占用率</li>
+					</ul>
+				</div>
+				<!--<form role="form" style="height: 40px;width: 98%;margin: 0 auto;margin-top: 1%;">-->
+					<!--<div class="form-group form_acc" style="width: 25%;">-->
+						<!--<span class="gm_span" style="width: 30%;">选择服务器</span>-->
+						<!--<select id="server" onchange="regs()"></select>-->
+					<!--</div>-->
+					<!--&lt;!&ndash;<span id="state">已断开</span>&ndash;&gt;-->
+				<!--</form>-->
+
+				<div class="inner">
+					<div class="contentTitle">
+						<p id="titleSelect">CPU占用率</p>
+					</div>
+					<form role="form" style="height: 40px;width: 98%;margin: 0 auto;margin-top: 1.2%;">
+						<div class="form-group form_acc" style="width: 25%;">
+							<span class="gm_span">选择服务器</span>
+							<select id="server" onchange="regs()"></select>
+						</div>
+					</form>
+					<div class="inner_main" style="display: flex;flex-direction: row">
+						<div style="width: 2%;color: #707070;padding-top: 7%;font-size: 14px"><span  class="serverName"></span></div>
+						<div id="container" style="width: 97.5%;margin-left: .5%"></div>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div style="width: 2%;color: #707070;padding-top: 7%;font-size: 14px;"><span  class="serverName"></span></div>
+						<div id="Memory_container" style="width: 97.5%;margin-left: .5%"></div>
+					</div>
+					<div class="inner_main" style="display: none;">
+						<div style="width: 2%;color: #707070;padding-top: 7%;font-size: 14px;"><span  class="serverName"></span></div>
+						<div id="hard_container" style="width: 97.5%;margin-left: .5%"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/highcharts.js"></script>
+	<script src="../js/data.js"></script>
+	<script src="../upGradeView/js/upResourceMonitoring.js"></script>
+	<script>
+	localStorage.setItem('navigation','4-1')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function lo() {
+			$(".400").addClass("layui-this").siblings().removeClass("layui-this")
+			$(".400").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+		}
+		$(".tabnavs li").click(function(){
+			$(this).css("color","#ffffff").siblings().css("color","#999999");
+            $(this).css("font-size","14px").siblings().css("font-size","12px");
+			var c = $(this).index();
+			if(c == 0){
+				$(".inner .inner_main").eq(0).css("display","flex").siblings('.inner_main').css("display","none")
+                $("#titleSelect").html('CPU占用率');
+			}else if(c == 1){
+				$(".inner .inner_main").eq(1).css("display","flex").siblings('.inner_main').css("display","none")
+                $("#titleSelect").html('内存占用率');
+			}else if(c == 2){
+				$(".inner .inner_main").eq(2).css("display","flex").siblings('.inner_main').css("display","none")
+                $("#titleSelect").html('C盘占用率');
+
+			}
+		})
+		function defaultTab(){
+		    var tabclick=document.getElementsByClassName('inner_main')
+            inner_main[0]
+		}
+	</script>
+</html>

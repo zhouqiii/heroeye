@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>邮件列表</title>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<link rel="stylesheet" href="../upGradeView/css/upEmailList.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		<style type="text/css">
+			.layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even){
+				background-color: #242424;
+			}
+			.layui-form-radio *{
+				color: white;
+			}
+			.layui-form-select .layui-input{
+				color: white;
+			}
+			/*分页样式*/
+			.layui-table-page {
+				padding-top: 15px !important;
+				border-top: 1px solid #707070;
+			}
+			.layui-laypage-btn{
+				border-radius: 0 !important;
+				border: 1px solid #707070 !important;
+				line-height: 25px !important;
+				height: 25px !important;
+			}
+			.layui-table-view select[lay-ignore]{
+				border-radius: 0;
+				border: 1px solid #707070;
+			}
+			.layui-laypage select{
+				height: auto !important;
+			}
+			.layui-laypage-em{
+				border-radius:0 !important;
+			}
+			.layui-form-label{
+				padding: 0 15px !important;
+			}
+			/*表格工具栏*/
+			.layui-table-tool{
+				z-index: auto !important;
+				top: 140px !important;
+				border-width: 0 0 0px !important;
+				background: inherit !important;
+			}
+			/*.layui-table-page{*/
+				/*margin-top: 3.3% !important;*/
+			/*}*/
+			.layui-btn-danger{
+				border-radius: 0 !important;
+				height: 28px !important;
+				line-height: 28px !important;
+			}
+			.layui-table-tool-self{
+				display: none !important;
+			}
+			/*表格样式*/
+			.layui-table-header>table>thead>tr>th{
+				background:#121212;
+			}
+			.layui-table-cell{
+				color:#E4E4E4;
+				font-weight:400;
+			}
+			.layui-table-header{
+				border-bottom:0 !important;
+			}
+			.layui-table thead tr{
+				border-bottom:0 !important;
+				height: 50px;
+			}
+			.layui-layer-title{
+				background-color:#414141 !important;
+				border-bottom:1px solid #242424 !important;
+				font-size:14px !important;
+			}
+			.layui-layer{
+				background-color:#414141 !important;
+			}
+			.layui-layer-content{
+				border-bottom:1px solid #242424 !important;
+			}
+			.layui-form-label{
+				padding: 0 15px !important;
+			}
+
+			.layui-table-view .layui-form-checkbox[lay-skin=primary] i{
+				width: 14px !important;
+				height: 14px !important;
+				border-radius: 0 !important;
+			}
+			.layui-form-radio{
+				margin: 0px 10px 0 0 !important;
+			}
+			/*弹出框样式*/
+			.layui-table{
+				background-color: #242424 !important;
+			}
+			.layui-layer-title{
+				background-color: #C9C9C9 !important;
+				font-size: 14px !important;
+				color: #242424 !important;
+			}
+			.layui-layer-content{
+				border-bottom:0px solid #242424 !important;
+			}
+			.layui-form-label{
+				padding: 6px 0px !important;
+				width: 80px !important;
+			}
+			.layui-layer-btn0{
+				width: 68px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+				margin-top: 20px !important;
+			}
+			.layui-layer-btn1{
+				width: 68px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				margin-top: 20px !important;
+				text-align: center;
+			}
+			.layui-layer-btn1:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn0:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn{
+				text-align: center !important;
+				padding:0 15px !important;
+			}
+			.layui-layer-page .layui-layer-btn{
+				margin-top: -20px;
+			}
+			.layui-layer-content{
+				height: auto !important;
+			}
+			/**/
+			.layui-form-item{
+				margin-bottom: 0px !important;
+			}
+			.layui-input{
+				height: 32px !important;
+				line-height: 32px !important;
+				border: 1px solid #707070 !important;
+				border-radius: 5px !important;
+				background: inherit !important;
+			}
+			.layui-laypage-skip>.layui-input{
+				width: 30px !important;
+				border-radius: 0 !important;
+				height: 25px !important;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #242424;" >
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body"  style="padding: 20px 20px 0px 20px;display:flex;flex-direction:column">
+				<div class="topTool">
+					<form>
+						<div class="form-group" style="width: 13%;float: left;margin-left:1.5%;margin-top:.8%">
+										<span class="serve_span">
+											<i class="fa fa-server" style="margin-left: 4%;margin-right: 18%;"></i>
+											<span class="logs">单区多服</span>
+											<i class="fa fa-caret-down" style="float: right;margin-top: 4%;margin-right: 7%;"></i>
+										</span>
+							<select id="server" onchange="selects(this);servers()">
+								<option value="2">单区多服</option>
+								<option value="0">全区全服</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="serverPage" style="margin-top:.8%">
+					<div class="area">
+						<div class="box_right">
+							<span class="fa fa-list-ul" style="margin-left: 3%;color: #999999;"></span>
+							<span>大区列表</span>
+						</div>
+						<div class="left_content"></div>
+					</div>
+					<div class="server">
+						<div class="boxleft" >
+							<span class="fa fa-list-ul" style="margin-left: 3%;color: #999999;"></span>
+							<span>服务器列表</span>
+						</div>
+						<div class="right_content"></div>
+					</div>
+				</div>
+				<div class="inner">
+					<div class="inner_main">
+						<div class="main">
+							<div class="loadTag" style="display: none;">
+								<div class="titleLoadAdd" style="font-size: 12px;float: left;padding-top: 1%; margin-top:20%;margin-left:50%;text-align: center;color:#ffffff;" id="loadres"><i class="el-icon-loading" style="font-size: 28px;vertical-align: middle;"></i><div style="margin-top: 5px;margin-left: 10px">加载中...</div></div>
+							</div>
+							<div class="addContent" style="width: 100%;height: 100%;">
+								<div class="topTitle">
+									<span class="fa fa-pencil-square-o" style="font-size: 16px;color: #999999;margin-right: .3%"></span>
+									<span>邮件内容</span>
+								</div>
+								<div class="bodyContent">
+									<div class="layui-form-item anutype">
+										<div class="lableRate"><span style="padding-right: 10%">邮件名称：</span></div>
+										<div class="layui-input-inline" style="margin-left: 1.6%">
+										<input type="text" id="emailid"  placeholder="请输入邮件名称">
+										</div>
+									</div>
+									<!-- <div class="layui-form-item anutype">
+										<div class="layui-input-block radios" style="margin-left: 0;width: 100%;display: flex">
+											<div class="labelNature" >邮件性质：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+											<div class="layui-input-inline" style="margin-left: 1.6%">
+												<input type="radio" name="sex" value="0" title="单人邮件" id="singleEmail" style="color: white;" lay-filter = "jiedian" /><span>单人邮件</span>
+												<input type="radio" name="sex" value="1" title="群发邮件" id="groupEmails" style="color: white;" lay-filter = "jiedian" /><span>群发邮件</span>
+											</div>
+										</div>
+									</div>-->
+									<div class="layui-form-item anutype">
+										<div class="lableTime"><span style="padding-right: 10%">发送时间：</span></div>
+										<div class="layui-input-inline" style="margin-left: 1.6%">
+										<input type="text" id="datatimes" placeholder="请输入发送邮件的时间">
+										</div>
+									</div>
+									<!-- <div class="layui-form-item anutype" id="single">
+										<div class="lableGet"><span style="padding-right: 10%">收件人：</span></div>
+										<div class="layui-input-inline" style="margin-left: 1.6%">
+											<input type="text" id="addname"  placeholder="请输入收件人名称">
+										</div>
+									</div>-->
+									<div class="layui-form-item anutype" id="groupEmail" style="display: none">
+										<div class="lableServer"><span style="padding-right: 10%">收件人：</span></div>
+										<div class="layui-input-inline" style="margin-left: 1.6%;width: 400px">
+											<span>
+												<span id="logsname">请选择</span>
+												<i class="fa fa-caret-down" style="margin-left: 7%;color: #1E9FFF;"></i>
+											</span>
+											<select id="add_server" onchange="serversName()"></select>
+										</div>
+									</div>
+									<!--  <div class="layui-form-item anutype" id="singroupEmail" style="">
+										<div class="lableServer"><span style="padding-right: 10%">服务器：</span></div>
+										<div class="layui-input-inline" style="margin-left: 1.6%;width: 400px">
+										<span>
+											<span id="logsserver">请选择</span>
+											<i class="fa fa-caret-down" style="margin-left: 7%;color: #1E9FFF;"></i>
+										</span>
+										<select id="sinadd_server" onchange="serversServer()">
+										</select>
+										</div>
+									</div>-->
+									<div class="layui-form-item anutype" id="singleId">
+										<div class="lableGet"><span style="padding-right: 10%">收件人ID：</span></div>
+										<div class="layui-input-inline" style="margin-left: 1.6%">
+											<input type="text" id="addnameId"  placeholder="请输入收件人ID">
+										</div>
+									</div>
+									<div class="layui-form-item anutype">
+										<div class="lableGet">过期时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+										<div class="layui-input-inline" style="margin-left: 1.6%;">
+											<input type="text"  placeholder="请输入过期时间(单位：毫秒)" id="Expiration" style="width:100%"/>
+										</div>
+									</div>
+									<div class="layui-form-item anutype" id="addDivMoney">
+										<div class="lableAdd"  id="addMon" style="width: 11.2%;"><span><i  style="font-size:20px;color:#ffffff;margin-top: 8%;margin-left: 25%;" id="addsMon"></i></span>货币附件：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+										<div  class="layui-input-inline" style="margin-left: 1.6%;height: 100%;width: 88%;overflow-y:auto;" id="addFrame">
+											<div class="addMoney" >
+											<span class="showSelect">
+												<span class="logsMoney">请选择</span>
+												<i class="fa fa-caret-down" style="margin-left: 7%;color: #1E9FFF;"></i>
+											</span>
+											
+											<select class="Moneyid" style="width: 135px;float: left;" onchange="serversServer()">
+												<option value="">请选择</option>
+												<option value="0">经验值</option>
+										        <option value="1">游戏币</option>
+										        <option value="2">绑定游戏币</option>
+										        <option value="3">宝石</option>
+										        <option value="4">绑定宝石</option>
+										        <option value="5">信仰点数</option>
+										        <option value="6">魔晶</option>
+										        <option value="7">再造点数</option>
+										        <option value="8">兑换分数</option>
+										        <option value="9">灵晶</option>
+										        <option value="10">元素粉末</option>
+										        <option value="11">守护点数</option>
+										        <option value="12">成就点数</option>
+										        <option value="13">声望</option>
+										        <option value="14">祈福点数</option>
+										        <option value="15">战功</option>
+										        <option value="16">荣耀点数</option>
+										        <option value="17">天赋点数</option>
+										        <option value="18">助战值</option>
+										        <option value="19">宝藏寻宝积分</option>
+										        <option value="20">信仰符文分解碎片</option>	
+										        <option value="21">军团仓库积分</option>
+												<option value="22">属性天赋点数</option>
+												<option value="23">世界精粹</option>
+												<option value="24">跨服币</option>
+												<option value="25">红钻</option>
+												<option value="26">神翎之尘</option>
+												<option value="27">跨服天梯荣誉点数</option>
+											</select>
+											<!-- <input type="text" class="Moneyid" style="width: 105px;background: transparent;color: white;float: left;" placeholder="请输入货币ID"/>-->
+												<input type="text" class="Moneynum"  style="width: 105px;background: #333333;color: white;float: left;" placeholder="请输入货币数量"/>
+											</div>
+											<div class="addMoney" >
+												<span class="showSelect">
+												<span class="logsMoney">请选择</span>
+												<i class="fa fa-caret-down" style="margin-left: 7%;color: #1E9FFF;"></i>
+											</span>
+											<select class="Moneyid" style="width: 135px;float: left;" onchange="serversServer()">
+												<option value="">请选择</option>
+												<option value="0">经验值</option>
+										        <option value="1">游戏币</option>
+										        <option value="2">绑定游戏币</option>
+										        <option value="3">宝石</option>
+										        <option value="4">绑定宝石</option>
+										        <option value="5">信仰点数</option>
+										        <option value="6">魔晶</option>
+										        <option value="7">再造点数</option>
+										        <option value="8">兑换分数</option>
+										        <option value="9">灵晶</option>
+										        <option value="10">元素粉末</option>
+										        <option value="11">守护点数</option>
+										        <option value="12">成就点数</option>
+										        <option value="13">声望</option>
+										        <option value="14">祈福点数</option>
+										        <option value="15">战功</option>
+										        <option value="16">荣耀点数</option>
+										        <option value="17">天赋点数</option>
+										        <option value="18">助战值</option>
+										        <option value="19">宝藏寻宝积分</option>
+										        <option value="20">信仰符文分解碎片</option>	
+										        <option value="21">军团仓库积分</option>
+												<option value="22">属性天赋点数</option>
+												<option value="23">世界精粹</option>
+												<option value="24">跨服币</option>
+												<option value="25">红钻</option>
+												<option value="26">神翎之尘</option>
+												<option value="27">跨服天梯荣誉点数</option>
+											</select>
+												<input type="text" class="Moneynum"  style="width: 105px;background: #333333;color: white;float: left;" placeholder="请输入货币数量"/>
+											</div>
+										</div>
+									</div>
+									<div class="layui-form-item anutype" id="addDiv">
+										<div class="lableAdd"  id="addpro" style="width: 11.2%;"><span><i  style="font-size:20px;color:#ffffff;margin-top: 8%;margin-left: 25%;" id="adds"></i></span>物品附件：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+										<div  class="layui-input-inline" style="margin-left: 1.6%;height: 100%;width: 88%;" id="addInterface">
+											<div class="addGoal" >
+												<input type="text" class="Goodsid" style="width: 135px;margin-right:2px;color: white;float: left;" placeholder="请输入物品ID"/>
+												<input type="text" class="Goodsnum"  style="width: 105px;color: white;float: left;" placeholder="请输入物品数量"/>
+											</div>
+											<div class="addGoal" >
+												<input type="text" class="Goodsid" style="width: 135px;margin-right:2px;color: white;float: left;margin-left:2px" placeholder="请输入物品ID"/>
+												<input type="text" class="Goodsnum"  style="width: 105px;color: white;float: left;" placeholder="请输入物品数量"/>
+											</div>
+											<div class="addGoal" >
+												<input type="text" class="Goodsid" style="width: 135px;margin-right:2px;color: white;float: left;" placeholder="请输入物品ID"/>
+												<input type="text" class="Goodsnum"  style="width: 105px;color: white;float: left;" placeholder="请输入物品数量"/>
+											</div>
+											<div class="addGoal" >
+												<input type="text" class="Goodsid" style="width: 135px;margin-right:2px;color: white;float: left;" placeholder="请输入物品ID"/>
+												<input type="text" class="Goodsnum"  style="width: 105px;color: white;float: left;" placeholder="请输入物品数量"/>
+											</div>
+											<div class="addGoal" >
+												<input type="text" class="Goodsid" style="width: 135px;margin-right:2px;color: white;float: left;" placeholder="请输入物品ID"/>
+												<input type="text" class="Goodsnum"  style="width: 105px;color: white;float: left;" placeholder="请输入物品数量"/>
+											</div>
+										</div>
+									</div>
+									
+									<div class="layui-form-item anucontent" style="height:180px;border-bottom:0;overflow-y:hidden;">
+										<div class="textareapart"><span style="padding-right: 10%">邮件内容：</span></div>
+										<div class="layui-input-inline" style="width: 88.9%;margin-right:0px;padding: 0.4% 0.4% 0.4% 1.6%;">
+											<textarea  id="emailContent" placeholder="邮件内容最多500字" style="border:0px;height:160px;width: 100%;background: inherit;color: #ffffff"></textarea>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="margin-top:.8%">
+						<button type="button" class="layui-btn layui-btn-normal" id="saveEmailmodify" onclick="postsend()">发送邮件</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/jquery.cookie.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../upGradeView/js/upSendMail.js"></script>
+	<script>
+    localStorage.setItem('navigation','3-2')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		function servers(){
+			var c = $("#server").find("option:selected").text();
+			$(".logs").text(c)
+		}
+        function serversServer(){
+        	var moneyAll= document.getElementsByClassName("Moneyid")
+        	var showthis= document.getElementsByClassName("logsMoney")
+        	for (var i=0;i<moneyAll.length;i++){
+        		var index=moneyAll[i].selectedIndex // selectedIndex代表的是你所选中项的index
+        		var textThis=moneyAll[i].options[index].text;
+        		showthis[i].innerHTML=textThis
+        	}
+        }
+        $('#backList').click(function () {
+            $(".inner .inner_main").eq(0).css("display","block").siblings('.inner_main').css("display","none")
+        })
+	</script>
+</html>

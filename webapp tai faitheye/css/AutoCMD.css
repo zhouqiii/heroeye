@@ -1,0 +1,169 @@
+*{
+	margin: 0;
+	padding: 0;
+	color: #fff;
+}
+.inner,.serverList{
+	width: 98%;
+	height: 90%;
+	margin: 0 auto;
+	margin-top: 27px;
+}
+.serverList {
+	width: 100%;
+    margin-top: 0;
+}
+#inner_head,#server_head{
+	height: 60px;
+	line-height: 60px;
+	/* padding-left: 15px; */
+	color:#fff;
+	border: 1px solid #999;
+	margin-bottom: 25px;
+}
+#server_head{
+	background-color: #121212;
+	height: 50px;
+    line-height: 50px;
+    border: 0;
+    box-sizing: border-box;
+}
+#inner_head span{
+	color: white;
+	line-height: 40px;
+	margin-left: 5px;
+}
+#inner_head .layui-nav {
+	background: #212421;
+	line-height: 67px;
+	height:60px;
+	width:100%;
+}
+.inner .inner_main{
+	width: 100%;
+	height: 93.4%;
+}
+.serverList .server_main{
+	/* width: 97%; */
+	margin: 0 auto;
+	margin-top: 12px;
+	overflow-y:auto;
+	/* height: 77%; */
+	margin-left: 11px;
+}
+.inner .CMD_head {
+	width: 85%;
+    background-color: #121212;
+    height: 50px;
+    line-height: 50px;
+    float: left;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    border-bottom: 0;
+}
+.inner .inner_main .main_box{
+	height: 35px;
+	background: #7d7c7c;
+	border-radius: 5px;
+	background: -webkit-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#7d7c7c 0%, #2e2e2e 100%); /* 标准的语法 */
+}
+.inner .inner_main .main_box .box_left{
+	float: left;
+	width: 11%;
+	color: #fff;
+	height: 35px;
+	line-height: 35px;
+}
+.inner .inner_main .main_box .box_right{
+	float: left;
+	width: 89%;
+	color: #fff;
+	border-left: 1px solid #B6B2B2;
+	box-sizing: border-box;
+	height: 35px;
+	line-height: 35px;
+}
+.inner .inner_main .main_left,.inner .inner_main .main_server {
+	width: 14%;
+	float: left;
+	height: 753px;
+	background-color: #333;
+	color:#fff;
+	overflow:auto;
+	border: 1px solid #999;
+    box-sizing: border-box;
+}
+.inner .inner_main .main_left {
+	border-top: 0;
+	height:703px;
+}
+.inner .inner_main .main_left p {
+	height: 60px;
+    line-height: 59px;
+    font-size: 16px;
+    padding-left: 5%;
+    border-bottom: 1px solid #707070;
+}
+.inner .inner_main .main_right{
+	width: 71%;
+	float: left;
+	background-color: #242424;
+	height: 92%;
+	overflow-y: auto;
+	color: white;
+	padding: 2%; 
+	border-bottom: 1px solid #999;
+	border-right: 1px solid #999;
+	box-sizing:border-box;
+}
+.inner .inner_main .main_right label {
+	width:5%;
+	font-size:16px;
+}
+.inner .inner_main .main_right form {
+	height:100%;
+}
+#orderName,#orderContent {
+	width: 90%;
+    background: transparent;
+    border: 1px solid #707070;
+    height: 40px;
+    color: #fff;
+    padding-left:1%;
+}
+#orderContent{
+	width: 89%;
+	margin-top: 2%;
+    height: 67%;
+    vertical-align: middle;
+    padding:1%;
+    resize:none;
+}
+ input[type = "checkbox"]{
+	background: transparent;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #CCCCCC;
+	-webkit-appearance:none;
+	float: left;
+}
+input[type = "checkbox"]:checked{
+	background-image: url(../img/duihao.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.hide{
+	display:none;
+}
+.inputchecked {
+	background-image: url(../img/duihao.png) !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+}
+.orderList input {
+	vertical-align: text-bottom;
+	margin-bottom: 1px;
+}

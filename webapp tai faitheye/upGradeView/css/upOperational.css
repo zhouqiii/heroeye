@@ -1,0 +1,216 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.sum_div{
+	width: 100%;
+	background: #242424;
+	clear: both;
+}
+
+form label{
+	color: #ffffff;
+	font-weight: 400;
+	font-size: 14px;
+	margin-right: 2%;
+	/*text-align: justify;
+	width: 21%;*/
+}
+input[type="checkbox"]{
+	width: 20px;
+    height: 20px;
+    background-color: transparent;
+    -webkit-appearance:none;
+    border: 1px solid #c9c9c9;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    float: left;
+}
+input[type="checkbox"]:checked{
+	border: 1px solid #0078f2;
+	background: url('../../img/duihao.png') no-repeat;
+	background-position: center;
+}
+#district_service,#state{
+    background: #242424;
+    z-index: 99;
+    width: 72%;
+    float: left;
+    margin-left: 5px;
+}
+@media screen and (max-width: 1680px) {
+	#district_service,#state{
+		left: 8.8%;
+	}
+}
+@media screen and (max-width: 1400px) {
+	#district_service,#state{
+		left: 10%;
+	}
+}
+
+#district_service a,#state a{
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	display: inline-block;
+	line-height: 35px;
+	float: left;
+	margin-top: 6px;
+}
+#district_service>li,#state>li{
+	height: 35px;
+	line-height: 35px;
+	border: 1px solid #bcbcbc;
+	color: #C0C0C0;
+}
+#district_service ul,#state ul{
+	background: #1A1A1A;
+}
+#district_service>li>span,#state>li>span{
+	display: inline-block;
+	margin-left: 10px;
+}
+#datatimes{
+	width: 76%;
+	height: 28px;
+	border: 1px solid #707070;
+	background: transparent;
+	color: #999999;
+	border-radius: 0;
+	padding: 6px;
+}
+#username{
+	 width: 75%;
+	 height: 28px;
+	 border: 1px solid #707070;
+	 background: transparent;
+	 color: #999999;
+	 border-radius: 0;
+	 padding: 6px;
+ }
+#query{
+	float: left;
+	margin-left: 2%;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 0;
+	width: 6%;
+	background: #363636;
+	margin-top: 1%;
+}
+/*琛ㄦ牸鍏叡鏍峰紡*/
+.layui-table tbody tr{
+	border-bottom: 0px solid #414141;
+	height: 50px;
+}
+#datatable{
+	overflow-x: scroll;
+	width: 100%;
+	border: 0;
+}
+#datatable thead{
+	background: #1A1A1A;
+	border: 0;
+}
+#datatable thead tr{
+	border: 0;
+}
+#datatable thead tr th{
+	border: 0;
+	color: white;
+	height: 50px;
+	font-size: 14px;
+	line-height: 30px;
+}
+#datatable tbody{
+	border: 0;
+}
+#datatable tbody tr{
+	border: 0;
+}
+#datatable tbody tr td{
+	border: 0;
+	color: #C0C0C0;
+	height: 40px;
+	font-size: 14px;
+}
+#datatable tbody tr:hover{
+	background: transparent;
+	color: #C0C0C0;
+}
+#startLevel,#endLevel{
+	width: 32.1%;
+	height: 35px;
+	border: 1px solid #bcbcbc;
+	background: transparent;
+	color: #C0C0C0;
+	border-radius: 0;
+}
+@media screen and (max-width: 1290px) {
+	#startLevel,#endLevel{
+		width: 32%;
+	}
+}
+.layui-table thead tr th{
+	color: white;
+}
+.textarea{
+	width: 500px;
+	height: 40px;
+
+}
+.loadTag{
+	height: 750px;
+	overflow-y: auto;
+	margin-top: 1%;
+	width: 100%;
+	border: 1px solid #707070;
+}
+.tableBox{
+	background-image: url("../../img/tableOpBgi.jpg");
+	height: 750px;
+	overflow-y: auto;
+	margin-top: 1%;
+	width: 100%;
+	border: 1px solid #707070;
+	overflow-y:hidden;
+}
+#tabtabs{
+	margin-right: 0% !important;
+}
+/* 鍏ㄥ眬婊氬姩鏉℃牱寮� */
+.scrollable {
+	-webkit-overflow-scrolling: touch;
+}
+::-webkit-scrollbar {
+	width: 10px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background-color:#121212;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track {
+	background-color: rgba(50, 50, 50, 1);
+}
+::-webkit-scrollbar-track:hover {
+	background-color: rgba(50, 50, 50, 1);
+}
+#toptop{
+	width:75px !important;
+	height:55px !important;
+}
+.didianParent{
+	margin-top:5px
+}
+#nextnext{
+	width:80px !important;
+	height:60px !important;
+}
+.backToBtn{
+	margin:5px 0 !important;
+}

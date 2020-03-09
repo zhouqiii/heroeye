@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>服务器总览</title>
+		<!-- <link rel="shortcut icon" href="../img/favicon(1).ico"  type="image/x-ico" media="screen"/> -->
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="../css/tableFilter.css" />
+		<link rel="stylesheet" href="../upGradeView/css/upServeOverview.css" />
+		<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+		    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+		<style type="text/css">
+			.layui-table .layui-table-cell{
+				color: #ffffff;
+			}
+			.layui-table-click{
+				background-color: none !important;
+			}
+			.layui-table-header>table>thead>tr>th{
+				background:#121212;
+				height:47px !important;
+			}
+			#childTable .layui-table-header>table>thead>tr>th{
+				background:#363636 !important;
+			}
+			.layui-table-filter-view{
+				color: #C0C0C0;
+				background: #363636;
+				border: 1px solid #5d5757;
+			}
+			.layui-table-filter-box ul{
+				border: 1px solid #5d5757;
+			}
+			.layui-form-select .layui-input{
+				color: white;
+				height: 32px;
+    line-height: 32px;
+    background: inherit;
+    border: 1px solid #707070;
+    border-radius: 5px;
+			}
+			.layui-table-header>table>thead>tr>th>.layui-table-cell{
+				color:#ffffff;
+				font-weight:400;
+
+			}
+			.layui-table-header{
+				border-bottom:0 !important;
+			}
+			.layui-table thead tr{
+				border-bottom:0 !important;
+			}
+			.layui-table-tool{
+				height: 40px !important;
+    			background: #363636 !important;
+    			margin-left: -1.1%;
+    			min-height:40px !important;
+    			padding-top:10px !important;
+			}
+			#childTable{
+				background:#363636;
+				margin-bottom:-5px;
+			}
+			#childTable .layui-table>tbody>tr{
+				border-bottom:0px !important;
+				background:#363636;
+			}
+			#childTable .layui-table-header>table>thead>tr>th>.layui-table-cell{
+				color:#ffffff;
+				font-weight:400;
+			}
+			.layui-table-view .layui-form-checkbox[lay-skin=primary] i{
+				width: 14px !important;
+    			height: 14px !important;
+    			border-radius: 0 !important;
+			}
+			.layui-layer-title{
+				background-color: #C9C9C9 !important;
+                font-size: 14px !important;
+                color: #000000 !important;
+			}
+			.layui-layer{
+				background-color:#242424 !important;
+			}
+						.layui-layer-btn0{
+				width: 78px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1{
+				width: 78px;
+				height: 34px !important;
+				line-height: 34px !important;
+				color: #ffffff !important;
+				font-size: 14px;
+				background: inherit !important;
+				border-radius: 18px !important;
+				border: 1px solid #F2F2F2 !important;
+				text-align: center;
+			}
+			.layui-layer-btn1:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn0:hover{
+				border-width: 2px !important;
+			}
+			.layui-layer-btn{
+				text-align: center !important;
+				padding:0 15px !important;
+			}
+			.layui-layer-content{
+			border-bottom:0 !important;
+			height:auto !important;
+
+			}
+			.layui-form-label{
+				width:85px !important;
+			}
+
+		</style>
+	</head>
+	<body class="layui-layout-body" style="background: #242424;">
+		<div id="navs"></div>
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-body" style="height: 827px;overflow-y:hidden">
+				<div class="inner" style="padding: 10px 1.5% 0px 20px;">
+					<div class="headers"></div>
+					<div class="headere">
+						<div class="rightTop">
+							<div style="display:flex;justify-content:space-between;margin-left:.5%"><span style="margin-top:4px;">ID搜索</span><input type="text"  id="search_id" placeholder="请输入所需查询的ID" /></div>
+							<div style="display:flex;justify-content:space-between;margin-left:-1%"><span style="margin-top:4px">IP搜索</span><input type="text"  id="search_ip" placeholder="请输入所需查询的IP" /></div>
+							<button type="button" id="search" >搜索</button>
+						</div>
+					</div>
+					<div class="main" id="main">
+						<table id="datatable" lay-filter="datatable" lay-skin="row"></table>
+					</div>
+					<div class="loadTag" style="display: none;">
+						<div class="titleLoadAdd" style="font-size: 14px;float: left;padding-top: 1%; margin-top:20%;margin-left:50%;text-align: center;color:#ffffff;" id="loadres"><i class="el-icon-loading" style="font-size: 40px;vertical-align: middle;"></i><div style="margin-top: 5px;margin-left: 10px">加载中...</div></div>
+					</div>
+				</div>
+				<div class="footer">
+					<span id="toobar">
+						<span class="batch_startup" lay-event="start">启动</span>
+						<span class="batch_close" lay-event="end">关闭</span>
+						<!--<span class="batch_down" lay-event="down">开启宕机恢复</span>
+						<span class="batch_clos" lay-event="clos">关闭宕机恢复</span>-->
+						<ul class="state_tips">
+							<li>
+								<span class="break_off"></span>
+								<p>网络断开</p>
+							</li>
+							<!--<li>
+								<span class="starp_in"></span>
+								<p>启动中</p>
+							</li>-->
+							<li>
+								<span class="close_in"></span>
+								<p>进程异常</p>
+							</li>
+							<!--<li>
+								<span class="update_in"></span>
+								<p>更新中</p>
+							</li>
+							<li>
+								<span class="out_contact"></span>
+								<p>服务器与faithEye失联</p>
+							</li>-->
+							<li>
+								<span class="closure"></span>
+								<p>正常关闭</p>
+							</li>
+							<li>
+								<span class="funct_in"></span>
+								<p>正常运行中</p>
+							</li>
+							<!--<li>
+								<span class="police_in"></span>
+								<p>正常报警中</p>
+							</li>-->
+						</ul>
+					</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div class="testDemo" style="display:none">
+		你好你好
+	</div>
+	<div id="selecs">
+		<form role="form" class="layui-form">
+			<div class="form-group layui-form-item" style="margin-top: 5%;margin-bottom:28%">
+				<label class="layui-form-label" style="color: white;">选择进程：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="process">
+						<option value="">全部</option>
+						<option value="1">Gate</option>
+						<option value="2">WS</option>
+						<option value="3">Fep</option>
+						<!-- <option value="4">LS</option> -->
+						<option value="5">CS</option>
+						<option value="6">DP</option>
+						<option value="8">Gmt</option>
+						<option value="9">Billing</option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="modify_area">
+		<form class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">服务器ID：</label>
+				<input type="text"   placeholder="请输入服务器ID" id="modify_serverid" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">服务器名称：</label>
+				<input type="text" placeholder="请输入服务器名称" id="modify_servername" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">所属大区：</label>
+				<div class="layui-input-inline" style="width: 70%;">
+					<select id="modifySubordinate_area"></select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">服务器IP：</label>
+				<input type="text" placeholder="请输入服务器IP" id="modify_serverip" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">服务器端口：</label>
+				<input type="text" placeholder="请输入服务器端口号" id="modify_serverport" style="width: 70%;color: white;" />
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="color: white;">备注：</label>
+				<input type="text" placeholder="请输入备注" id="modify_serverremarks" style="width: 70%;color: white;" />
+			</div>
+		</form>
+	</div>
+	<div id="startTop" style="display:none">
+		<div class="TitleBtn">是否启动选中服务器？</div>
+	</div>
+	<div id="closeTop" style="display:none">
+		<div class="TitleBtn">是否关闭选中服务器？</div>
+	</div>
+	<div id="deleteTop" style="display:none">
+		<div class="TitleBtn">是否删除选中服务器？</div>
+	</div>
+	<!-- <div id="showcontent">hellllll</div> -->
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+	<script src="../layui/layui.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/loading/jquery.mloading.js"></script>
+	<script src="../js/cookie.js"></script>
+	<script src="../upGradeView/js/upServeOverview.js"></script>
+	<script>
+		localStorage.setItem('navigation','1-1')
+		$("#navs").load("../upGradeView/upGradeNav.html")
+		
+		//$(document).ready(function(){
+		//	$(".layui-body").scroll(function(){
+		//		var winPos = $(".layui-body").scrollTop()
+		//		if(winPos >= 20){
+		//			$(".headere").css({
+		//				"position":"fixed",
+		//				"top":"60px",
+		//				"width":"86.6%",
+		//				"z-index":"666"
+		//			})
+		//			$(".headers").css("display","block")
+		//		}
+		//		if(winPos <= 20){
+		//			$(".headere").css({
+		//				"position":"static",
+		//				"width":"100%",
+		//			})
+		//			$(".headers").css("display","none")
+		//		}
+		//	})
+		//})
+	</script>
+</html>

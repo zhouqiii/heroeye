@@ -1,0 +1,66 @@
+*{
+	margin: 0;
+	padding: 0;
+	color: #fff;
+}
+.inner{
+	width: 98%;
+	height: 830px;
+	margin: 0 auto;
+	background:#212421;
+	margin-top: 27px;
+}
+#inner_head{
+	height: 60px;
+	background-color: #212421;
+	border: 1px solid #999;
+	background: -webkit-linear-gradient(#9f9d9d -270%, #111111 100%); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(#9f9d9d -270%, #111111 100%); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(#9f9d9d -270%, #111111 100%); /* Firefox 3.6 - 15 */
+	background: linear-gradient(#9f9d9d -270%, #111111 100%); /* 标准的语法 */
+}
+#inner_head span{
+	color: white;
+	line-height: 40px;
+	margin-left: 5px;
+}
+.inner .inner_main{
+	margin: 0 auto;
+	margin-top: 25px;
+}
+ input[type = "checkbox"]{
+	background: transparent;
+	width: 20px;
+	height: 20px;
+	border: 1px solid #CCCCCC;
+	-webkit-appearance:none;
+	float: left;
+	margin-left: 3%;
+	margin-top:4px;
+}
+input[type = "checkbox"]:checked{
+	background-image: url(../img/duihao.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+#inner_head .layui-nav {
+	background: #212421;
+	height: 58px;
+	line-height: 67px;
+	width:100%;
+}
+#inner_head .layui-nav-item {
+    background-color: #212421 !important;
+}
+.main_box {
+	height: 69px;
+}
+.mess_box {
+	height: 500px;
+    border: 1px solid #999;
+}
+.messbox_head {
+	background: #101010;
+	height:50px;
+	line-height:50px;
+}

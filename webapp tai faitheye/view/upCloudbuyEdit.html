@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>活动管理</title>
+<link rel="stylesheet" href="../layui/css/layui.css" />
+<link rel="stylesheet" href="../css/serverList.css" />
+<link rel="stylesheet" href="../upGradeView/css/upCloundyAdd.css" />
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+<link rel="stylesheet"
+	href="../font-awesome-4.7.0/css/font-awesome.min.css">
+<!-- 引入样式 -->
+    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+	 <style type="text/css">
+    	 .layui-table-header .layui-table td, .layui-table-view .layui-table th {
+			    border: 1px solid #707070;
+			    background:#121212 !important
+			}
+			.layui-none{
+				height:88px
+			}
+			.layui-table-col-special{
+				width:48px !important
+			}
+			.layui-table-body{
+				height:528px
+			}
+			.title_span{
+				cursor:pointer;
+			}
+			.ddAlert{
+				margin:0 !important
+			}
+			.triangle-up {
+				 top: -13% !important;
+			}
+			#arrow{
+				margin-top:5px !important
+			}
+			.didian{
+				margin:3% !important
+			}
+			#alwaysChange{
+				width: 130px !important;
+			}
+    	 </style>
+<!-- 引入组件库 -->
+</head>
+
+<body class="layui-layout-body" style="background: #262626;"
+	onload="lo()">
+	<div id="navs"></div>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-body" style="padding:20px 1.5% 20px 20px">
+			<div style="height:80px;line-height: 80px;border: 1px solid #707070;background:#333333;padding:0 15px">
+				<span class="titleTo">云购</span>
+				<span class="title_span"> <b class="tabTo"> ＜ </b> 云购编辑</span>
+			</div>
+			 <div class="liebiao_big_box">
+				<div class="liebiao_big_box_body" style=" ">
+					<div class="box_right"></div>
+					<div style="height:12%">
+						<div>
+							<div class="active_edit">
+								<span>活动类型</span> 
+								<select id="activename_type"
+									class="active_select_type qiehuan" disabled placeholder="请选择">
+									<option>云购</option>
+								</select>
+							</div>
+							<div class="active_edit" style="border: 0px;margin-top:25px">
+								<button class="Preservation">保存</button>
+								<button class="addBranchBtn" style="margin-left:16%;background:#1E9FFF">增加</button>
+							</div>
+						</div>
+					</div>
+				<div style="margin:0 15px" class="tableMain">
+                  	<table id="demoBranch" lay-filter="test"></table>
+                 </div>
+				</div>
+			</div>
+    <div id="rewardEquipment" style="display:none;">
+	<div id='formPeiZhiVue' style='overflow:auto;height:420px'>
+		<div class="yihang"  v-for="(value,key) in addMoreSelect">
+			<div class="shengming_one" style="margin-left:5px">
+				<el-select v-model="value.selectValue" filterable remote placeholder="请选择"  :remote-method="getOptionsInput" class="inputName">
+				    <el-option
+				      v-for="item in optionsList"
+				      :key="item.rewardId"
+				      :lable="item.rewardId"
+				      :value="item.goodsName"
+				      >
+				    </el-option>
+				</el-select>
+			</div>
+			  <input type="button"
+					class="delContent" value="删除" @click="delTheDate(key)" style="color:black">
+		</div>
+		</div>
+	<div>
+	<button type="button" class="add_btn_jiangli" id='addSelect'><i class="fa fa-plus-circle" style="font-size:28px;opacity:.6"></i></i></button>
+    <button type="button" class="cun_btn_jiangli" id='saveSelect'>保存</button> 
+    <button type="button" class="cancleBtn">取消</button> 
+    </div>
+	</div>
+	<div id="rewardEquipment1" style="display:none;">
+	<div id='formPeiZhiVue1' style='overflow:auto;height:420px'>
+		<div class="yihang"  v-for="(value,key) in addMoreSelecta">
+			<span style="line-height: 38px;float: left;margin-left: 17px;margin-right: 34px;font-size: 18px;">请选择保底奖励道具:</span>
+			<div class="shengming_one" style="margin-left:5px">
+				<el-select v-model="value.selectValue" filterable remote placeholder="请选择"  :remote-method="getOptionsInput" class="inputName">
+				    <el-option
+				      v-for="item in optionsLista"
+				      :key="item.rewardId"
+				      :lable="item.rewardId"
+				      :value="item.goodsName"
+				      >
+				    </el-option>
+				</el-select>
+			</div>
+		</div>
+		</div>
+	<div>
+    <button type="button" class="cun_btn_jiangli" id='saveSelect1' onclick="savegift()">保存</button> 
+    <button type="button" class="cancleBtn1">取消</button> 
+    </div>
+	</div>
+</body>
+<div id="deleteTop" style="display:none">
+		<div class="TitleBtn">是否删除活动？</div>
+	</div>
+
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/multiple/bootstrap-multiselect.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../upGradeView/js/upCloudbuyEdit.js"></script>
+
+<script>
+	$("#navs").load("../upGradeView/upGradeNav.html")
+	function lo() {
+		$(".600").addClass("layui-this").siblings().removeClass("layui-this")
+		$(".600").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+	}
+	$(".title_span").click(function() {
+		self.location.href = "upCloudbuy.html"
+	})
+	$('#reward1').change(function(){
+		alert(1)
+	})
+
+</script>
+
+</html>

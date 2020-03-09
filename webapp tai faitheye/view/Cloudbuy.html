@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>活动管理</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" href="../css/Cloudbuy.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+    	<link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+    	<style>
+    		.layui-layer-btn1 {
+    			color: #000 !important;
+    		}
+    	</style>
+</head>
+
+<body class="layui-layout-body" style="background: #262626;" onload="lo()">
+    <div id="navs"></div>
+    <div class="layui-layout layui-layout-admin">
+        
+        <div class="layui-body">
+                <div class="header_title">
+                    <!-- 新增活动按钮 -->
+                    <button id="addbuy">新增云购</button>
+                    <!-- 上传下载 -->
+                    <span id="down" style="cursor: pointer;float:right;margin-right:40px;" class="download">
+                    <i  class="fa fa-download fa-3x" aria-hidden="true">
+                    </i>
+                    </span>
+                    <span id="upl" style="cursor: pointer;float:right;margin-right:-20px;" class="upload"><i  class="fa fa-upload fa-3x" aria-hidden="true"></i></span>
+                    
+                </div>
+            <!-- 列表分析 -->
+            <div class="main_box">
+                <div class="box_left">
+                    <span class="fa fa-list-ul" style="margin-left: 15px;"></span>
+                    <span>列表分析</span>
+                </div>
+            </div>
+            <!-- 列表分析内容 黑色大盒子start -->
+            <div class="liebiao_big_box">
+                    <!--标题一栏:发布状态  -->
+                    <div class="liebiao_big_box_title">
+                    	<button id="but-allRemove" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display:block;float:left;margin-top:43px;margin-left:16px;">批量删除</button>
+                        <div class="liebiao_fabu">
+                            <span>发布状态</span>
+                            <button class="liebiao_fabu_btn btn2f" value="" id="allAnou">全部</button>
+                            <!-- <button class="liebiao_fabu_btn btn1f" value="0" id="cantAnou">不可发布</button> -->
+                            <!--<button class="liebiao_fabu_btn btn2f" value="1" id="waitAnou">正在已发布</button> -->
+                            <button class="liebiao_fabu_btn btn3f" value="2" id="hadAnou">已发布</button>
+                            <button class="liebiao_fabu_btn btn4f" style="border:2px solid #2577ff" value="3" id="noAnou">未发布</button>
+                        </div>
+                        <button id="but-removeBatch" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display:none;">发布</button>
+                        <button id="but-hotUpdate" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display:none;background: #f1df08;color: red;font-weight: 700;">热更新</button>
+                        <button id="but-removeData" class="liebiao_submit btndelcl layui-bnt layui-bnt-danger layui-btn-normal" style="display:block;">清除数据</button>
+                    </div>
+                    <!--表格数据外面的大盒子  -->
+                    <div class="liebiao_big_box_body" style="overflow-x: scroll;">
+                        <!-- 表格模板 -->
+                        <table id="demo" lay-filter="test"></table>
+                        <div style="display:none;">
+                        <table id="demoBranch" lay-filter="test" style="display:none;"></table>
+                        </div>
+                    </div>
+                    <!-- 大区--服务器选择 -->
+                    <div class="active_server">
+                        <div class="left_bottom">
+                            <div class="top">
+                                <span class="top_area">请选择大区</span>
+                                <div onclick="changeAreaServer()">
+                                    <span class="top_server">请选择服务器<i class="fa fa-close" aria-hidden="true" style="font-size: 18px;margin-left: 75%;"></i></span>
+                                </div>
+                        	</div>
+                        	<div class="serverListAno" style="height:500px;border-bottom:2px solid #484645">
+	                            <div class="left_content"></div>
+	                            <div class="right_content" style="padding-top:2%"></div>
+                            </div>
+                            <div>
+                            	<button id="sendSure" style="display:none">确定发布</button>
+                            	<button id="export" style="display:none">导出</button>
+                            	<button id="delSure" style="display:none">确认清除数据</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 查询服务器 -->
+                    <div class="active_serverB">
+                        <div class="left_bottomB">
+                                <div class="topB">
+                                    <div onclick="changeAreaServerB()">
+                                        <span class="top_serverB">查看发布成功的服务器<i class="fa fa-close" aria-hidden="true" style="font-size: 18px;margin-left: 77%;"></i></span>
+                                    </div>
+                                </div>
+                                <div class="left_contentB"></div>
+                                <div class="right_contentB" style="padding-top:2%"></div>
+                                <button id="exportB" >导出</button>
+                        </div>
+                    </div>
+                    <!-- 编辑详情 -->
+                    <div id="eidts_box">
+                        <form action="">
+                                <label class="eidts_lable">活动编号</label>
+                                <input type="text" class="eidts_input"  id="edit_activityId">
+                                <br>
+                                <label class="eidts_lable">活动ID</label>
+                                <input type="text"  id="edit_attributeId" class="eidts_input" style="margin-left: 23px;">
+                                <br>
+                                <label class="eidts_lable">活动类型</label>
+                                <input type="text" id="edit_activityType" class="eidts_input"><br>
+
+                                <label class="eidts_lable">活动名称</label>
+                                <input type="text" id="edit_activityName" class="eidts_input"><br>
+                                <label class="eidts_lable">开始时间</label>
+                                <input type="text" id="edit_startTime" class="eidts_input"><br>
+                                <label class="eidts_lable">周期参数</label>
+                                <input type="text" id="edit_cycleParamNum" class="eidts_input"><br>
+                                <label class="eidts_lable">持续天数</label>
+                                <input type="text" id="edit_durationDays" class="eidts_input"><br>
+                                <label class="eidts_lable">循环天数</label>
+                                <input type="text" id="edit_cycleDays" class="eidts_input"><br>
+                                <label class="eidts_lable">发布状态</label>
+                                <input type="text" id="edit_status" class="eidts_input">
+
+                                <!-- <button id="eidts_baocun">保存</button> -->
+                                <!-- <button type="reset" class="eidts_reset">重置</button> -->
+                        </form>
+                      
+                       
+                    </div>
+                   
+            </div>
+             <!-- 列表分析内容 黑色大盒子end -->
+        </div>
+    </div>
+</body>
+ <!--上传文件 -->
+ <iframe id="iframe_display" name="iframe_display" style="display: none;"></iframe>  
+ <div id="daoru" style="display: none">
+          <form action="../importCloudShopCSV.action" method="post" enctype="multipart/form-data" target="iframe_display">
+                <p style="color: white;margin-top: 4%">
+                    <input type="file" name="file" class="myFileUpload" onchange="changeOpen1()" id="uploadInput1"/>
+                    <span class="blueButton" style="margin-left: 4%">云购表</span>
+                    <div id="show1">暂无上传文件</div>
+                </p>
+	            <br/>
+                <br/>
+                <!-- <p style="color: white;margin-top: 6%"> 
+                    <input type="file" name="file" class="myFileUpload" onchange="changeOpen2()" id="uploadInput2"/>
+                    <span class="blueButton" style="margin-left: 4%">子表</span>
+                    <div id="show2">暂无上传文件</div>
+                </p> -->
+	            <button type="submit" class="upButton">上传</button>
+          </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/multiple/bootstrap-multiselect.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../js/Cloudbuy.js"></script>
+<script>
+layui.use(['element', 'form'], function() {
+	var element = layui.element;
+	element.init();
+	element.render();
+});
+    $("#navs").load("../upGradeView/upGradeNav.html")
+    function lo() {
+        $(".601").addClass("layui-this").siblings().removeClass("layui-this")
+        $(".601").parent().parent().addClass("layui-nav-itemed").siblings().removeClass("layui-nav-itemed")
+    }
+    function changeOpen1(){
+        document.getElementById("show1").innerHTML = document.querySelector("#uploadInput1").files[0].name
+        var file = document.querySelector("#uploadInput1").files[0].name
+        var point = file.lastIndexOf(".");
+        var type = file.substr(point);
+       /*  isPicFile(type) */
+    }
+    var arr=[]
+    $("#iframe_display").load(function(){
+    	var textstr = $(this)[0].contentDocument.body.textContent;
+    	textstr= textstr.substring(0,textstr.length-1)
+    	textstr= textstr.substring(1)
+    	arr = textstr.split(",")
+    	arr=arr[1].split(":")
+    	textstr = arr[1]
+    	textstr= textstr.substring(0,textstr.length-1)
+    	textstr= textstr.substring(1)
+    	alert(textstr)
+    	location.reload() 
+    })
+    
+    $('#addbuy').click(function(){
+        self.location.href="Cloudbuy_add.html"
+    })
+    function changeAreaServer() {
+        $(".active_server").css("display","none")
+    }
+    function changeAreaServerB() {
+        $(".active_serverB").css("display","none")
+    }
+</script>
+
+</html>

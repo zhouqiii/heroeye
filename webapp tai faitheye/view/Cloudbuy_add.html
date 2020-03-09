@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>活动管理</title>
+<link rel="stylesheet" href="../layui/css/layui.css" />
+<link rel="stylesheet" href="../css/serverList.css" />
+
+<link rel="stylesheet" href="../css/Cloudbuy_add.css" />
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="../js/multiple/bootstrap-multiselect.css" />
+<link rel="stylesheet" href="../js/loading/jquery.mloading.css" />
+<link rel="stylesheet"
+	href="../font-awesome-4.7.0/css/font-awesome.min.css">
+<!-- 引入样式 -->
+<link rel="stylesheet"
+	href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+</head>
+
+<body class="layui-layout-body" style="background: #262626;"
+	onload="lo()">
+	<div id="navs"></div>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-body">
+			<div class="header_title">
+				<span class="title_span"> <b> ＜ </b> 云购添加
+				</span>
+				<div class="active_edit" style="border: 0px;">
+				<div class="active_edit select_btn" style="border:2px solid #2577ff !important">
+					<span>活动类型</span> 
+					<select id="activename_type"
+						class="active_select_type qiehuan" disabled placeholder="请选择">
+						<option>云购</option>
+					</select>
+				</div>
+				<button class="Preservation">保存</button>
+				</div>
+			</div>
+
+			<!-- 活动分支 -->
+			<div class="main_box">
+				<div class="box_left">
+					<span class="fa fa-list-ul" style="margin-left: 15px;"></span> <span>活动分支</span>
+					<button type="button" class="addBranchBtn" >增加</button>
+				</div>
+			</div>
+
+
+			<!-- 活动分支内容 黑色大盒子start -->
+			<div class="liebiao_big_box">
+				<!--表格数据外面的大盒子  -->
+				<div class="liebiao_big_box_body">
+					<!-- 表格模板 -->
+					<table id="demo" lay-filter="test" style="color: white"></table>
+				</div>
+
+			</div>
+
+			<!-- 活动分支内容 黑色大盒子end -->
+		</div>
+	</div>
+	<div id="rewardEquipment" style="display:none;">
+	<div id='formPeiZhiVue' style='overflow:auto;height:420px'>
+		<div class="yihang"  v-for="(value,key) in addMoreSelect">
+			<div class="shengming_one" style="margin-left:5px">
+				<el-select v-model="value.selectValue" filterable remote placeholder="请选择"  :remote-method="getOptionsInput" class="inputName">
+				    <el-option
+				      v-for="item in optionsList"
+				      :key="item.rewardId"
+				      :lable="item.rewardId"
+				      :value="item.goodsName"
+				      >
+				    </el-option>
+				</el-select>
+			</div>
+			<input type="button" class="delContent" value="删除" @click="delTheDate(key)" style="color:black">
+		</div>
+		</div>
+	<div>
+	<button type="button" class="add_btn_jiangli" id='addSelect'><i class="fa fa-plus-circle" style="font-size:28px;opacity:.6"></i></i></button>
+    <button type="button" class="cun_btn_jiangli" id='saveSelect' onclick="savegift()">保存</button> 
+    <button type="button" class="cancleBtn">取消</button> 
+    </div>
+	</div>
+	<div id="rewardEquipment1" style="display:none;">
+	<div id='formPeiZhiVue1' style='overflow:auto;height:420px'>
+		<div class="yihang"  v-for="(value,key) in addMoreSelecta">
+			<span style="line-height: 38px;float: left;margin-left: 17px;margin-right: 34px;font-size: 18px;">请选择保底奖励道具:</span>
+			<div class="shengming_one" style="margin-left:5px">
+				<el-select v-model="value.selectValue" filterable remote placeholder="请选择"  :remote-method="getOptionsInput" class="inputName">
+				    <el-option
+				      v-for="item in optionsLista"
+				      :key="item.rewardId"
+				      :lable="item.rewardId"
+				      :value="item.goodsName"
+				      >
+				    </el-option>
+				</el-select>
+			</div>
+		</div>
+		</div>
+	<div>
+    <button type="button" class="cun_btn_jiangli" id='saveSelect1' onclick="savegift()">保存</button> 
+    <button type="button" class="cancleBtn1">取消</button> 
+    </div>
+	</div>
+</body>
+<div id="add_area">
+	<form class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">序号</label>
+			<input type="text" class="layui-input" placeholder="1"
+				id="add_number" style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">周期内序号</label>
+			<input type="text" class="layui-input" placeholder="1"
+				id="add_serverid" style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">达成条件</label>
+			<input type="text" class="layui-input" placeholder="(1,1)"
+				id="add_servername" style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">奖励</label>
+			<div class="layui-input-inline" style="width: 40%;">
+				<select name="city" lay-verify="" lay-search
+					id="addSubordinate_area" style="color: white !important;"></select>
+			</div>
+			<input type="text" class="layui-input"
+				style="width: 28%; float: left; color: white;" placehoder="奖励数量"
+				id="numberGoals" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">文件图片资源</label>
+			<input type="text" class="layui-input" placeholder=""
+				id="add_serverip" style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">保留参数1</label>
+			<input type="text" class="layui-input" placeholder="" id="add1"
+				style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">保留参数2</label>
+			<input type="text" class="layui-input" placeholder="" id="add2"
+				style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">保留参数3</label>
+			<input type="text" class="layui-input" placeholder="" id="add3"
+				style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">保留参数4</label>
+			<input type="text" class="layui-input" placeholder="" id="add4"
+				style="width: 70%; color: white;" />
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="width: 120px; color: white;">保留参数5</label>
+			<input type="text" class="layui-input" placeholder="" id="add5"
+				style="width: 70%; color: white;" />
+		</div>
+	</form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.cookie.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/multiple/bootstrap-multiselect.js"></script>
+<script src="../js/loading/jquery.mloading.js"></script>
+<script src="../js/Cloudbuy_add.js"></script>
+
+<script>
+	$("#navs").load("../upGradeView/upGradeNav.html")
+	function lo() {
+		$(".601").addClass("layui-this").siblings().removeClass("layui-this")
+		$(".601").parent().parent().addClass("layui-nav-itemed").siblings()
+				.removeClass("layui-nav-itemed")
+	}
+	$(".title_span").click(function() {
+		self.location.href = "Cloudbuy.html"
+	})
+	$('#reward1').change(function(){
+		alert(1)
+	})
+
+</script>
+
+</html>

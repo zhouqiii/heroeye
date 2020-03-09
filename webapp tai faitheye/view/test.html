@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../layui/css/layui.css" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <title></title>
+    <style type="text/css">
+       #demo{
+           height: 200px;
+           width: 200px;
+           background: yellow;
+       }
+    </style>
+</head>
+<body>
+    <div>
+        <table id="myTable3" lay-filter="myTable3"></table>
+    </div>
+    <div id="demo" class="panel-collapse collapse">
+        
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+<script src="../layui/layui.js"></script>
+<script>
+//   onread()
+layui.use(['element', 'table', 'tableFilter', 'layer', 'form'], function () {
+    var element = layui.element;
+	var table = layui.table;
+	var tableFilter = layui.tableFilter;
+	var layer = layui.layer;
+	var form = layui.form;
+	 //var soulTable = layui.soulTable;
+    table.render({
+        elem: '#myTable3'
+        , data:[{userid:1,usercode:'2200',username:'ming'},{userid:2,usercode:'2201',username:'lan'},{userid:3,usercode:'2202',username:'hua'}]
+        ,height: 600
+        ,page: false
+        ,cols: [[
+            {title: '#',
+             width: 50, 
+             collapse: true, 
+              children:[
+            	  {
+                      title: '表格一'
+                      ,data:[{userid:1,usercode:'2200',username:'ming'},{userid:2,usercode:'2201',username:'lan'},{userid:3,usercode:'2202',username:'hua'}]
+                      ,height: 200
+                      ,page: false
+                      ,cols: [[
+                          {type: 'checkbox', fixed: 'left'},
+                          {field: 'userid', title: '诗词', width: 200, sort: true, filter: true},
+                          {field: 'usercode', title: '朝代', width: 100, sort: true, filter: true},
+                          {field: 'username', title: '作者', width: 165 , filter: true},
+                      ]]
+                      ,done: function () {
+                         //soulTable.render(this);
+                      }
+                  },
+              ]
+             },
+            {field: 'userid', title: '诗词', width: 200, sort: true, filter: true},
+            {field: 'usercode', title: '朝代', width: 100, sort: true, filter: true},
+            {field: 'username', title: '作者', width: 165 , filter: true},
+            // {field: 'content', title: '内容', width: 123, filter: true},
+            // {field: 'type', title: '类型', width: 112,  filter: {split:','}, sort:true},
+            // {field: 'heat', title: '点赞数', width: 112,  filter: true, sort:true},
+            // {field: 'createTime', title: '录入时间', width: 165, filter: {type: 'date[yyyy-MM-dd HH:mm:ss]'}, sort:true},
+        ]]
+        ,done: function () {
+           // soulTable.render(this)
+        }
+    });
+})
+function onread(){
+	$("#datatable").bootstrapTable('destroy');
+    var t = $("#datatable").bootstrapTable({
+        // url: '../queryUsers.action',
+        // method: 'post',
+        // dataType: "json",
+        // cache: false,
+        // contentType: "application/x-www-form-urlencoded",//post请求的话就加上这个句话
+        queryParamsType:"",
+        striped: true,//设置为 true 会有隔行变色效果
+        undefinedText: "0",//当数据为 undefined 时显示的字符
+        pagination: true, //分页
+        paginationLoop:false,//设置为 true 启用分页条无限循环的功能。
+        showToggle: false,//是否显示 切换试图（table/card）按钮
+        showColumns: false,//是否显示 内容列下拉框
+        pageNumber: 1,//如果设置了分页，首页页码
+        // showPaginationSwitch:true,//是否显示 数据条数选择框
+        pageSize: 20,//如果设置了分页，页面数据条数
+        pageList: [5, 10, 20, 40],	//如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。
+        paginationPreText: '‹',//指定分页条中上一页按钮的图标或文字,这里是<
+        paginationNextText: '›',//指定分页条中下一页按钮的图标或文字,这里是>
+        search: false, //显示搜索框
+        data_local: "zh-US",//表格汉化
+        sidePagination: "client", //服务端处理分页
+        // queryParams: function (params) {//自定义参数，这里的参数是传给后台的，我这是是分页用的
+        //     return {//这里的params是table提供的
+        //     	pageIndex: params.pageNumber,//从数据库第几条记录开始
+        //     	pageSize: params.pageSize,//找多少条
+        //     };
+        // },
+        // idField: "logId",//指定主键列
+        columns: [
+            {
+                title: "序号",
+                field: 'userid',
+                align: 'center',
+                collapse:true,
+            },
+            {
+                title: "账号",
+                field: 'usercode',
+                align: 'center',
+            },
+            {
+                title: "姓名",
+                field: 'username',
+                align: 'center',
+            },
+            {
+                title: "操作",
+                field: '',
+                align: 'center',
+                formatter: function (value, row, index) {
+                	return "<span class='modify' onclick='detailShow(this)' data-toggle='collapse' data-target='#demo' style='color:red'>详情</span>"
+                }
+            },
+        ],
+        data:[{userid:1,usercode:'2200',username:'ming'},{userid:2,usercode:'2201',username:'lan'},{userid:3,usercode:'2202',username:'hua'}]
+    });
+    t.on('load-success.bs.table', function (data) {
+        $(".pull-right").css("display", "block");
+        $("#datatable tbody tr").css("background-color","#323232")
+        $("#datatable tbody tr:even").css("background-color","#3b3b3b")
+    });
+}
+function detailShow(params){
+    alert(1)
+    console.log(params)
+}
+</script>
+</html>
